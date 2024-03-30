@@ -1,0 +1,32 @@
+﻿@{
+    Layout = null;
+
+}
+
+<html>
+<head>
+    <link rel="stylesheet" href="/styles/login.css" />
+    <link rel="shortcut icon" href="/favicon.png" type="image/png">
+
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="content">
+            <form>
+                <h1>Электронная библиотека</h1>
+                <h2>Вход в систему</h2>
+                <label for="username">Имя пользователя:</label>
+                <input type="text" name="username" />
+                <label for="password">Пароль:</label>
+                <input type="password" name="password" />
+                <p>Или вы можете <a asp-controller="User" asp-action="Registration">зарегистрироваться</a></p>
+                <input type="submit" value="Вход в систему" />
+            </form>
+        </div>
+        <div class="side-image">
+
+        </div>
+    </div>
+</body>
