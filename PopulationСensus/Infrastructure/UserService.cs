@@ -1,23 +1,78 @@
 ﻿using PopulationСensus.Domain.Entities;
 using PopulationСensus.Domain.Services;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace PopulationСensus.Infrastructure
 {
     public class UserService : IUserService
     {
-        public Task<User?> GetUserAsync(string username, string password)
+        private readonly IRepository<User> users;
+        private readonly IRepository<Role> roles;
+
+        public UserService(IRepository<User> usersRepository,
+            IRepository<Role> rolesRepository)
         {
-            throw new NotImplementedException();
+            users = usersRepository;
+            roles = rolesRepository;
+        }
+        private string GetSalt() =>
+        DateTime.UtcNow.ToString() + DateTime.Now.Ticks;
+        private string GetSha256(string password, string salt)
+        {
+            byte[] passwordBytes = Encoding.UTF8.GetBytes(password + salt);
+            byte[] hashBytes = SHA256.HashData(passwordBytes);
+            return Convert.ToBase64String(hashBytes);
+        }
+        public async Task<User?> GetUserAsync(string username, string password)
+        {
+            username = username.Trim();
+            User? user = (await users.FindWhere(u => u.Login == username)).FirstOrDefault();
+            if (user is null)
+            {
+                return null;
+            }
+            string hashPassword = GetSha256(password, user.Salt);
+            if (user.Password != hashPassword)
+            {
+                return null;
+            }
+            return user;
         }
 
-        public Task<bool> IsUserExistsAsync(string username)
+        public async Task<bool> IsUserExistsAsync(string username)
         {
-            throw new NotImplementedException();
+            username = username.Trim();
+            User? found = (await users.FindWhere(u => u.Login == username)).FirstOrDefault();
+            //возвращает логическое значение `true`,
+            //если переменная `found` не равна `null`,
+            //и `false`, если переменная `found` равна `null`
+            return found is not null;
         }
 
-        public Task<User> RegistrationAsync(string fullname, string username, string password)
+        public async Task<User> RegistrationAsync(string fullname, string username, string password)
         {
-            throw new NotImplementedException();
+            // проверяем, есть ли пользователь с таким же username
+            bool userExists = await IsUserExistsAsync(username);
+            if (userExists) throw new ArgumentException("Username already exists");
+
+            // находим роль "клиент"
+            Role? clientRole = (await roles.FindWhere(r => r.Name == "client")).FirstOrDefault();
+
+            if (clientRole is null)
+                throw new InvalidOperationException("Role 'client' not found in database");
+
+            // добавляем пользователя
+            User toAdd = new User
+            {
+                Fullname = fullname,
+                Login = username,
+                Salt = GetSalt(),
+                RoleId = clientRole.Id
+            };
+            toAdd.Password = GetSha256(password, toAdd.Salt);
+
+            return await users.AddAsync(toAdd);
         }
     }
 }

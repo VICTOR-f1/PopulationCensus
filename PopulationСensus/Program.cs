@@ -1,6 +1,9 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 using PopulationСensus.Data;
+using PopulationСensus.Domain.Entities;
+using PopulationСensus.Domain.Services;
+using PopulationСensus.Infrastructure;
 //Создание объекта builder с помощью статического метода
 //CreateBuilder класса WebApplication. Этот метод используется
 //для создания нового экземпляра WebApplicationBuilder, который
@@ -26,7 +29,12 @@ builder.Services
     });
 
 builder.Services.AddDbContext<ELibraryContext>(opt => opt.UseNpgsql(builder.Configuration.GetConnectionString("local")));
-
+//Scoped: для каждого запроса создается свой объект сервиса.
+//То есть если в течение одного запроса есть несколько обращений
+//к одному сервису, то при всех этих обращениях будет использоваться один и тот же объект сервиса.
+builder.Services.AddScoped<IRepository<User>, EFRepository<User>>();
+builder.Services.AddScoped<IRepository<Role>, EFRepository<Role>>();
+builder.Services.AddScoped<IUserService, UserService>();
 var app = builder.Build();
 //для обработки статических файлов в каталоге wwwroot,
 app.UseStaticFiles();

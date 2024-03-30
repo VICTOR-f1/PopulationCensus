@@ -74,3 +74,10 @@ body {
         display: flex;
         flex-direction: column;
     }
+
+.error-messages ul {
+    color: orangered;
+    margin-bottom: 1em;
+    font-weight: lighter;
+    list-style-type: none;
+}

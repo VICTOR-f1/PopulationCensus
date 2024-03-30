@@ -22,6 +22,8 @@
                 <label for="password">Пароль:</label>
                 <input type="password" name="password" />
                 <p>Или вы можете <a asp-controller="User" asp-action="Registration">зарегистрироваться</a></p>
+                <div asp-validation-summary="All" class="error-messages"></div>
+
                 <input type="submit" value="Вход в систему" />
             </form>
         </div>
