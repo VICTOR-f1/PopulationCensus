@@ -1,4 +1,5 @@
-﻿@{
+﻿@model LoginViewModel
+@{
     Layout = null;
 
 }
@@ -14,21 +15,20 @@
 <body>
     <div class="wrapper">
         <div class="content">
-            <form>
-                <h1>Электронная библиотека</h1>
+            <form method="post">
+                <h1>Система для подсчета голосов на избирательных участках</h1>
                 <h2>Вход в систему</h2>
-                <label for="username">Имя пользователя:</label>
+                <label asp-for="Username">Имя пользователя:</label>
                 <input type="text" name="username" />
-                <label for="password">Пароль:</label>
+                <label asp-for="Password">Пароль:</label>
                 <input type="password" name="password" />
                 <p>Или вы можете <a asp-controller="User" asp-action="Registration">зарегистрироваться</a></p>
-                <div asp-validation-summary="All" class="error-messages"></div>
-
+                 <div asp-validation-summary="All" class="error-messages"></div>
                 <input type="submit" value="Вход в систему" />
             </form>
         </div>
         <div class="side-image">
-
         </div>
     </div>
 </body>
+</html>

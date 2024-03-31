@@ -1,27 +1,63 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
+using PopulationСensus.Domain.Entities;
 using PopulationСensus.Domain.Services;
 using PopulationСensus.ViewModels;
+using System.Security.Claims;
+using System.Security.Principal;
 
 namespace PopulationСensus.Controllers
 {
     public class UserController : Controller
     {
+        private const int adminRoleId = 2;
+        private const int clientRoleId = 1;
         private readonly IUserService userService;
-
         public UserController(IUserService userService)
         {
             this.userService = userService;
         }
+        [HttpGet]
         public IActionResult Login()
         {
             return View();
+        }
+        [HttpPost]
+        public async Task<IActionResult> Login(LoginViewModel loginViewModel)
+        {
+            if (!ModelState.IsValid)
+            {
+                return View(loginViewModel);
+            }
+            User? user = await userService.GetUserAsync(loginViewModel.Username, loginViewModel.Password);
+            if (user is not null)
+            {
+                await SignIn(user);
+                return RedirectToAction("Index", "Books");
+            }
+            try
+            {
+                ModelState.AddModelError("reg_error", $"Неверное имя пользователя или пароль");
+                return View(loginViewModel);
+            }
+            catch
+            {
+                ModelState.AddModelError("reg_error", $"Неверное имя пользователя или пароль");
+                return View(loginViewModel);
+            }
+        }
+        [HttpGet]
+        public IActionResult Logout()
+        {
+            HttpContext.SignOutAsync();
+            return RedirectToAction("Login", "User");
         }
         [HttpGet]
         public IActionResult Registration()
         {
             return View();
         }
-
         [HttpPost]
         public async Task<IActionResult> Registration(RegistrationViewModel registration)
         {
@@ -29,18 +65,15 @@ namespace PopulationСensus.Controllers
             {
                 return View(registration);
             }
-
             if (await userService.IsUserExistsAsync(registration.Username))
             {
                 ModelState.AddModelError("user_exists", $"Имя пользователя {registration.Username} уже существует!");
                 return View(registration);
             }
-
-
             try
             {
                 await userService.RegistrationAsync(registration.Fullname, registration.Username, registration.Password);
-                return RedirectToAction("Login", "RegistrationSuccess");
+                return RedirectToAction("RegistrationSuccess", "User");
             }
             catch
             {
@@ -52,5 +85,32 @@ namespace PopulationСensus.Controllers
         {
             return View();
         }
+        private async Task SignIn(User user)
+        {
+            string role = user.RoleId switch
+            {
+                adminRoleId => "OlderAdmin",
+                clientRoleId => "JuniorAdmin",
+                _ => throw new ApplicationException("invalid user role")
+            };
+
+            List<Claim> claims = new List<Claim>
+            {
+            new Claim("fullname", user.Fullname),
+            new Claim("id", user.Id.ToString()),
+            new Claim("role", role),
+            new Claim("username", user.Login)
+            };
+            string authType = CookieAuthenticationDefaults.AuthenticationScheme;
+            IIdentity identity = new ClaimsIdentity(claims, authType, "username", "role");
+            ClaimsPrincipal principal = new ClaimsPrincipal(identity);
+            await HttpContext.SignInAsync(principal);
+        }
+        [HttpGet]
+        public IActionResult AccessDenied()
+        {
+            return View();
+        }
+
     }
 }
