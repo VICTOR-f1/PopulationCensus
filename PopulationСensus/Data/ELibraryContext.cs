@@ -12,5 +12,9 @@ namespace PopulationСensus.Data
 
         public DbSet<User> Users { get; set; }
         public DbSet<Role> Roles { get; set; }
+        public DbSet<Resident> Residents { get; set; }
+        public DbSet<Аddress> Addresses { get; set; }
+        public DbSet<ResidenАddress> ResidenАddress { get; set; }
+
     }
 }

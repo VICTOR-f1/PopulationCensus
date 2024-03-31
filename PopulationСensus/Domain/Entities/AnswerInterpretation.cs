@@ -1,6 +1,6 @@
 ﻿namespace PopulationСensus.Domain.Entities
 {
-    public class AnswerInterpretation
+    public class AnswerInterpretation : Entity
     {
     }
 }
