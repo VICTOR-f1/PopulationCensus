@@ -6,8 +6,10 @@ namespace PopulationСensus.Domain.Entities
     {
         [StringLength(150)]
         public string FullName { get; set; } = null!;
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DateOfBirth { get; set; }
-        public int ResidenАddressId { get; set; }
-        public ResidenАddress ResidenАddress { get; set; } = null!;
+        public int АddressId { get; set; }
+        public Address Аddress { get; set; } = null!;
     }
 }

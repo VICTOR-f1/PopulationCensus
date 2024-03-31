@@ -4,18 +4,17 @@ using PopulationСensus.Data;
 using PopulationСensus.Domain.Entities;
 using PopulationСensus.Domain.Services;
 using PopulationСensus.Infrastructure;
-//Создание объекта builder с помощью статического метода
-//CreateBuilder класса WebApplication. Этот метод используется
-//для создания нового экземпляра WebApplicationBuilder, который
-//используется для настройки и построения веб-приложения.
+
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
-//Добавление службы контроллеров и представлений
-//в коллекцию служб Services. Это позволяет использовать
-//контроллеры и представления в приложении ASP.NET Core.
+//чтобы можно отправлять DateTime в PostgreSQL 
+AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
+DbContextOptionsBuilder optionsBuilder = new DbContextOptionsBuilder();
+optionsBuilder.UseNpgsql(builder.Configuration.GetConnectionString("local"));
+using (var context = new ELibraryContext(optionsBuilder.Options))
+{
+    EFInitialSeed.Seed(context);
+}
 builder.Services.AddControllersWithViews();
-//Построение веб-приложения с использованием настроек,
-//определенных в объекте builder. Возвращает экземпляр
-//WebApplication, который представляет запущенное приложение.
 //аутентификации на основе Cookies
 builder.Services
     .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -26,6 +25,7 @@ builder.Services
         opt.Cookie.HttpOnly = true;
         opt.Cookie.SameSite = SameSiteMode.Strict;
         opt.LoginPath = "/User/Login";
+        opt.AccessDeniedPath = "/User/AccessDenied";
     });
 
 builder.Services.AddDbContext<ELibraryContext>(opt => opt.UseNpgsql(builder.Configuration.GetConnectionString("local")));
@@ -35,15 +35,14 @@ builder.Services.AddDbContext<ELibraryContext>(opt => opt.UseNpgsql(builder.Conf
 builder.Services.AddScoped<IRepository<User>, EFRepository<User>>();
 builder.Services.AddScoped<IRepository<Role>, EFRepository<Role>>();
 builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IRepository<Resident>, EFRepository<Resident>>();
+builder.Services.AddScoped<IRepository<Address>, EFRepository<Address>>();
+builder.Services.AddScoped<ICensusReader, CensusReader>();
 var app = builder.Build();
-//для обработки статических файлов в каталоге wwwroot,
 app.UseStaticFiles();
-// для подключения маршрутизации,
 app.UseRouting();
-//аутификанция и авторизация
 app.UseAuthentication();
 app.UseAuthorization();
-//для указания маршрута, по которому нужно выбирать контроллер и его метод (действие).
 app.MapControllerRoute("default", "{Controller=Census}/{Action=Index}");
 
 app.Run();

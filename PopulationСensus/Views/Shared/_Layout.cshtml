@@ -1,5 +1,9 @@
-﻿<!DOCTYPE html>
+﻿@using Microsoft.AspNetCore.Http.Extensions;
 
+<!DOCTYPE html>
+@{
+    var currentUrl = ViewContext.HttpContext.Request.GetDisplayUrl().ToString();
+}
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
@@ -52,9 +56,7 @@
                         <a class="navbar-brand" href="index.html">
                             <span class="funk-tochka-script-font">Перепись населения </span>
                         </a>
-                        <button class="navbar-toggler" type="button" data-toggle="collapse"
-                                data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
-                                aria-expanded="false" aria-label="Toggle navigation">
+                        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"   aria-expanded="false" aria-label="Toggle navigation">
                             <span class="toggler-icon"></span>
                             <span class="toggler-icon"></span>
                             <span class="toggler-icon"></span>
@@ -76,10 +78,19 @@
                                 </li>
                             </ul>
                         </div> <!-- navbar collapse -->
-
-                        <div class="navbar-btn d-none d-sm-inline-block">
-                            <a class="main-btn" data-scroll-nav="0" href="#contact">Участие в переписи</a>
-                        </div>
+                            @if (User.IsInRole("admin"))
+                            {                                     
+                                  <div class="navbar-btn d-none d-sm-inline-block">
+                                      <a asp-controller="Census" asp-action="ResultCensus" class="main-btn" data-scroll-nav="0">Просмотреть результаты</a>
+                                  </div>                
+                            }
+                            @if (User.IsInRole("client"))
+                            {
+                                 <div class="navbar-btn d-none d-sm-inline-block">
+                                    <a class="main-btn" data-scroll-nav="0" href="#contact">Участие в переписи</a>
+                                </div>
+                            }
+                        
                     </nav> <!-- navbar -->
                 </div>
             </div> <!-- row -->
@@ -88,6 +99,8 @@
 </header>
 
 <footer id="footer" class="footer_area">
+   @if (currentUrl=="https://localhost:7167/"||currentUrl.StartsWith("https://localhost:7167/index.html"))
+   {
     <div class="footer_subscribe pt-100 pb-65">
         <div class="container">
             <div class="row">
@@ -107,6 +120,17 @@
             </div>
         </div>
     </div>
+   }
+   else
+   {
+        <div class="footer_copyright" id="footer_copyright_max_with">
+        <div class="container">
+            <div class="copyright">
+                <p class="funk-tochka-script-font"> Разработал Фарносов Виктор в 2024</p>
+            </div>
+        </div>
+    </div>
+   }
     <div class="footer_copyright">
         <div class="container">
             <div class="copyright">

@@ -34,7 +34,7 @@ namespace PopulationСensus.Controllers
             if (user is not null)
             {
                 await SignIn(user);
-                return RedirectToAction("Index", "Books");
+                return RedirectToAction("Index", "Census");
             }
             try
             {
@@ -89,8 +89,8 @@ namespace PopulationСensus.Controllers
         {
             string role = user.RoleId switch
             {
-                adminRoleId => "OlderAdmin",
-                clientRoleId => "JuniorAdmin",
+                adminRoleId => "admin",
+                clientRoleId => "client",
                 _ => throw new ApplicationException("invalid user role")
             };
 

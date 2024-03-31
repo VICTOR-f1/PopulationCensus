@@ -1,28 +1,34 @@
 ﻿using PopulationСensus.Domain.Entities;
 using PopulationСensus.Domain.Services;
+using static System.Reflection.Metadata.BlobBuilder;
 
 namespace PopulationСensus.Infrastructure
 {
     public class CensusReader : ICensusReader
     {
-        public Task<List<Resident>> FindResidentAsync(string searchString, int categoryId)
-        {
-            throw new NotImplementedException();
-        }
+        private readonly IRepository<Resident> residents;
+        private readonly IRepository<Address> addresses;
 
-        public Task<Resident?> FindResidentAsync(int bookId)
+        public CensusReader(IRepository<Resident> residents, IRepository<Address> residentsAddresses)
         {
-            throw new NotImplementedException();
+            this.residents = residents;
+            this.addresses = residentsAddresses;
         }
+        public async Task<List<Resident>> FindResidentAsync(string searchString) => (searchString) switch
+        {
+            "" or null => await residents.GetAllAsync(),
+            _ => await residents.FindWhere(resident => resident.FullName.Contains(searchString)),
+        };
 
-        public Task<List<Resident>> GetAllResidentAsync()
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<Resident?> FindResidentAsync(int bookId) =>  await residents.FindAsync(bookId);
 
-        public Task<List<ResidenАddress>> GetResidentAsync()
-        {
-            throw new NotImplementedException();
-        }
+        public async Task<List<Resident>> GetAllResidentAsync() => await residents.GetAllAsync();
+
+
+
+
+        public async Task<List<Address>> GetAllАddressAsync()=> await addresses.GetAllAsync();
+        
+        
     }
 }

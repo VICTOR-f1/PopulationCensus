@@ -2,7 +2,7 @@
 
 namespace PopulationСensus.Domain.Entities
 {
-    public class Аddress:Entity
+    public class Address:Entity
     {
         public short ZipCode { get; set; }
         public  short ApartmentNumber { get; set; }
@@ -15,7 +15,7 @@ namespace PopulationСensus.Domain.Entities
 
         [StringLength(30)]
         public string State { get; set; } = null!;
-        public List<ResidenАddress> ResidenАddress { get; set; }
+        public List<Resident> Resident { get; set; } = null!;
 
     }
 }
