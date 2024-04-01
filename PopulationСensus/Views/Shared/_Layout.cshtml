@@ -64,8 +64,10 @@
 
                         <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                             <ul id="nav" class="navbar-nav ml-auto">
+                                
                                 <li class="nav-item">
-                                    <a class="page-scroll" href="#home">Домашняя</a>
+                                   @* настроить редирект*@
+                                    <a class="page-scroll" href="https://localhost:7167/">Домашняя</a>
                                 </li>
                                 <li class="nav-item">
                                     <a class="page-scroll" href="#practice">Статистика</a>
@@ -97,48 +99,49 @@
         </div> <!-- container -->
     </div> <!-- header navbar -->
 </header>
-
-<footer id="footer" class="footer_area">
-   @if (currentUrl=="https://localhost:7167/"||currentUrl.StartsWith("https://localhost:7167/index.html"))
-   {
-    <div class="footer_subscribe pt-100 pb-65">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="subscribe_title">
-                        <h4 class="title">Подпишитесь на рассылку новостей</h4>
+    @if (currentUrl == "https://localhost:7167/" || currentUrl.StartsWith("https://localhost:7167/index.html"))
+    {
+        <footer id="footer" class="footer_area">
+            <div class="footer_subscribe pt-100 pb-65">
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="subscribe_title">
+                                <h4 class="title">Подпишитесь на рассылку новостей</h4>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="subscribe_form">
+                                <form action="#">
+                                    <input type="text" placeholder="fvitek@gmail.com">
+                                    <button class="main-btn">Подписаться</button>
+                                </form>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="col-lg-6">
-                    <div class="subscribe_form">
-                        <form action="#">
-                            <input type="text" placeholder="fvitek@gmail.com">
-                            <button class="main-btn">Подписаться</button>
-                        </form>
+            </div>
+            <div class="footer_copyright">
+                <div class="container">
+                    <div class="copyright">
+                        <p class="funk-tochka-script-font"> Разработал Фарносов Виктор в 2024</p>
                     </div>
                 </div>
             </div>
-        </div>
-    </div>
-   }
-   else
-   {
-        <div class="footer_copyright" id="footer_copyright_max_with">
-        <div class="container">
-            <div class="copyright">
-                <p class="funk-tochka-script-font"> Разработал Фарносов Виктор в 2024</p>
-            </div>
-        </div>
-    </div>
-   }
-    <div class="footer_copyright">
-        <div class="container">
-            <div class="copyright">
-                <p class="funk-tochka-script-font"> Разработал Фарносов Виктор в 2024</p>
-            </div>
-        </div>
-    </div>
-</footer>
+        </footer>
+    }
+    else
+    {
+            <footer id="footer" class="footer_area footer-sticky">
+            <div class="footer_copyright">
+                <div class="container">
+                    <div class="copyright">
+                        <p class="funk-tochka-script-font"> Разработал Фарносов Виктор в 2024</p>
 
+                    </div>
+                </div>
+            </div>
+        </footer>
+    }
 </body>
 </html>

@@ -1,0 +1,25 @@
+﻿/*.main-content-table {
+    color: #a09f9d;
+}
+.main-content {
+    background-color: #D5D4D3;
+    margin-top: 100px;
+}
+*/
+.main-content {
+    background-color: #eee;
+    margin-top: 79px;
+    padding-bottom:100px;
+}
+.main-content-table {
+    margin: 15px;
+}
+.table-dark {
+    background-color: #002B43;
+}
+.main-content-card {
+    background: #fff;
+    padding: 15px;
+    box-shadow: 1px 3px 5px #aaa;
+    border-radius: 5px;
+}

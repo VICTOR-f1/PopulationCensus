@@ -1,11 +1,50 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
+﻿@using PopulationСensus.Domain.Entities
+@model List<Resident>
 @{
+  
 }
 <head>
     <link rel="shortcut icon" href="/favicon.png" type="image/png">
-
+    <link rel="stylesheet" href="/styles/result-census.css">
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
 </head>
+<body>
+  <div class="main-content">
+    <div class="container">
+            @* пофиксить*@
+      </br>
+      <div class="main-content-card">
+        <div class="row">
+        <label >Поиск:</label>
+         <input type="text" na />
+          <table class="table  table-bordered main-content-table">
+            <thead class="table-dark">
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">ФИО</th>
+                <th scope="col">Дата рождения</th>
+                <th scope="col">Адресс</th>
+              </tr>
+            </thead>                  
+            <tbody>
+              <tr>
+                  @{
+                    int i = 0;
+                      foreach (Resident resident in Model)
+                      {   i++;
+                          <td>@i</td>
+                          <td>@resident.FullName</td>
+                          <td>@resident.DateOfBirth.ToShortDateString()</td>
+                          <td>@resident.АddressId</td>
+
+                      }
+                  }             
+              </tr>  
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
