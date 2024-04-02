@@ -9,7 +9,7 @@ namespace PopulationСensus.Domain.Entities
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DateOfBirth { get; set; }
-        public int АddressId { get; set; }
-        public Address Аddress { get; set; } = null!;
+        public int AddressId { get; set; }
+        public Address Address { get; set; } = null!;
     }
 }

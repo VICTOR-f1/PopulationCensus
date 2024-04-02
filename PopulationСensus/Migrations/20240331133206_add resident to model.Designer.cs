@@ -59,12 +59,12 @@ namespace PopulationСensus.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("АddressId")
+                    b.Property<int>("AddressId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("АddressId");
+                    b.HasIndex("AddressId");
 
                     b.ToTable("ResidenАddress");
                 });
@@ -128,7 +128,7 @@ namespace PopulationСensus.Migrations
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("PopulationСensus.Domain.Entities.Аddress", b =>
+            modelBuilder.Entity("PopulationСensus.Domain.Entities.Address", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -175,13 +175,13 @@ namespace PopulationСensus.Migrations
 
             modelBuilder.Entity("PopulationСensus.Domain.Entities.ResidenАddress", b =>
                 {
-                    b.HasOne("PopulationСensus.Domain.Entities.Аddress", "Аddress")
+                    b.HasOne("PopulationСensus.Domain.Entities.Address", "Address")
                         .WithMany("ResidenАddress")
-                        .HasForeignKey("АddressId")
+                        .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Аddress");
+                    b.Navigation("Address");
                 });
 
             modelBuilder.Entity("PopulationСensus.Domain.Entities.User", b =>
@@ -200,7 +200,7 @@ namespace PopulationСensus.Migrations
                     b.Navigation("Resident");
                 });
 
-            modelBuilder.Entity("PopulationСensus.Domain.Entities.Аddress", b =>
+            modelBuilder.Entity("PopulationСensus.Domain.Entities.Address", b =>
                 {
                     b.Navigation("ResidenАddress");
                 });

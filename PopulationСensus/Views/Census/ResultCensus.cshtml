@@ -1,5 +1,5 @@
 ﻿@using PopulationСensus.Domain.Entities
-@model List<Resident>
+@model ResidentCatalogViewModel
 @{
   
 }
@@ -31,13 +31,13 @@
               <tr>
                   @{
                     int i = 0;
-                      foreach (Resident resident in Model)
+                      foreach (Resident resident in Model.Resident)
                       {   i++;
                           <td>@i</td>
                           <td>@resident.FullName</td>
                           <td>@resident.DateOfBirth.ToShortDateString()</td>
-                          <td>@resident.АddressId</td>
-
+                          <td>@resident.Address.City</td>
+                          
                       }
                   }             
               </tr>  

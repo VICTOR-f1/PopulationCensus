@@ -14,18 +14,18 @@ namespace PopulationСensus.Infrastructure
             this.residents = residents;
             this.addresses = residentsAddresses;
         }
-        public async Task<List<Resident>> FindResidentAsync(string searchString) => (searchString) switch
+        public async Task<List<Resident>> FindResidentAsync(string searchString, int addressId) => (searchString, addressId) switch
         {
-            "" or null => await residents.GetAllAsync(),
-            _ => await residents.FindWhere(resident => resident.FullName.Contains(searchString)),
+            ("" or null, 0) => await residents.GetAllAsync(),
+            (_, 0) => await residents.FindWhere(resident => resident.FullName.Contains(searchString) || resident.Address.ToString().Contains(searchString)),
+            (_,_)=> await residents.FindWhere(resident=>resident.AddressId== addressId&&(resident.FullName.Contains(searchString) 
+            || resident.Address.ToString().Contains(searchString))),
+          
         };
 
         public async Task<Resident?> FindResidentAsync(int bookId) =>  await residents.FindAsync(bookId);
 
         public async Task<List<Resident>> GetAllResidentAsync() => await residents.GetAllAsync();
-
-
-
 
         public async Task<List<Address>> GetAllАddressAsync()=> await addresses.GetAllAsync();
         

@@ -72,7 +72,7 @@ namespace PopulationСensus.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_ResidenАddress_АddressId",
                 table: "ResidenАddress",
-                column: "АddressId");
+                column: "AddressId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Residents_ResidenАddressId",

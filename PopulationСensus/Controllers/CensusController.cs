@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PopulationСensus.Domain.Services;
+using PopulationСensus.ViewModels;
 
 namespace PopulationСensus.Controllers
 {
@@ -19,9 +20,15 @@ namespace PopulationСensus.Controllers
             return View();
         }
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> ResultCensus()
+        public async Task<IActionResult> ResultCensus(string searchString = "", int addressId=0)
         {
-            return View(await reader.GetAllResidentAsync());
+
+            var viewModel = new ResidentCatalogViewModel()
+            {
+                Resident = await reader.FindResidentAsync(searchString, addressId),
+                Address = await reader.GetAllАddressAsync(),
+            };
+            return View(viewModel);
         }
 
     }

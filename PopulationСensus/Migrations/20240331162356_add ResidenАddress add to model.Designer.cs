@@ -75,12 +75,12 @@ namespace PopulationСensus.Migrations
                         .HasMaxLength(150)
                         .HasColumnType("character varying(150)");
 
-                    b.Property<int>("АddressId")
+                    b.Property<int>("AddressId")
                         .HasColumnType("integer");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("АddressId");
+                    b.HasIndex("AddressId");
 
                     b.ToTable("Residents");
                 });
@@ -146,13 +146,13 @@ namespace PopulationСensus.Migrations
 
             modelBuilder.Entity("PopulationСensus.Domain.Entities.Resident", b =>
                 {
-                    b.HasOne("PopulationСensus.Domain.Entities.Address", "Аddress")
+                    b.HasOne("PopulationСensus.Domain.Entities.Address", "Address")
                         .WithMany("Resident")
-                        .HasForeignKey("АddressId")
+                        .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Аddress");
+                    b.Navigation("Address");
                 });
 
             modelBuilder.Entity("PopulationСensus.Domain.Entities.User", b =>

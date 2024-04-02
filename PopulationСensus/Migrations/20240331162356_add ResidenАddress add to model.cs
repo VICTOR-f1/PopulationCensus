@@ -21,7 +21,7 @@ namespace PopulationСensus.Migrations
             migrationBuilder.RenameColumn(
                 name: "ResidenАddressId",
                 table: "Residents",
-                newName: "АddressId");
+                newName: "AddressId");
 
             migrationBuilder.RenameIndex(
                 name: "IX_Residents_ResidenАddressId",
@@ -31,7 +31,7 @@ namespace PopulationСensus.Migrations
             migrationBuilder.AddForeignKey(
                 name: "FK_Residents_Addresses_АddressId",
                 table: "Residents",
-                column: "АddressId",
+                column: "AddressId",
                 principalTable: "Addresses",
                 principalColumn: "Id",
                 onDelete: ReferentialAction.Cascade);
@@ -45,7 +45,7 @@ namespace PopulationСensus.Migrations
                 table: "Residents");
 
             migrationBuilder.RenameColumn(
-                name: "АddressId",
+                name: "AddressId",
                 table: "Residents",
                 newName: "ResidenАddressId");
 
@@ -76,7 +76,7 @@ namespace PopulationСensus.Migrations
             migrationBuilder.CreateIndex(
                 name: "IX_ResidenАddress_АddressId",
                 table: "ResidenАddress",
-                column: "АddressId");
+                column: "AddressId");
 
             migrationBuilder.AddForeignKey(
                 name: "FK_Residents_ResidenАddress_ResidenАddressId",
