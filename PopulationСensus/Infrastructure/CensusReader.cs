@@ -1,5 +1,6 @@
 ﻿using PopulationСensus.Domain.Entities;
 using PopulationСensus.Domain.Services;
+using System.Reflection.PortableExecutable;
 using static System.Reflection.Metadata.BlobBuilder;
 
 namespace PopulationСensus.Infrastructure
@@ -14,20 +15,22 @@ namespace PopulationСensus.Infrastructure
             this.residents = residents;
             this.addresses = addresses;
         }
-        public async Task<List<Resident>> FindResidentAsync(string searchString, string addressString)
+        public async Task<List<Resident>> FindResidentAsync(string searchString)
         {
-            if (string.IsNullOrEmpty(searchString) && string.IsNullOrEmpty(addressString))
+            if (string.IsNullOrEmpty(searchString))
             {
                 return await residents.GetAllAsync();
             }
-            else if (!string.IsNullOrEmpty(searchString) && string.IsNullOrEmpty(addressString))
-            {
-                return await residents.FindWhere(resident => resident.FullName.Contains(searchString) || resident.DateOfBirth.ToString().Contains(searchString));
-            }
             else
             {
-                int residentAddress = addresses.FindWhere(resAddress=>resAddress.City.Contains(addressString)).Id;
-                return await residents.FindWhere(resident => resident.AddressId == residentAddress || (resident.FullName.Contains(searchString) || resident.Address.ToString().Contains(searchString)));
+                var a = await GetAllАddressAsync();
+                /*переделать если останеться время*/
+                int residentAddress = a.Find(resAddress => resAddress.City.Contains(searchString)).Id;
+
+                return await residents.FindWhere(resident =>
+                resident.AddressId == residentAddress ||
+                resident.FullName.Contains(searchString) ||
+                resident.DateOfBirth.ToString().Contains(searchString));
             }
         }
 
