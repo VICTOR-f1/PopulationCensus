@@ -14,11 +14,17 @@
     <div class="container">
             @* пофиксить*@
       </br>
+
       <div class="main-content-card">
-        <div class="row">
-        <label >Поиск:</label>
-         <input type="text" na />
-          <table class="table  table-bordered main-content-table">
+       <div class="row">
+         <div class="searchbar">
+             <form>
+                 <label >Поиск:</label>
+         <input name="searchstring" type="text" onchange="submitForm()" />
+             </form>
+              
+             </div>
+          <table class="table table-striped table-bordered main-content-table">
             <thead class="table-dark">
               <tr>
                 <th scope="col">#</th>
@@ -28,23 +34,29 @@
               </tr>
             </thead>                  
             <tbody>
-              <tr>
+              
                   @{
                     int i = 0;
                       foreach (Resident resident in Model.Resident)
                       {   i++;
+                        <tr>
                           <td>@i</td>
                           <td>@resident.FullName</td>
                           <td>@resident.DateOfBirth.ToShortDateString()</td>
-                          <td>@resident.Address.City</td>
-                          
+                          <td>@resident.Address.City @resident.Address.State @resident.Address.Street @resident.Address.ApartmentNumber @resident.Address.ZipCode </td>
+                        </tr>  
                       }
                   }             
-              </tr>  
+              
             </tbody>
           </table>
         </div>
       </div>
     </div>
   </div>
+  <script>
+    function submitForm() {
+        document.querySelector('form').submit();
+    }
+</script>
 </body>

@@ -20,14 +20,15 @@ namespace PopulationСensus.Controllers
             return View();
         }
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> ResultCensus(string searchString = "", int addressId=0)
+        public async Task<IActionResult> ResultCensus(string searchString = "", string addressString = "")
         {
-
             var viewModel = new ResidentCatalogViewModel()
             {
-                Resident = await reader.FindResidentAsync(searchString, addressId),
+                Resident = await reader.FindResidentAsync(searchString, addressString),
                 Address = await reader.GetAllАddressAsync(),
             };
+          
+            
             return View(viewModel);
         }
 

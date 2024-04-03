@@ -16,7 +16,7 @@ namespace PopulationСensus.ViewModels
         [Display(Name = "Дата рождения")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DateOfBirth { get; set; }
-
+        
 
 
 

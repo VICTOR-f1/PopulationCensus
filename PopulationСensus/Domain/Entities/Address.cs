@@ -4,7 +4,7 @@ namespace PopulationСensus.Domain.Entities
 {
     public class Address:Entity
     {
-        public short ZipCode { get; set; }
+        public int ZipCode { get; set; }
         public  short ApartmentNumber { get; set; }
 
         [StringLength(150)]

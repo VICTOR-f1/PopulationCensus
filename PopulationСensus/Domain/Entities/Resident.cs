@@ -4,7 +4,7 @@ namespace PopulationСensus.Domain.Entities
 {
     public class Resident : Entity
     {
-        [StringLength(150)]
+        [StringLength(250)]
         public string FullName { get; set; } = null!;
         [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]

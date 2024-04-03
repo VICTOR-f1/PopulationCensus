@@ -44,5 +44,4 @@ app.UseRouting();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllerRoute("default", "{Controller=Census}/{Action=Index}");
-
 app.Run();

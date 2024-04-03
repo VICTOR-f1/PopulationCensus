@@ -9,21 +9,30 @@ namespace PopulationСensus.Infrastructure
         private readonly IRepository<Resident> residents;
         private readonly IRepository<Address> addresses;
 
-        public CensusReader(IRepository<Resident> residents, IRepository<Address> residentsAddresses)
+        public CensusReader(IRepository<Resident> residents, IRepository<Address> addresses)
         {
             this.residents = residents;
-            this.addresses = residentsAddresses;
+            this.addresses = addresses;
         }
-        public async Task<List<Resident>> FindResidentAsync(string searchString, int addressId) => (searchString, addressId) switch
+        public async Task<List<Resident>> FindResidentAsync(string searchString, string addressString)
         {
-            ("" or null, 0) => await residents.GetAllAsync(),
-            (_, 0) => await residents.FindWhere(resident => resident.FullName.Contains(searchString) || resident.Address.ToString().Contains(searchString)),
-            (_,_)=> await residents.FindWhere(resident=>resident.AddressId== addressId&&(resident.FullName.Contains(searchString) 
-            || resident.Address.ToString().Contains(searchString))),
-          
-        };
+            if (string.IsNullOrEmpty(searchString) && string.IsNullOrEmpty(addressString))
+            {
+                return await residents.GetAllAsync();
+            }
+            else if (!string.IsNullOrEmpty(searchString) && string.IsNullOrEmpty(addressString))
+            {
+                return await residents.FindWhere(resident => resident.FullName.Contains(searchString) || resident.DateOfBirth.ToString().Contains(searchString));
+            }
+            else
+            {
+                int residentAddress = addresses.FindWhere(resAddress=>resAddress.City.Contains(addressString)).Id;
+                return await residents.FindWhere(resident => resident.AddressId == residentAddress || (resident.FullName.Contains(searchString) || resident.Address.ToString().Contains(searchString)));
+            }
+        }
 
-        public async Task<Resident?> FindResidentAsync(int bookId) =>  await residents.FindAsync(bookId);
+
+        public async Task<Resident?> FindResidentAsync(int residentId) =>  await residents.FindAsync(residentId);
 
         public async Task<List<Resident>> GetAllResidentAsync() => await residents.GetAllAsync();
 
