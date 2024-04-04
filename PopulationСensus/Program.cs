@@ -38,6 +38,8 @@ builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRepository<Resident>, EFRepository<Resident>>();
 builder.Services.AddScoped<IRepository<Address>, EFRepository<Address>>();
 builder.Services.AddScoped<ICensusReader, CensusReader>();
+builder.Services.AddScoped<IResidentService, ResidentService>();
+
 var app = builder.Build();
 app.UseStaticFiles();
 app.UseRouting();

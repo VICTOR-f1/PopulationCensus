@@ -9,10 +9,10 @@ namespace PopulationСensus.ViewModels
         [Display(Name = "Адресс")]
         public int AddressId { get; set; }
         public List<SelectListItem> Address { get; set; } = new();
-            
+        [Required]
         [Display(Name = "Полное имя")]
         public string FullName { get; set; } = null!;
-
+        [Required]
         [Display(Name = "Дата рождения")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime DateOfBirth { get; set; }

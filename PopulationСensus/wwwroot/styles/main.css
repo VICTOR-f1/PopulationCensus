@@ -898,6 +898,7 @@ body {
 }
 
 .faq-accordian {
+
     position: relative;
     z-index: 1;
 }
@@ -913,7 +914,7 @@ body {
         }
 
         .faq-accordian .card .card-header {
-            background-color: #f7f7f7;
+            background-color: #f4f4f8;
             padding: 0;
             border-bottom-color: #e21a1a;
         }
