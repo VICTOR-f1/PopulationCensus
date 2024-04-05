@@ -1,33 +1,79 @@
 ﻿@model ResidentViewModel
 @*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
 *@
 @{
 }
 <head>
-    <link rel="shortcut icon" href="/favicon.png" type="image/png">
-    <link rel="stylesheet" href="/styles/add-census.css">
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
+   <link rel="shortcut icon" href="/favicon.png" type="image/png">
+   <link rel="stylesheet" href="/styles/add-census.css">
+   <meta name="viewport" content="width=device-width" />
+   <title>@ViewBag.Title</title>
+    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&suggest_apikey=d2f21fa9-56df-4184-9555-8b27172e876b" type="text/javascript"></script>
+
 </head>
 <body>
-<div class="resident-form">
-    <form method="post">
-        <h1>Добавление жителя: </h1>
-        <div class="form-element">
+   <div class="resident-form">
+      <form class="m-1 p-1" method="post">
+         <h1>Добавление жителя: </h1>
+         <div class="form-group">
             <label  asp-for="FullName"></label>
-            <input asp-for="FullName" />
-        </div>
-        <div class="form-element">
+            <input class="form-control" asp-for="FullName" />
+            <span asp-validation-for="FullName" class="text-danger"></span>
+         </div>
+         <div class="form-group">
             <label asp-for="DateOfBirth"></label>
-            <input asp-for="DateOfBirth" />
-        </div>
-        <div class="form-element">
+            <input class="form-control" asp-for="DateOfBirth" />
+            <span asp-validation-for="DateOfBirth" class="text-danger"></span>
+         </div>
+         <div class="form-group">
             <label asp-for="AddressId"></label>
             <select asp-for="AddressId" asp-items="Model.Address"></select>
+            <span asp-validation-for="AddressId" class="text-danger"></span>
+
+         </div>
+        <div class="form-group">
+        <label asp-for="Street">Добавить адресс:</label>
+        <input asp-for="Street" class="form-control" name="address" id="address"  />
+   
+         <input type="submit" value="Сохранить" />
         </div>
-    
-        <input type="submit" value="Сохранить" />
-    </form>
+      </form>
+      <div class="row">
+  
+   
 </div>
+   </div>
+
+<script type="text/javascript">
+ymaps.ready(init);
+function init(){
+    var suggestView=new ymaps.SuggestView('address');
+    suggestView.events.add('select',function(event){
+        var selected=event.get('item').value;
+        ymaps.geocode(selected,{
+            results:1
+        }).then(function(res){
+            return ymaps.geocode(res.geoObjects.get(0).geometry.getCoordinates(),{
+                kind:'district',
+                results:10
+            }).then(function(res){
+                var founded=res['metaData']['geocoder']['found'];
+                $('label.suggest .description').html("");
+                for(i=0;i<=founded-1;i++){
+                    var info=res.geoObjects.get(i).properties.getAll();
+                    console.log(info);
+                    var name=info['name'];
+                    if(name.search('район')!=-1){
+                        name=name.replace(' район','');
+                        console.log(name);
+                    }
+                }
+            });
+        });
+    });
+document.getElementsByTagName('ymaps')[0].style.top = document.getElementsByTagName('ymaps')[0].style.top.match(/d+/)*1 + 5 + 'px';
+document.getElementsByTagName('ymaps')[0].style.left = document.getElementsByTagName('ymaps')[0].style.left.match(/d+/)*1 - 1 + 'px';
+}
+</script>
 </body>

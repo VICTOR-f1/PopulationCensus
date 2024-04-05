@@ -1,3 +1,12 @@
 ﻿.resident-form {
     margin-top: 79px;
 }
+.error-messages {
+    color: #e21a1a;
+    margin-bottom: 1em;
+    font-weight: lighter;
+    list-style-type: none;
+}
+.input-validation-error {
+    border-color: red;
+}

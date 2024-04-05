@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using PopulationСensus.Data;
 using PopulationСensus.Domain.Entities;
 using PopulationСensus.Domain.Services;
 using PopulationСensus.Infrastructure;
@@ -63,6 +64,7 @@ namespace PopulationСensus.Controllers
             }
             try
             {
+                var db = new ELibraryContext();
                 var resident = new Resident
                 {
                     DateOfBirth = residentVm.DateOfBirth,
