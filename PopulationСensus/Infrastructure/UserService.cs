@@ -1,5 +1,7 @@
-﻿using PopulationСensus.Domain.Entities;
+﻿using PopulationСensus.Data;
+using PopulationСensus.Domain.Entities;
 using PopulationСensus.Domain.Services;
+using System.Diagnostics;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -9,12 +11,15 @@ namespace PopulationСensus.Infrastructure
     {
         private readonly IRepository<User> users;
         private readonly IRepository<Role> roles;
-
+        private readonly IRepository<Address> addresses;
         public UserService(IRepository<User> usersRepository,
-            IRepository<Role> rolesRepository)
+            IRepository<Role> rolesRepository,
+            IRepository<Address> addresses)
         {
             users = usersRepository;
             roles = rolesRepository;
+            this.addresses = addresses;
+
         }
         private string GetSalt() =>
         DateTime.UtcNow.ToString() + DateTime.Now.Ticks;
@@ -26,8 +31,10 @@ namespace PopulationСensus.Infrastructure
         }
         public async Task<User?> GetUserAsync(string username, string password)
         {
-            username = username.Trim();
-            User? user = (await users.FindWhere(u => u.Login == username)).FirstOrDefault();
+           
+
+            User? user = (await users.FindWhere(u => u.Email == username)).FirstOrDefault();
+       
             if (user is null)
             {
                 return null;
@@ -43,7 +50,7 @@ namespace PopulationСensus.Infrastructure
         public async Task<bool> IsUserExistsAsync(string username)
         {
             username = username.Trim();
-            User? found = (await users.FindWhere(u => u.Login == username)).FirstOrDefault();
+            User? found = (await users.FindWhere(u => u.Email == username)).FirstOrDefault();
             //возвращает логическое значение `true`,
             //если переменная `found` не равна `null`,
             //и `false`, если переменная `found` равна `null`
@@ -65,14 +72,41 @@ namespace PopulationСensus.Infrastructure
             // добавляем пользователя
             User toAdd = new User
             {
-                Fullname = fullname,
-                Login = username,
+                FullName = fullname,
+                Email = username,
                 Salt = GetSalt(),
                 RoleId = clientRole.Id
             };
             toAdd.Password = GetSha256(password, toAdd.Salt);
 
             return await users.AddAsync(toAdd);
+        }
+        public async Task AddResident(User resident)
+        {
+            await users.AddAsync(resident);
+        }
+        public async Task UpdateResident(User resident)
+        {
+            await users.UpdateAsync(resident);
+        }
+        public async Task DeleteResident(User resident)
+        {
+            await users.DeleteAsync(resident);
+        }
+
+        public async Task AddAddress(Address address)
+        {
+            await addresses.AddAsync(address);
+        }
+
+        public async Task UpdateAddress(Address address)
+        {
+            await addresses.UpdateAsync(address);
+        }
+
+        public async Task DeleteAddress(Address address)
+        {
+            await addresses.DeleteAsync(address);
         }
     }
 }

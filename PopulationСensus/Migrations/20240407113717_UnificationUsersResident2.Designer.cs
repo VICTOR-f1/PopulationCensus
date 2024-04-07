@@ -12,8 +12,8 @@ using PopulationСensus.Data;
 namespace PopulationСensus.Migrations
 {
     [DbContext(typeof(СensusContext))]
-    [Migration("20240402173847_FixDataType")]
-    partial class FixDataType
+    [Migration("20240407113717_UnificationUsersResident2")]
+    partial class UnificationUsersResident2
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,17 +37,14 @@ namespace PopulationСensus.Migrations
                         .HasColumnType("smallint");
 
                     b.Property<string>("City")
-                        .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("character varying(30)");
 
                     b.Property<string>("State")
-                        .IsRequired()
                         .HasMaxLength(30)
                         .HasColumnType("character varying(30)");
 
                     b.Property<string>("Street")
-                        .IsRequired()
                         .HasMaxLength(150)
                         .HasColumnType("character varying(150)");
 
@@ -59,32 +56,6 @@ namespace PopulationСensus.Migrations
                     b.ToTable("Addresses");
                 });
 
-            modelBuilder.Entity("PopulationСensus.Domain.Entities.Resident", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("AddressId")
-                        .HasColumnType("integer");
-
-                    b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("timestamp without time zone");
-
-                    b.Property<string>("FullName")
-                        .IsRequired()
-                        .HasMaxLength(250)
-                        .HasColumnType("character varying(250)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("AddressId");
-
-                    b.ToTable("Residents");
-                });
-
             modelBuilder.Entity("PopulationСensus.Domain.Entities.Role", b =>
                 {
                     b.Property<int>("Id")
@@ -94,7 +65,6 @@ namespace PopulationСensus.Migrations
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
                     b.Property<string>("Name")
-                        .IsRequired()
                         .HasColumnType("text");
 
                     b.HasKey("Id");
@@ -110,65 +80,62 @@ namespace PopulationСensus.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<string>("Fullname")
-                        .IsRequired()
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
+                    b.Property<int>("AddressId")
+                        .HasColumnType("integer");
 
-                    b.Property<string>("Login")
-                        .IsRequired()
+                    b.Property<DateTime>("DateOfBirth")
+                        .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("FullName")
+                        .HasMaxLength(250)
+                        .HasColumnType("character varying(250)");
+
+                    b.Property<string>("Email")
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
                     b.Property<string>("Password")
-                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
-
-                    b.Property<string>("Photo")
-                        .HasMaxLength(250)
-                        .HasColumnType("character varying(250)");
 
                     b.Property<int>("RoleId")
                         .HasColumnType("integer");
 
                     b.Property<string>("Salt")
-                        .IsRequired()
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
                     b.HasKey("Id");
+
+                    b.HasIndex("AddressId");
 
                     b.HasIndex("RoleId");
 
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("PopulationСensus.Domain.Entities.Resident", b =>
+            modelBuilder.Entity("PopulationСensus.Domain.Entities.User", b =>
                 {
                     b.HasOne("PopulationСensus.Domain.Entities.Address", "Address")
-                        .WithMany("Resident")
+                        .WithMany("User")
                         .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Address");
-                });
-
-            modelBuilder.Entity("PopulationСensus.Domain.Entities.User", b =>
-                {
                     b.HasOne("PopulationСensus.Domain.Entities.Role", "Role")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.Navigation("Address");
+
                     b.Navigation("Role");
                 });
 
             modelBuilder.Entity("PopulationСensus.Domain.Entities.Address", b =>
                 {
-                    b.Navigation("Resident");
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

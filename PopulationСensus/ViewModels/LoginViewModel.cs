@@ -4,8 +4,8 @@ namespace PopulationСensus.ViewModels
 {
     public class LoginViewModel
     {
-        [Required(ErrorMessage = "Укажите имя пользователя")]
-        public string Username { get; set; }
+        [Required(ErrorMessage = "Укажите почту")]
+        public string Email { get; set; }
 
         [Required(ErrorMessage = "Введите пароль")]
         [DataType(DataType.Password)]

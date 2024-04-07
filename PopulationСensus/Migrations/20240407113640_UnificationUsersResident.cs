@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace PopulationСensus.Migrations
 {
     /// <inheritdoc />
-    public partial class addresidenttomodel : Migration
+    public partial class UnificationUsersResident : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -18,11 +18,11 @@ namespace PopulationСensus.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    ZipCode = table.Column<short>(type: "smallint", nullable: false),
+                    ZipCode = table.Column<int>(type: "integer", nullable: false),
                     ApartmentNumber = table.Column<short>(type: "smallint", nullable: false),
-                    Street = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
-                    City = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false),
-                    State = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: false)
+                    Street = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: true),
+                    City = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: true),
+                    State = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -30,67 +30,59 @@ namespace PopulationСensus.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "ResidenАddress",
+                name: "Roles",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    АddressId = table.Column<int>(type: "integer", nullable: false)
+                    Name = table.Column<string>(type: "text", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_ResidenАddress", x => x.Id);
-                    table.ForeignKey(
-                        name: "FK_ResidenАddress_Addresses_АddressId",
-                        column: x => x.АddressId,
-                        principalTable: "Addresses",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                    table.PrimaryKey("PK_Roles", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Residents",
+                name: "Users",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    FullName = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: false),
-                    DateOfBirth = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ResidenАddressId = table.Column<int>(type: "integer", nullable: false)
+                    FullName = table.Column<string>(type: "character varying(250)", maxLength: 250, nullable: true),
+                    DateOfBirth = table.Column<DateTime>(type: "timestamp without time zone", nullable: false),
+                    Login = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    Password = table.Column<string>(type: "character varying(256)", maxLength: 256, nullable: true),
+                    Salt = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
+                    RoleId = table.Column<int>(type: "integer", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Residents", x => x.Id);
+                    table.PrimaryKey("PK_Users", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Residents_ResidenАddress_ResidenАddressId",
-                        column: x => x.ResidenАddressId,
-                        principalTable: "ResidenАddress",
+                        name: "FK_Users_Roles_RoleId",
+                        column: x => x.RoleId,
+                        principalTable: "Roles",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_ResidenАddress_АddressId",
-                table: "ResidenАddress",
-                column: "AddressId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Residents_ResidenАddressId",
-                table: "Residents",
-                column: "ResidenАddressId");
+                name: "IX_Users_RoleId",
+                table: "Users",
+                column: "RoleId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Residents");
-
-            migrationBuilder.DropTable(
-                name: "ResidenАddress");
-
-            migrationBuilder.DropTable(
                 name: "Addresses");
+
+            migrationBuilder.DropTable(
+                name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
         }
     }
 }

@@ -21,11 +21,12 @@
                   <h2 class="form-title">Войти в акаунт</h2>
                   <form method="POST" class="register-form" id="login-form">
                      <div class="form-group">
-                        <input type="text"  asp-for="Username"  placeholder="Логин"/>
+                        <input type="text"  asp-for="Email"  placeholder="Почта"/>
                      </div>
                      <div class="form-group">
                         <input asp-for="Password" type="password"  placeholder="Пароль"/>
                      </div>
+                     <div asp-validation-summary="All"></div>
                      <div class="form-group form-button">
                         <input  type="submit" class="form-submit" value="Войти"/>
                      </div>

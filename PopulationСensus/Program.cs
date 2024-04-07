@@ -32,10 +32,8 @@ builder.Services.AddDbContext<ÑensusContext>(opt => opt.UseNpgsql(builder.Config
 builder.Services.AddScoped<IRepository<User>, EFRepository<User>>();
 builder.Services.AddScoped<IRepository<Role>, EFRepository<Role>>();
 builder.Services.AddScoped<IUserService, UserService>();
-builder.Services.AddScoped<IRepository<Resident>, EFRepository<Resident>>();
 builder.Services.AddScoped<IRepository<Address>, EFRepository<Address>>();
-builder.Services.AddScoped<ICensusReader, CensusReader>();
-builder.Services.AddScoped<IResidentService, ResidentService>();
+builder.Services.AddScoped<IUserReader, CensusReader>();
 
 var app = builder.Build();
 app.UseStaticFiles();

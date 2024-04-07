@@ -2,11 +2,11 @@
 
 namespace PopulationСensus.Domain.Services
 {
-    public interface ICensusReader
+    public interface IUserReader
     {
-        Task<List<Resident>> GetAllResidentAsync();
-        Task<List<Resident>> FindResidentAsync(string residentString);
-        Task<Resident?> FindResidentAsync(int residentId);
+        Task<List<User>> GetAllUserAsync();
+        Task<List<User>> FindUserAsync(string residentString);
+        Task<User?> FindUserAsync(int residentId);
         Task<List<Address>> GetAllАddressAsync();
     }
 }

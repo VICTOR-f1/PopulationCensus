@@ -15,7 +15,7 @@ namespace PopulationСensus.Domain.Entities
 
         [StringLength(30)]
         public string State { get; set; } = null!;
-        public List<Resident> Resident { get; set; } = null!;
+        public List<User> User { get; set; } = null!;
 
     }
 }

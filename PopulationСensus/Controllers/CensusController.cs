@@ -13,10 +13,10 @@ namespace PopulationСensus.Controllers
     {
         private readonly СensusContext db;
 
-        private readonly ICensusReader reader;
+        private readonly IUserReader reader;
         private readonly IResidentService residentService;
         private readonly IWebHostEnvironment appEnvironment;
-        public CensusController(ICensusReader reader, IResidentService residentService, IWebHostEnvironment appEnvironment,СensusContext db)
+        public CensusController(IUserReader reader, IResidentService residentService, IWebHostEnvironment appEnvironment,СensusContext db)
         {
             this.reader = reader;
             this.residentService = residentService;
@@ -34,7 +34,7 @@ namespace PopulationСensus.Controllers
         {
             var viewModel = new ResidentCatalogViewModel()
             {
-                Resident = await reader.FindResidentAsync(searchString),
+                 User= await reader.FindUserAsync(searchString),
                 Address = await reader.GetAllАddressAsync(),
             };
             
@@ -53,41 +53,42 @@ namespace PopulationСensus.Controllers
         [Authorize]
         public async Task<IActionResult> AddCensus(ResidentViewModel residentVm)
         {
-            if (!ModelState.IsValid)
-            {
-                return View(residentVm);
-            }
-            try
-            {
-                var address = new Address
-                {   
-                    ZipCode = residentVm.ZipCode,
-                    ApartmentNumber = residentVm.ApartmentNumber,
-                    Street=residentVm.Street,
-                    City = residentVm.City,
-                    State = residentVm.State
-                   
-                };
-                await residentService.AddAddress(address);
+            //if (!ModelState.IsValid)
+            //{
+            //    return View(residentVm);
+            //}
+            //try
+            //{
+            //    var address = new Address
+            //    {   
+            //        ZipCode = residentVm.ZipCode,
+            //        ApartmentNumber = residentVm.ApartmentNumber,
+            //        Street=residentVm.Street,
+            //        City = residentVm.City,
+            //        State = residentVm.State
 
-                int adressId = address.Id;
-               
-                var resident = new Resident()
-                {
-                    DateOfBirth = residentVm.DateOfBirth,
-                    FullName = residentVm.FullName,
-                    AddressId= adressId
-                };
-                await residentService.AddResident(resident);
-            }
-            catch
-            {
-                ModelState.AddModelError("database", "Ошибка при сохранении в базу данных.");
-                return View(residentVm);
+            //    };
+            //    await residentService.AddAddress(address);
+
+            //    int adressId = address.Id;
+
+            //    var resident = new Resident()
+            //    {
+            //        DateOfBirth = residentVm.DateOfBirth,
+            //        FullName = residentVm.FullName,
+            //        AddressId= adressId
+            //    };
+            //    await residentService.AddResident(resident);
+            //}
+            //catch
+            //{
+            //    ModelState.AddModelError("database", "Ошибка при сохранении в базу данных.");
+            //    return View(residentVm);
 
 
-            }
-            return RedirectToAction("ResultCensus", "Census");
+            //}
+            //return RedirectToAction("ResultCensus", "Census");
+            return View();
         }
 
     }

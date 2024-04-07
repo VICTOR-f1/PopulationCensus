@@ -32,7 +32,7 @@ namespace PopulationСensus.Controllers
             {
                 return View(loginViewModel);
             }
-            User? user = await userService.GetUserAsync(loginViewModel.Username, loginViewModel.Password);
+            User? user = await userService.GetUserAsync(loginViewModel.Email, loginViewModel.Password);
             if (user is not null)
             {
                 await SignIn(user);
@@ -98,13 +98,13 @@ namespace PopulationСensus.Controllers
 
             List<Claim> claims = new List<Claim>
             {
-            new Claim("fullname", user.Fullname),
+            new Claim("fullname", user.FullName),
             new Claim("id", user.Id.ToString()),
             new Claim("role", role),
-            new Claim("username", user.Login)
+            new Claim("email", user.Email)
             };
             string authType = CookieAuthenticationDefaults.AuthenticationScheme;
-            IIdentity identity = new ClaimsIdentity(claims, authType, "username", "role");
+            IIdentity identity = new ClaimsIdentity(claims, authType, "email", "role");
             ClaimsPrincipal principal = new ClaimsPrincipal(identity);
             await HttpContext.SignInAsync(principal);
         }
