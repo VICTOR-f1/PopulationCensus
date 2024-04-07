@@ -11,12 +11,12 @@ namespace PopulationСensus.Controllers
 {
     public class CensusController : Controller
     {
-        private readonly ELibraryContext db;
+        private readonly СensusContext db;
 
         private readonly ICensusReader reader;
         private readonly IResidentService residentService;
         private readonly IWebHostEnvironment appEnvironment;
-        public CensusController(ICensusReader reader, IResidentService residentService, IWebHostEnvironment appEnvironment,ELibraryContext db)
+        public CensusController(ICensusReader reader, IResidentService residentService, IWebHostEnvironment appEnvironment,СensusContext db)
         {
             this.reader = reader;
             this.residentService = residentService;

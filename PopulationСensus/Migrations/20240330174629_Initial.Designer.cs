@@ -10,7 +10,7 @@ using PopulationСensus.Data;
 
 namespace PopulationСensus.Migrations
 {
-    [DbContext(typeof(ELibraryContext))]
+    [DbContext(typeof(СensusContext))]
     [Migration("20240330174629_Initial")]
     partial class Initial
     {

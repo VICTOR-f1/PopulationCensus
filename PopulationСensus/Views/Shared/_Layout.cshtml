@@ -1,147 +1,137 @@
 ﻿@using Microsoft.AspNetCore.Http.Extensions;
-
 <!DOCTYPE html>
 @{
     var currentUrl = ViewContext.HttpContext.Request.GetDisplayUrl().ToString();
 }
 <html>
-<head>
-    <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
-        <!--====== Favicon Icon ======-->
-    <link rel="shortcut icon" href="/favicon.png" type="image/png">
-
-    <!--====== Animate CSS ======-->
-    <link rel="stylesheet" href="/styles/animate.css">
-
-    <!--====== Magnific Popup CSS ======-->
-    <link rel="stylesheet" href="/styles/magnific-popup.css">
-
-    <!--====== Slick CSS ======-->
-    <link rel="stylesheet" href="/styles/slick.css">
-
-
-    <!--====== Bootstrap CSS ======-->
-    <link rel="stylesheet" href="/styles/bootstrap.min.css">
-
-    <!--====== Default CSS ======-->
-    <link rel="stylesheet" href="/styles/default.css">
-
-    <!--====== Style CSS ======-->
-    <link rel="stylesheet" href="/styles/main.css">
-
-</head>
-<body>
-    <!--ШАПКА-->
-    <header>
-        <nav>
+   <head>
+      <meta name="viewport" content="width=device-width" />
+      <title>@ViewBag.Title</title>
+      <!--====== Favicon Icon ======-->
+      <link rel="shortcut icon" href="/favicon.png" type="image/png">
+      <!--====== Animate CSS ======-->
+      <link rel="stylesheet" href="/styles/animate.css">
+      <!--====== Magnific Popup CSS ======-->
+      <link rel="stylesheet" href="/styles/magnific-popup.css">
+      <!--====== Slick CSS ======-->
+      <link rel="stylesheet" href="/styles/slick.css">
+      <!--====== Bootstrap CSS ======-->
+      <link rel="stylesheet" href="/styles/bootstrap.min.css">
+      <!--====== Default CSS ======-->
+      <link rel="stylesheet" href="/styles/default.css">
+      <!--====== Style CSS ======-->
+      <link rel="stylesheet" href="/styles/main.css">
+   </head>
+   <body>
+      <!--ШАПКА-->
+      <header>
+         <nav>
             <div class="brand"></div>
             <div class="links"></div>
-        </nav>
-    </header>
-    <!--ОСНОВНАЯ ЧАСТЬ-->
-    <main>
-        <div class="content">
+         </nav>
+      </header>
+      <!--ОСНОВНАЯ ЧАСТЬ-->
+      <main>
+         <div class="content">
             @RenderBody()
-        </div>
-    </main>
-    <!--ПОДВАЛ-->
-
-    <header class="header_area">
-    <div class="header_navbar">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-12">
-                    <nav class="navbar navbar-expand-lg">
+         </div>
+      </main>
+      <!--ПОДВАЛ-->
+      <header class="header_area">
+         <div class="header_navbar">
+            <div class="container">
+               <div class="row">
+                  <div class="col-lg-12">
+                     <nav class="navbar navbar-expand-lg">
                         <a class="navbar-brand" href="/Census/Index">
-                            <span class="funk-tochka-script-font">Перепись населения </span>
+                        <span class="funk-tochka-script-font">Перепись населения </span>
                         </a>
                         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"   aria-expanded="false" aria-label="Toggle navigation">
-                            <span class="toggler-icon"></span>
-                            <span class="toggler-icon"></span>
-                            <span class="toggler-icon"></span>
+                        <span class="toggler-icon"></span>
+                        <span class="toggler-icon"></span>
+                        <span class="toggler-icon"></span>
                         </button>
-
                         <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
-                            <ul id="nav" class="navbar-nav ml-auto">
-                                
-                                
-                                <li class="nav-item">
-                                    <a class="page-scroll" href="#practice">Статистика</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="page-scroll" href="/Census/Index#faq">Частые вопросы</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="page-scroll" href="/Census/Index#contact">Контакты</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="page-scroll" asp-controller="User" asp-action="Logout">Выйти</a>
-                                </li>
-                            </ul>
-                        </div> <!-- navbar collapse -->
+                           <ul id="nav" class="navbar-nav ml-auto">
+                              <li class="nav-item">
+                                 <a class="page-scroll" href="#practice">Статистика</a>
+                              </li>
+                              <li class="nav-item">
+                                 <a class="page-scroll" href="/Census/Index#faq">Частые вопросы</a>
+                              </li>
+                              <li class="nav-item">
+                                 <a class="page-scroll" href="/Census/Index#contact">Контакты</a>
+                              </li>
+                              <li class="nav-item">
+                                 <a class="page-scroll" asp-controller="User" asp-action="Logout">Выйти</a>
+                              </li>
+                           </ul>
+                        </div>
+                        <!-- navbar collapse -->
                             @if (User.IsInRole("admin"))
                             {                                     
-                                  <div class="navbar-btn d-none d-sm-inline-block">
-                                      <a asp-controller="Census" asp-action="ResultCensus" class="main-btn" data-scroll-nav="0">Просмотреть результаты</a>
-                                  </div>                
+                            <div class="navbar-btn d-none d-sm-inline-block">
+                               <a asp-controller="Census" asp-action="ResultCensus" class="main-btn" data-scroll-nav="0">Просмотреть результаты</a>
+                            </div>
                             }
                             @if (User.IsInRole("client"))
                             {
-                                 <div class="navbar-btn d-none d-sm-inline-block">
-                                    <a  asp-controller="Census" asp-action="AddCensus" class="main-btn" data-scroll-nav="0">Участие в переписи</a>
-                                </div>
+                            <div class="navbar-btn d-none d-sm-inline-block">
+                               <a  asp-controller="Census" asp-action="AddCensus" class="main-btn" data-scroll-nav="0">Участие в переписи</a>
+                            </div>
                             }
-                        
-                    </nav> <!-- navbar -->
-                </div>
-            </div> <!-- row -->
-        </div> <!-- container -->
-    </div> <!-- header navbar -->
-</header>
+                     </nav>
+                     <!-- navbar -->
+                  </div>
+               </div>
+               <!-- row -->
+            </div>
+            <!-- container -->
+         </div>
+         <!-- header navbar -->
+      </header>
     @if (currentUrl == "https://localhost:7167/" || currentUrl == "https://localhost:7167/Census/Index")
     {
-        <footer id="footer" class="footer_area">
-            <div class="footer_subscribe pt-100 pb-65">
+          <footer id="footer" class="footer_area">
+             <div class="footer_subscribe pt-100 pb-65">
                 <div class="container">
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="subscribe_title">
-                                <h4 class="title">Подпишитесь на рассылку новостей</h4>
-                            </div>
-                        </div>
-                        <div class="col-lg-6">
-                            <div class="subscribe_form">
-                                <form action="#">
-                                    <input type="text" placeholder="fvitek@gmail.com">
-                                    <button class="main-btn">Подписаться</button>
-                                </form>
-                            </div>
-                        </div>
-                    </div>
+                   <div class="row">
+                      <div class="col-lg-6">
+                         <div class="subscribe_title">
+                            <h4 class="title">Подпишитесь на рассылку новостей</h4>
+                         </div>
+                      </div>
+                      <div class="col-lg-6">
+                         <div class="subscribe_form">
+                            <form action="#">
+                               <input type="text" placeholder="fvitek@gmail.com">
+                               <button class="main-btn">Подписаться</button>
+                            </form>
+                         </div>
+                      </div>
+                   </div>
                 </div>
-            </div>
-            <div class="footer_copyright">
+             </div>
+             <div class="footer_copyright">
                 <div class="container">
-                    <div class="copyright">
-                        <p class="funk-tochka-script-font"> Разработал Фарносов Виктор в 2024</p>
-                    </div>
+                   <div class="copyright">
+                      <p class="funk-tochka-script-font"> Разработал Фарносов Виктор в 2024</p>
+                   </div>
                 </div>
-            </div>
-        </footer>
+             </div>
+          </footer>
     }
     else
     {
-         <footer id="footer" class="footer_area">
-            <div class="footer_copyright">
+          <footer id="footer" class="footer_area">
+             <div class="footer_copyright">
                 <div class="container">
-                    <div class="copyright">
-                        <p class="funk-tochka-script-font"> Разработал Фарносов Виктор в 2024</p>
-
-                    </div>
+                   <div class="copyright">
+                      <p class="funk-tochka-script-font"> Разработал Фарносов Виктор в 2024</p>
+                   </div>
                 </div>
-            </div>
-        </footer>
+             </div>
+          </footer>
     }
-</body>
+   </body>
 </html>

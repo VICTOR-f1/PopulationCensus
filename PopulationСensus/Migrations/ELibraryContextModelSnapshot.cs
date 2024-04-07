@@ -10,7 +10,7 @@ using PopulationСensus.Data;
 
 namespace PopulationСensus.Migrations
 {
-    [DbContext(typeof(ELibraryContext))]
+    [DbContext(typeof(СensusContext))]
     partial class ELibraryContextModelSnapshot : ModelSnapshot
     {
         protected override void BuildModel(ModelBuilder modelBuilder)

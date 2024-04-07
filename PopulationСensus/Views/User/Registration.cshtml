@@ -2,35 +2,91 @@
 @{
     Layout = null;
 }
-
 <html>
-    <head>
-        <link rel="stylesheet" href="~/styles/registration.css" />
-        <meta name="viewport" content="width=device-width" />
-            <link rel="shortcut icon" href="/favicon.png" type="image/png">
-        <title>@ViewBag.Title</title>
-    </head>
-    <body>
-        <div class="wrapper">
-            <div class="content">
-                 <form method="post">
-                    <h1>Электронная библиотека</h1>
-                    <h2>Регистрация</h2>
-                    <label asp-for="Fullname">Полное имя:</label>
-                    <input asp-for="Fullname" />
-                    <label asp-for="Username">Имя пользователя:</label>
-                    <input asp-for="Username" />
-                    <label asp-for="Password">Пароль:</label>
-                    <input asp-for="Password" />
-                    <label asp-for="RepeatPassword">Повторите пароль:</label>
-                    <input asp-for="RepeatPassword" />
-                    <p>Или вы можете <a asp-controller="User" asp-action="Login">войти в систему</a></p>
-                    <div asp-validation-summary="All" class="error-messages"></div>
-                    <input type="submit" value="Зарегистрироваться" />
-                </form>
-              </div>
-            <div class="side-image">
+   <head>
+      <meta charset="utf-8">
+      <meta http-equiv="X-UA-Compatible" content="IE=edge">
+      <meta name="viewport" content="width=device-width, initial-scale=1">
+      <link rel="stylesheet" href="../../css/fontawesome-all.min.css">
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+      <link rel="stylesheet" href="../../css/common-1.css">
+      <link rel="preconnect" href="https://fonts.gstatic.com">
+      <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;300;400;600;700&amp;display=swap" rel="stylesheet">
+      <link rel="stylesheet" href="~/styles/registration.css" />
+      <meta name="viewport" content="width=device-width" />
+      <link rel="shortcut icon" href="/favicon.png" type="image/png">
+   </head>
+   <head>
+   </head>
+   <body>
+      <div class="form-bg">
+         <div class="container">
+            <div class="row">
+               <div class="col-md-offset-3 col-md-6">
+                  <div class="form-container">
+                     <h3 class="title">Регистрация</h3>
+                     <form class="form-horizontal">
+                        <div class="form-group">
+                           <label>Полное имя</label>
+                           <input type="text" class="form-control" placeholder="Полное имя">
+                        </div>
+                        <div class="form-group">
+                           <label>Почта</label>
+                           <input type="email" class="form-control" placeholder="Почта">
+                        </div>
+                        <div class="form-group">
+                           <label>Пароль</label>
+                           <input type="password" class="form-control" placeholder="Пароль">
+                        </div>
+                        <div class="form-group">
+                           <label>Подтвердите пароль</label>
+                           <input type="password" class="form-control" placeholder="Подтвердите пароль">
+                        </div>
+                        <div class="line"></div>
+                        
+                        <h4 class="sub-title">Персональная информация</h4>
+                        <div class="form-group">
+                           <label>Номер телефона</label>
+                           <input type="text" class="form-control" placeholder="Phone Number">
+                        </div>
+                        <div class="form-group">
+                           <label>Дата рождения</label>
+                           <input type="text" class="form-control" placeholder="Добавь колендарь">
+                        </div>
+                        <div class="line"></div>
+                        <h4 class="sub-title">Адресс</h4>
+                         <div class="form-group">
+                            <label asp-for="State"></label>
+                            <input asp-for="State" class="form-control" />
+                            <span asp-validation-for="State" class="text-danger"></span>
+                         </div>
+                         <div class="form-group">
+                            <label asp-for="City"></label>
+                            <input asp-for="City" class="form-control" />
+                            <span asp-validation-for="City" class="text-danger"></span>
+                         </div>
+                         <div class="form-group">
+                            <label asp-for="Street"></label>
+                            <input asp-for="Street" class="form-control" />
+                            <span asp-validation-for="Street" class="text-danger"></span>
+                         </div>
+                         <div class="form-group">
+                            <label asp-for="ApartmentNumber"></label>
+                            <input asp-for="ApartmentNumber" class="form-control" />
+                            <span asp-validation-for="ApartmentNumber" class="text-danger"></span>
+                         </div>
+                         <div class="form-group">
+                            <label asp-for="ZipCode"></label>
+                            <input asp-for="ZipCode" class="form-control" />
+                            <span asp-validation-for="ZipCode" class="text-danger"></span>
+                         </div>
+                        <span class="signin-link">Уже есть акаунт? Нажмите чтобы<a asp-controller="User" asp-action="Login"> войти</a></span>
+                        <button class="btn signup">Создать акаунт</button>
+                     </form>
+                  </div>
+               </div>
             </div>
-        </div>
-    </body>
+         </div>
+      </div>
+   </body>
 </html>

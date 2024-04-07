@@ -11,9 +11,9 @@ namespace PopulationСensus.Infrastructure
 {    //where T : Entity - ограничивает параметр типа T, требуя, чтобы он был типом, наследующимся от класса Entity.
     public class EFRepository<T> : IRepository<T> where T : Entity
     {
-        private readonly ELibraryContext context;
+        private readonly СensusContext context;
 
-        public EFRepository(ELibraryContext context)
+        public EFRepository(СensusContext context)
         {
             this.context = context;
         }

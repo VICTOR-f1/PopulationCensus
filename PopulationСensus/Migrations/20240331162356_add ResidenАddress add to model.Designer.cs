@@ -11,7 +11,7 @@ using PopulationСensus.Data;
 
 namespace PopulationСensus.Migrations
 {
-    [DbContext(typeof(ELibraryContext))]
+    [DbContext(typeof(СensusContext))]
     [Migration("20240331162356_add ResidenАddress add to model")]
     partial class addResidenАddressaddtomodel
     {

@@ -1,83 +1,190 @@
-﻿@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,700;1,300;1,400&display=swap');
-
-* {
-    margin: 0;
-    padding: 0;
+﻿@font-face {
+	font-family: TochkaScript;
+	src: url(/font/Tochka_Script.ttf);
+	font-weight: 900;
+	font-style: normal
 }
 
-body {
-    display: flex;
-    justify-content: center;
-    font-family: 'Rubik', sans-serif;
-    background: url('/images/reg_bg.JPG');
-    background-size: cover
+.form-container {
+	background-color: #fff;
+	font-family: 'Titillium Web', sans-serif;
+	font-size: 0;
+	padding: 30px;
+	border-radius: 20px;
+	box-shadow: 0 0 25px -15px rgba(0, 0, 0, 0.3);
+	margin-top: 15px;
 }
 
-.wrapper {
-    background-color: #E9E8E0;
-    max-width: 1200px;
-    display: flex;
+.form-container .title {
+	font-family: "TochkaScript", sans-serif;
+	color: #e21a1a;
+	font-size: 25px;
+	font-weight: 600;
+	text-transform: capitalize;
+	margin: 0 0 25px;
 }
 
-.side-image {
-    align-items: center;
+.form-container .title:after {
+	content: '';
+	background-color: #e21a1a;
+	height: 3px;
+	width: 131px;
+	margin: 10px 0 0;
+	display: block;
+	clear: both;
 }
 
-.error-message ul {
-    color: orangered;
-    margin-bottom: 1em;
-    font-weight: lighter;
-    list-style-type: none;
+.form-container .sub-title {
+	color: #333;
+	font-size: 18px;
+	font-weight: 600;
+	text-align: center;
+	margin: 20px 0 25px;
 }
 
-.content {
-    padding: 3em 1.5em;
-    background: #0C1648;
-    color: #E9E8E0;
-    display: flex;
-    width: 1100px;
-    flex-direction: column;
-    justify-content: center;
+.form-container .form-horizontal {
+	font-size: 0;
+}
+.line {
+	border-bottom: 2px solid #D3D3D3;
+	margin-top: 5px;
+	width: 100%;
+}
+.form-container .form-horizontal .form-group {
+	color: #333;
+	width: 50%;
+	padding: 0 8px;
+	margin: 0 0 15px;
+	display: inline-block;
 }
 
-    .content input {
-        margin-bottom: 1em;
-        padding: 0.5em 1em;
-        background: #E9E8E0;
-    }
+.form-container .form-horizontal .form-group:nth-child(4) {
+	margin-bottom: 30px;
+}
 
-        .content input[type="submit"] {
-            border: 1px solid;
-            border-radius: 5px;
-            font-size: 1em;
-            color: #242C35;
-        }
+.form-container .form-horizontal .form-group label {
+	font-size: 17px;
+	font-weight: 600;
+}
 
-    .content h1, .content h2 {
-        margin-bottom: 1em;
-        align-self: center;
-    }
+.form-container .form-horizontal .form-control {
+	color: #888;
+	background: #fff;
+	font-weight: 400;
+	letter-spacing: 1px;
+	height: 40px;
+	padding: 6px 12px;
+	border-radius: 10px;
+	border: 2px solid #e7e7e7;
+	box-shadow: none;
+}
 
-    .content p {
-        margin-bottom: 2em;
-    }
+.form-container .form-horizontal .form-control:focus {
+	box-shadow: 0 0 5px #dcdcdc;
+}
 
-    .content a:link, .content a:visited {
-        color: #D2AB99;
-    }
+.form-container .form-horizontal .check-terms {
+	padding: 0 8px;
+	margin: 0 0 25px;
+}
 
-    .content a:hover {
-        text-decoration: none;
-    }
+.form-container .form-horizontal .check-terms .check-label {
+	color: #333;
+	font-size: 14px;
+	font-weight: 500;
+	font-style: italic;
+	vertical-align: top;
+	display: inline-block;
+}
 
-    .content form {
-        display: flex;
-        flex-direction: column;
-    }
+.form-container .form-horizontal .check-terms .checkbox {
+	height: 17px;
+	width: 17px;
+	min-height: auto;
+	margin: 2px 8px 0 0;
+	border: 2px solid #d9d9d9;
+	border-radius: 2px;
+	cursor: pointer;
+	display: inline-block;
+	position: relative;
+	appearance: none;
+	-moz-appearance: none;
+	-webkit-appearance: none;
+	transition: all 0.3s ease 0s;
+}
 
-.error-messages ul {
-    color: orangered;
-    margin-bottom: 1em;
-    font-weight: lighter;
-    list-style-type: none;
+.form-container .form-horizontal .check-terms .checkbox:before {
+	content: '';
+	height: 5px;
+	width: 9px;
+	border-bottom: 2px solid #00A9EF;
+	border-left: 2px solid #00A9EF;
+	transform: rotate(-45deg);
+	position: absolute;
+	left: 2px;
+	top: 2.5px;
+	transition: all 0.3s ease;
+}
+
+.form-container .form-horizontal .check-terms .checkbox:checked:before {
+	opacity: 1;
+}
+
+.form-container .form-horizontal .check-terms .checkbox:not(:checked):before {
+	opacity: 0;
+}
+
+.form-container .form-horizontal .check-terms .checkbox:focus {
+	outline: none;
+}
+
+.form-container .signin-link {
+	color: #333;
+	font-size: 14px;
+	width: calc(100% - 190px);
+	margin-right: 30px;
+	display: inline-block;
+	vertical-align: top;
+}
+
+.form-container .signin-link a {
+	font-family: "TochkaScript", sans-serif;
+	color: #e21a1a;
+	transition: all 0.3s ease 0s;
+}
+
+.form-container .signin-link a:hover {
+	text-decoration: underline;
+}
+
+.form-container .form-horizontal .signup {
+	background-color: #e21a1a;
+	font-size: 14px;
+	color: #fff;
+	font-weight: 700;
+	transition: all 0.4s ease-out 0s;
+	width: 150px;
+	padding: 8px 15px 9px;
+	border-radius: 10px;
+}
+
+.form-container .form-horizontal .btn:hover,
+.form-container .form-horizontal .btn:focus {
+	background-color: #fff;
+	color: #191919;
+	border-color: #DE3660;
+	-webkit-box-shadow: 0px 9px 25px 0px rgba(222, 54, 96, 0.15);
+	-moz-box-shadow: 0px 9px 25px 0px rgba(222, 54, 96, 0.15);
+	box-shadow: 0px 9px 25px 0px rgba(222, 54, 96, 0.15);
+}
+
+@media only screen and (max-width:479px) {
+	.form-container .form-horizontal .form-group {
+		width: 100%;
+	}
+
+	.form-container .signin-link {
+		width: 100%;
+		margin: 0 10px 15px;
+	}
 }

@@ -11,7 +11,7 @@ using PopulationСensus.Data;
 
 namespace PopulationСensus.Migrations
 {
-    [DbContext(typeof(ELibraryContext))]
+    [DbContext(typeof(СensusContext))]
     [Migration("20240402173847_FixDataType")]
     partial class FixDataType
     {

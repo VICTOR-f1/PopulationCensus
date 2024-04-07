@@ -11,10 +11,6 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 DbContextOptionsBuilder optionsBuilder = new DbContextOptionsBuilder();
 optionsBuilder.UseNpgsql(builder.Configuration.GetConnectionString("local"));
-using (var context = new ELibraryContext(optionsBuilder.Options))
-{
-    EFInitialSeed.Seed(context);
-}
 builder.Services.AddControllersWithViews();
 //аутентификации на основе Cookies
 builder.Services
@@ -29,7 +25,7 @@ builder.Services
         opt.AccessDeniedPath = "/User/AccessDenied";
     });
 
-builder.Services.AddDbContext<ELibraryContext>(opt => opt.UseNpgsql(builder.Configuration.GetConnectionString("local")));
+builder.Services.AddDbContext<СensusContext>(opt => opt.UseNpgsql(builder.Configuration.GetConnectionString("local")));
 //Scoped: для каждого запроса создается свой объект сервиса.
 //То есть если в течение одного запроса есть несколько обращений
 //к одному сервису, то при всех этих обращениях будет использоваться один и тот же объект сервиса.

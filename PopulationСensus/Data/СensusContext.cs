@@ -3,9 +3,9 @@ using PopulationСensus.Domain.Entities;
 
 namespace PopulationСensus.Data
 {
-    public class ELibraryContext : DbContext
+    public class СensusContext : DbContext
     {
-        public ELibraryContext(DbContextOptions options) : base(options)
+        public СensusContext(DbContextOptions options) : base(options)
         {
 
         }

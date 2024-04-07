@@ -21,5 +21,25 @@ namespace PopulationСensus.ViewModels
         [Compare(nameof(Password), ErrorMessage = "Пароли не совпадают")]
         [DataType(DataType.Password)]
         public string RepeatPassword { get; set; }
+
+        [Required(ErrorMessage = "Не указана улица")]
+        [Display(Name = "Улица")]
+        public string Street { get; set; } = null!;
+
+        [Required(ErrorMessage = "Не указан город")]
+        [Display(Name = "Город")]
+        public string City { get; set; } = null!;
+
+        [Required(ErrorMessage = "Не указана область")]
+        [Display(Name = "Область")]
+        public string State { get; set; } = null!;
+
+        [Required(ErrorMessage = "Не указан номер дома")]
+        [Display(Name = "Номер дома")]
+        public short ApartmentNumber { get; set; }
+
+        [Required(ErrorMessage = "Не указан индекс")]
+        [Display(Name = "Индекс")]
+        public int ZipCode { get; set; }
     }
 }

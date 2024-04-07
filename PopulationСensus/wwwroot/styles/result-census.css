@@ -1,12 +1,4 @@
-﻿/*.main-content-table {
-    color: #a09f9d;
-}
-.main-content {
-    background-color: #D5D4D3;
-    margin-top: 100px;
-}
-*/
-.main-content-card {
+﻿.main-content-card {
     background: white;
     padding: 15px;
     box-shadow: 1px 3px 5px #aaa;
