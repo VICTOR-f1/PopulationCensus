@@ -5,10 +5,7 @@ namespace PopulationСensus.ViewModels
 {
     public class ResidentViewModel
     {
-        [Required(ErrorMessage = "Не указан адресс")]
-        [Display(Name = "Адресс")]
-        public int AddressId { get; set; }
-        public List<SelectListItem> Address { get; set; } = new();
+      
         [Required(ErrorMessage = "Не указано имя")]
         [Display(Name = "Полное имя")]
         public string FullName { get; set; } = null!;
@@ -19,8 +16,23 @@ namespace PopulationСensus.ViewModels
 
         [Required(ErrorMessage = "Не указана улица")]
         [Display(Name = "Улица")]
-        public string Street { get; set; }
+        public string Street { get; set; } = null!;
 
+        [Required(ErrorMessage = "Не указан город")]
+        [Display(Name = "Город")]
+        public string City { get; set; } = null!;
+
+        [Required(ErrorMessage = "Не указана область")]
+        [Display(Name = "Область")]
+        public string State { get; set; } = null!;
+
+        [Required(ErrorMessage = "Не указан номер улицы")]
+        [Display(Name = "Номер улицы")]
+        public short ApartmentNumber { get; set; }
+
+        [Required(ErrorMessage = "Не указан индекс")]
+        [Display(Name = "Индекс")]
+        public int ZipCode { get; set; }
 
 
     }

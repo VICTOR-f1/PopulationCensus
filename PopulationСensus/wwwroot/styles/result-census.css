@@ -17,6 +17,7 @@
     background-color: #f4f4f8;
     margin-top: 79px;
     padding-bottom: 100px;
+    min-height: 600px;
 }
 
 .main-content-table {
@@ -24,7 +25,6 @@
     box-shadow: 1px 2px 3px #aaa;
     margin: 15px;
 }
-
 td, th {
     border-left: solid black 1px;
     border-top: solid black 1px;
@@ -32,4 +32,7 @@ td, th {
 
 .table-dark {
     background-color: #002B43;
+}
+.searchbar{
+    margin-left:15px;
 }

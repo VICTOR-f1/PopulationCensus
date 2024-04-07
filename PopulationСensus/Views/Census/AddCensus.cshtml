@@ -8,14 +8,12 @@ For more information on enabling MVC for empty projects, visit https://go.micros
    <link rel="shortcut icon" href="/favicon.png" type="image/png">
    <link rel="stylesheet" href="/styles/add-census.css">
    <meta name="viewport" content="width=device-width" />
-   <title>@ViewBag.Title</title>
-    <script src="https://api-maps.yandex.ru/2.1/?lang=ru_RU&suggest_apikey=d2f21fa9-56df-4184-9555-8b27172e876b" type="text/javascript"></script>
 
 </head>
 <body>
    <div class="resident-form">
       <form class="m-1 p-1" method="post">
-         <h1>Добавление жителя: </h1>
+         <h2>Добавление жителя</h2>
          <div class="form-group">
             <label  asp-for="FullName"></label>
             <input class="form-control" asp-for="FullName" />
@@ -26,18 +24,36 @@ For more information on enabling MVC for empty projects, visit https://go.micros
             <input class="form-control" asp-for="DateOfBirth" />
             <span asp-validation-for="DateOfBirth" class="text-danger"></span>
          </div>
-         <div class="form-group">
-            <label asp-for="AddressId"></label>
-            <select asp-for="AddressId" asp-items="Model.Address"></select>
-            <span asp-validation-for="AddressId" class="text-danger"></span>
-
-         </div>
+         <h2>Добавление адресса жителя</h2>
         <div class="form-group">
-        <label asp-for="Street">Добавить адресс:</label>
-        <input asp-for="Street" class="form-control" name="address" id="address"  />
-   
-         <input type="submit" value="Сохранить" />
+            <label asp-for="State"></label>
+            <input asp-for="State" class="form-control" />
+            <span asp-validation-for="State" class="text-danger"></span>
         </div>
+          <div class="form-group">
+            <label asp-for="City"></label>
+            <input asp-for="City" class="form-control" />
+            <span asp-validation-for="City" class="text-danger"></span>
+        </div>
+          <div class="form-group">
+            <label asp-for="Street"></label>
+            <input asp-for="Street" class="form-control" />
+            <span asp-validation-for="Street" class="text-danger"></span>
+        </div>
+          <div class="form-group">
+            <label asp-for="ApartmentNumber"></label>
+            <input asp-for="ApartmentNumber" class="form-control" />
+            <span asp-validation-for="ApartmentNumber" class="text-danger"></span>
+        </div>
+          <div class="form-group">
+            <label asp-for="ZipCode"></label>
+            <input asp-for="ZipCode" class="form-control" />
+            <span asp-validation-for="ZipCode" class="text-danger"></span>
+        </div>
+        <div class="form-group" id="button-submit">
+            <input type="submit" value="Сохранить" />
+        </div>
+
       </form>
       <div class="row">
   
@@ -45,35 +61,4 @@ For more information on enabling MVC for empty projects, visit https://go.micros
 </div>
    </div>
 
-<script type="text/javascript">
-ymaps.ready(init);
-function init(){
-    var suggestView=new ymaps.SuggestView('address');
-    suggestView.events.add('select',function(event){
-        var selected=event.get('item').value;
-        ymaps.geocode(selected,{
-            results:1
-        }).then(function(res){
-            return ymaps.geocode(res.geoObjects.get(0).geometry.getCoordinates(),{
-                kind:'district',
-                results:10
-            }).then(function(res){
-                var founded=res['metaData']['geocoder']['found'];
-                $('label.suggest .description').html("");
-                for(i=0;i<=founded-1;i++){
-                    var info=res.geoObjects.get(i).properties.getAll();
-                    console.log(info);
-                    var name=info['name'];
-                    if(name.search('район')!=-1){
-                        name=name.replace(' район','');
-                        console.log(name);
-                    }
-                }
-            });
-        });
-    });
-document.getElementsByTagName('ymaps')[0].style.top = document.getElementsByTagName('ymaps')[0].style.top.match(/d+/)*1 + 5 + 'px';
-document.getElementsByTagName('ymaps')[0].style.left = document.getElementsByTagName('ymaps')[0].style.left.match(/d+/)*1 - 1 + 'px';
-}
-</script>
 </body>

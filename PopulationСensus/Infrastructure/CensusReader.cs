@@ -25,7 +25,21 @@ namespace PopulationСensus.Infrastructure
             {
                 var a = await GetAllАddressAsync();
                 /*переделать если останеться время*/
-                int residentAddress = a.Find(resAddress => resAddress.City.Contains(searchString)).Id;
+                int residentAddress = 0;
+                try
+                {
+                    residentAddress = a.Find(resAddress =>
+                    resAddress.State.Contains(searchString) ||
+                    resAddress.City.Contains(searchString) ||
+                    resAddress.Street.Contains(searchString) ||
+                    resAddress.ApartmentNumber.ToString().Contains(searchString) ||
+                    resAddress.Street.Contains(searchString)).Id;
+                }
+                catch (Exception ex)
+                {
+                    
+                }
+                
 
                 return await residents.FindWhere(resident =>
                 resident.AddressId == residentAddress ||
@@ -35,12 +49,12 @@ namespace PopulationСensus.Infrastructure
         }
 
 
-        public async Task<Resident?> FindResidentAsync(int residentId) =>  await residents.FindAsync(residentId);
+        public async Task<Resident?> FindResidentAsync(int residentId) => await residents.FindAsync(residentId);
 
         public async Task<List<Resident>> GetAllResidentAsync() => await residents.GetAllAsync();
 
-        public async Task<List<Address>> GetAllАddressAsync()=> await addresses.GetAllAsync();
-        
-        
+        public async Task<List<Address>> GetAllАddressAsync() => await addresses.GetAllAsync();
+
+
     }
 }

@@ -34,7 +34,7 @@ namespace PopulationСensus.Infrastructure
             context.Entry(entity).State = EntityState.Deleted;
             await context.SaveChangesAsync();
         }
-
+       
         public async Task<T?> FindAsync(int id)
         {
             return await context.Set<T>().FindAsync(id);

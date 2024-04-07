@@ -6,6 +6,8 @@ using PopulationСensus.Domain.Services;
 using PopulationСensus.ViewModels;
 using System.Security.Claims;
 using System.Security.Principal;
+using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 
 namespace PopulationСensus.Controllers
 {
@@ -111,6 +113,8 @@ namespace PopulationСensus.Controllers
         {
             return View();
         }
+     
+    
 
     }
 }

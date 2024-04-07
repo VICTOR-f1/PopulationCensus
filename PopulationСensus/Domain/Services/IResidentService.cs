@@ -7,5 +7,8 @@ namespace PopulationСensus.Domain.Services
         Task AddResident(Resident resident);
         Task UpdateResident(Resident resident);
         Task DeleteResident(Resident resident);
+        Task AddAddress(Address address);
+        Task UpdateAddress(Address address);
+        Task DeleteAddress(Address address);
     }
 }

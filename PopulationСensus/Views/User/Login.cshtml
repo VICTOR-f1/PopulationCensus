@@ -6,29 +6,41 @@
 
 <html>
 <head>
-    <link rel="stylesheet" href="/styles/login.css" />
     <link rel="shortcut icon" href="/favicon.png" type="image/png">
-
+    <link rel="stylesheet" href="/styles/login.css">
+    <link rel="stylesheet" href="/styles/material-design-iconic-font.min.css">
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
 </head>
 <body>
-    <div class="wrapper">
-        <div class="content">
-            <form method="post">
-                <h1>Система для подсчета голосов на избирательных участках</h1>
-                <h2>Вход в систему</h2>
-                <label asp-for="Username">Имя пользователя:</label>
-                <input type="text" name="username" />
-                <label asp-for="Password">Пароль:</label>
-                <input type="password" name="password" />
-                <p>Или вы можете <a asp-controller="User" asp-action="Registration">зарегистрироваться</a></p>
-                 <div asp-validation-summary="All" class="error-messages"></div>
-                <input type="submit" value="Вход в систему" />
-            </form>
-        </div>
-        <div class="side-image">
-        </div>
+        <section class="sign-in">
+            <div class="container">
+                <div class="signin-content">
+                    <div class="signin-image">
+                        <figure><img src="/images/signin-image.jpg" alt="sing up image"></figure>
+                    </div>
+                    <div class="signin-form">
+                        <h2 class="form-title">Войти в акаунт</h2>
+                        <form method="POST" class="register-form" id="login-form">
+                            <div class="form-group">
+                                <input type="text"  asp-for="Username"  placeholder="Логин"/>
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="Password" type="password"  placeholder="Пароль"/>
+                            </div>
+
+                            <div class="form-group form-button">
+                                <input  type="submit" class="form-submit" value="Войти"/>
+                            </div>
+                        </form>
+                        <div class="social-login">
+                            <span class="social-label">или</span>
+                             <a asp-controller="User" asp-action="Registration" class="signup-image-link">cоздайте акаунт</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </div>
 </body>
 </html>

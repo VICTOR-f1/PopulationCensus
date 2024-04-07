@@ -562,12 +562,10 @@ p {
 }
 
 .about_image {
-    position: relative;
     z-index: 5;
 }
 
     .about_image::before {
-        position: absolute;
         content: '';
         width: 356px;
         height: 301px;

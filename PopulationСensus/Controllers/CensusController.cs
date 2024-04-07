@@ -11,14 +11,17 @@ namespace PopulationСensus.Controllers
 {
     public class CensusController : Controller
     {
+        private readonly ELibraryContext db;
+
         private readonly ICensusReader reader;
         private readonly IResidentService residentService;
         private readonly IWebHostEnvironment appEnvironment;
-        public CensusController(ICensusReader reader, IResidentService residentService, IWebHostEnvironment appEnvironment)
+        public CensusController(ICensusReader reader, IResidentService residentService, IWebHostEnvironment appEnvironment,ELibraryContext db)
         {
             this.reader = reader;
             this.residentService = residentService;
             this.appEnvironment = appEnvironment;
+            this.db = db;
         }
 
         [Authorize]
@@ -34,28 +37,20 @@ namespace PopulationСensus.Controllers
                 Resident = await reader.FindResidentAsync(searchString),
                 Address = await reader.GetAllАddressAsync(),
             };
-            var a = await reader.GetAllАddressAsync();
-
-            int residentAddress = a.Find(resAddress => resAddress.City.Contains(searchString)).Id;
-            ViewBag.text2=residentAddress;
-
+            
+           
             return View(viewModel);
         }
 
         [HttpGet]
-        [Authorize(Roles = "admin")]
+        [Authorize]
         public async Task<IActionResult> AddCensus()
         {
-            var viewModel = new ResidentViewModel();
-            var address = await reader.GetAllАddressAsync();
-            var items = address.Select(a =>
-              new SelectListItem { Text = a.City, Value = a.Id.ToString() });
-
-            viewModel.Address.AddRange(items);
-            return View(viewModel);
+            
+            return View();
         }
         [HttpPost]
-        [Authorize(Roles = "admin")]
+        [Authorize]
         public async Task<IActionResult> AddCensus(ResidentViewModel residentVm)
         {
             if (!ModelState.IsValid)
@@ -64,12 +59,24 @@ namespace PopulationСensus.Controllers
             }
             try
             {
-                var db = new ELibraryContext();
-                var resident = new Resident
+                var address = new Address
+                {   
+                    ZipCode = residentVm.ZipCode,
+                    ApartmentNumber = residentVm.ApartmentNumber,
+                    Street=residentVm.Street,
+                    City = residentVm.City,
+                    State = residentVm.State
+                   
+                };
+                await residentService.AddAddress(address);
+
+                int adressId = address.Id;
+               
+                var resident = new Resident()
                 {
                     DateOfBirth = residentVm.DateOfBirth,
                     FullName = residentVm.FullName,
-                    AddressId = residentVm.AddressId,
+                    AddressId= adressId
                 };
                 await residentService.AddResident(resident);
             }
