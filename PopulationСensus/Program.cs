@@ -26,14 +26,12 @@ builder.Services
     });
 
 builder.Services.AddDbContext<СensusContext>(opt => opt.UseNpgsql(builder.Configuration.GetConnectionString("local")));
-//Scoped: для каждого запроса создается свой объект сервиса.
-//То есть если в течение одного запроса есть несколько обращений
-//к одному сервису, то при всех этих обращениях будет использоваться один и тот же объект сервиса.
 builder.Services.AddScoped<IRepository<User>, EFRepository<User>>();
 builder.Services.AddScoped<IRepository<Role>, EFRepository<Role>>();
-builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IRepository<Address>, EFRepository<Address>>();
-builder.Services.AddScoped<IUserReader, CensusReader>();
+builder.Services.AddScoped<IUserService, UserService>();
+builder.Services.AddScoped<IUserReader, UserReader>();
+
 
 var app = builder.Build();
 app.UseStaticFiles();

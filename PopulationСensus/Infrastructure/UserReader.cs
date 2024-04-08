@@ -5,12 +5,12 @@ using static System.Reflection.Metadata.BlobBuilder;
 
 namespace PopulationСensus.Infrastructure
 {
-    public class CensusReader : IUserReader
+    public class UserReader : IUserReader
     {
         private readonly IRepository<User> users;
         private readonly IRepository<Address> addresses;
 
-        public CensusReader(IRepository<User> users, IRepository<Address> addresses)
+        public UserReader(IRepository<User> users, IRepository<Address> addresses)
         {
             this.users = users;
             this.addresses = addresses;
@@ -35,7 +35,7 @@ namespace PopulationСensus.Infrastructure
                     resAddress.ApartmentNumber.ToString().Contains(searchString) ||
                     resAddress.Street.Contains(searchString)).Id;
                 }
-                catch (Exception ex)
+                catch 
                 {
                     
                 }
