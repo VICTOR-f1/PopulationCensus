@@ -1,10 +1,11 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Numerics;
 
 namespace PopulationСensus.Domain.Entities
 {
     public class User : Entity
     {
-         [StringLength(250)]
+        [StringLength(250)]
         public string FullName { get; set; } = null!;
 
         [DataType(DataType.Date)]
@@ -25,5 +26,9 @@ namespace PopulationСensus.Domain.Entities
 
         public int AddressId { get; set; }
         public Address Address { get; set; } = null!;
+
+        [StringLength(15)]
+        public string PhoneNumber { get; set; }
+
     }
 }

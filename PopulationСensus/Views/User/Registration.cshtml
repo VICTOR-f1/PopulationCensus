@@ -4,17 +4,15 @@
 }
 <html>
    <head>
-      <meta charset="utf-8">
-      <meta http-equiv="X-UA-Compatible" content="IE=edge">
-      <meta name="viewport" content="width=device-width, initial-scale=1">
+     
       <link rel="stylesheet" href="../../css/fontawesome-all.min.css">
       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
       <link rel="stylesheet" href="../../css/common-1.css">
-      <link rel="preconnect" href="https://fonts.gstatic.com">
       <link href="https://fonts.googleapis.com/css2?family=Titillium+Web:wght@200;300;400;600;700&amp;display=swap" rel="stylesheet">
-      <link rel="stylesheet" href="~/styles/registration.css" />
+      <link rel="stylesheet" href="/styles/registration.css" />
       <meta name="viewport" content="width=device-width" />
       <link rel="shortcut icon" href="/favicon.png" type="image/png">
+     <title>@ViewBag.Title</title>
    </head>
    <head>
    </head>
@@ -25,33 +23,39 @@
                <div class="col-md-offset-3 col-md-6">
                   <div class="form-container">
                      <h3 class="title">Регистрация</h3>
-                     <form class="form-horizontal">
+                     <form  method="POST" class="form-horizontal register-form" id="login-form">
                         <div class="form-group">
-                           <label>Полное имя</label>
-                           <input type="text" class="form-control" placeholder="Полное имя">
+                           <label asp-for="Fullname"></label>
+                           <input asp-for="Fullname" type="text" class="form-control">
+                           <span asp-validation-for="Fullname"  class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                           <label>Почта</label>
-                           <input type="email" class="form-control" placeholder="Почта">
+                           <label asp-for="Email"></label>
+                           <input asp-for="Email" type="email" class="form-control">
+                           <span asp-validation-for="Email"  class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                           <label>Пароль</label>
-                           <input type="password" class="form-control" placeholder="Пароль">
+                           <label asp-for="Password"></label>
+                           <input asp-for="Password" type="password" class="form-control">
+                           <span asp-validation-for="Password"  class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                           <label>Подтвердите пароль</label>
-                           <input type="password" class="form-control" placeholder="Подтвердите пароль">
+                           <label asp-for="RepeatPassword"></label>
+                           <input asp-for="RepeatPassword" type="password" class="form-control">
+                           <span asp-validation-for="RepeatPassword"  class="text-danger"></span>
                         </div>
                         <div class="line"></div>
                         
                         <h4 class="sub-title">Персональная информация</h4>
                         <div class="form-group">
-                           <label>Номер телефона</label>
-                           <input type="text" class="form-control" placeholder="Phone Number">
+                           <label asp-for="PhoneNumber"></label>
+                           <input  asp-for="PhoneNumber" type="tel" class="form-control">
+                           <span asp-validation-for="PhoneNumber"  class="text-danger"></span>
                         </div>
                         <div class="form-group">
-                           <label>Дата рождения</label>
-                           <input type="text" class="form-control" placeholder="Добавь колендарь">
+                           <label asp-for="DateOfBirth"></label>
+                           <input asp-for="DateOfBirth"  class="form-control">
+                           <span asp-validation-for="DateOfBirth"  class="text-danger"></span>
                         </div>
                         <div class="line"></div>
                         <h4 class="sub-title">Адресс</h4>
@@ -81,7 +85,7 @@
                             <span asp-validation-for="ZipCode" class="text-danger"></span>
                          </div>
                         <span class="signin-link">Уже есть акаунт? Нажмите чтобы<a asp-controller="User" asp-action="Login"> войти</a></span>
-                        <button class="btn signup">Создать акаунт</button>
+                        <button type="submit" class="btn signup">Создать акаунт</button>
                      </form>
                   </div>
                </div>

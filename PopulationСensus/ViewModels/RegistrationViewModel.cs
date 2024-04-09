@@ -4,22 +4,34 @@ namespace PopulationСensus.ViewModels
 {
     public class RegistrationViewModel
     {
-        [MinLength(2, ErrorMessage = "Имя не может быть короче двух символов")]
-        [MaxLength(50, ErrorMessage = "Максимальная длина имени составляет 50 знаков")]
+        [MinLength(5, ErrorMessage = "ФИО не может быть короче двух символов")]
+        [MaxLength(250, ErrorMessage = "Максимальная длина ФИО составляет 100 символов")]
+        [Required(ErrorMessage = "Не указано ФИО")]
+        [Display(Name = "ФИО")]
         public string Fullname { get; set; }
 
-        [MinLength(3, ErrorMessage = "Имя пользователя должно быть 3 или более символов")]
-        [MaxLength(50, ErrorMessage = "Имя пользователя не должно превышать 50 символов")]
-        [RegularExpression(@"[A-Za-z0-9_]*",
-            ErrorMessage = "Имя пользователя должно содержать только латинские символы, цифры и символ подчеркивания")]
-        public string Username { get; set; }
+        [Required(ErrorMessage = "Не указана дата рождения")]
+        [Display(Name = "Дата рождения")]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        public DateTime DateOfBirth { get; set; }
+
+
+        [MinLength(3, ErrorMessage = "Длинна почты не должна быть меньше трёх символов")]
+        [MaxLength(150, ErrorMessage = "Длина почты не должна превышать сто пятьдесят символов")]
+        [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$", ErrorMessage = "Некоректная почта")]
+        public string Email { get; set; }
+
 
         [MinLength(8, ErrorMessage = "Пароль должен быть длиной 8 или более символов")]
         [DataType(DataType.Password)]
+        [Required(ErrorMessage = "Не указан пароль")]
+        [Display(Name = "Пароль")]
         public string Password { get; set; }
 
         [Compare(nameof(Password), ErrorMessage = "Пароли не совпадают")]
         [DataType(DataType.Password)]
+        [Required(ErrorMessage = "Не указан пароль")]
+        [Display(Name = "Подтвердите пароль")]
         public string RepeatPassword { get; set; }
 
         [Required(ErrorMessage = "Не указана улица")]
@@ -41,5 +53,11 @@ namespace PopulationСensus.ViewModels
         [Required(ErrorMessage = "Не указан индекс")]
         [Display(Name = "Индекс")]
         public int ZipCode { get; set; }
+
+        [Required(ErrorMessage = "Не указан номер телефона")]
+        [Display(Name = "Номер телефона")]
+        [MinLength(10, ErrorMessage = "Номер телефона не может быть короче десяти цифр")]
+        [MaxLength(11, ErrorMessage = "Максимальная длина номера составляет одинадцать цифр")]
+        public string PhoneNumber { get; set; }
     }
 }

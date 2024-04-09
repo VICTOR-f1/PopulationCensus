@@ -8,7 +8,7 @@
 .form-container {
 	background-color: #fff;
 	font-family: 'Titillium Web', sans-serif;
-	font-size: 0;
+	font-size: 14px;
 	padding: 30px;
 	border-radius: 20px;
 	box-shadow: 0 0 25px -15px rgba(0, 0, 0, 0.3);
@@ -33,7 +33,7 @@
 	display: block;
 	clear: both;
 }
-
+	/**/
 .form-container .sub-title {
 	color: #333;
 	font-size: 18px;
@@ -43,12 +43,16 @@
 }
 
 .form-container .form-horizontal {
-	font-size: 0;
+	font-size: 0px;
 }
 .line {
 	border-bottom: 2px solid #D3D3D3;
 	margin-top: 5px;
 	width: 100%;
+}
+.text-danger {
+	color: #a94442;
+	font-size:14px;
 }
 .form-container .form-horizontal .form-group {
 	color: #333;
@@ -97,6 +101,7 @@
 	display: inline-block;
 }
 
+
 .form-container .form-horizontal .check-terms .checkbox {
 	height: 17px;
 	width: 17px;
@@ -112,7 +117,6 @@
 	-webkit-appearance: none;
 	transition: all 0.3s ease 0s;
 }
-
 .form-container .form-horizontal .check-terms .checkbox:before {
 	content: '';
 	height: 5px;

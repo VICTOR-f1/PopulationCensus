@@ -61,7 +61,7 @@ namespace PopulationСensus.Infrastructure
         {
             // проверяем, есть ли пользователь с таким же username
             bool userExists = await IsUserExistsAsync(username);
-            if (userExists) throw new ArgumentException("Username already exists");
+            if (userExists) throw new ArgumentException("Email already exists");
 
             // находим роль "клиент"
             Role? clientRole = (await roles.FindWhere(r => r.Name == "client")).FirstOrDefault();

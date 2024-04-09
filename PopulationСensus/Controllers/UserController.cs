@@ -67,14 +67,14 @@ namespace PopulationСensus.Controllers
             {
                 return View(registration);
             }
-            if (await userService.IsUserExistsAsync(registration.Username))
+            if (await userService.IsUserExistsAsync(registration.Email))
             {
-                ModelState.AddModelError("user_exists", $"Имя пользователя {registration.Username} уже существует!");
+                ModelState.AddModelError("user_exists", $"Почта {registration.Email} уже существует!");
                 return View(registration);
             }
             try
             {
-                await userService.RegistrationAsync(registration.Fullname, registration.Username, registration.Password);
+                await userService.RegistrationAsync(registration.Fullname, registration.Email, registration.Password);
                 return RedirectToAction("RegistrationSuccess", "User");
             }
             catch
