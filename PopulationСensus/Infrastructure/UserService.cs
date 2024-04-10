@@ -51,35 +51,46 @@ namespace PopulationСensus.Infrastructure
         {
             username = username.Trim();
             User? found = (await users.FindWhere(u => u.Email == username)).FirstOrDefault();
-            //возвращает логическое значение `true`,
-            //если переменная `found` не равна `null`,
-            //и `false`, если переменная `found` равна `null`
             return found is not null;
         }
 
-        public async Task<User> RegistrationAsync(string fullname, string username, string password)
+        public async Task<User> RegistrationAsync(string fullname, string username, string password,DateTime dateOfBirth, string phoneNumber, string state, string city, string street, short apartmentNumber, int zipCode)
         {
             // проверяем, есть ли пользователь с таким же username
             bool userExists = await IsUserExistsAsync(username);
             if (userExists) throw new ArgumentException("Email already exists");
 
-            // находим роль "клиент"
-            Role? clientRole = (await roles.FindWhere(r => r.Name == "client")).FirstOrDefault();
-
-            if (clientRole is null)
-                throw new InvalidOperationException("Role 'client' not found in database");
-
-            // добавляем пользователя
-            User toAdd = new User
+            Address address = new Address
             {
+                State=state,
+                City=city,
+                Street=street,
+                ApartmentNumber=apartmentNumber,
+                ZipCode=zipCode
+            };
+            await AddAddress(address);
+            int adressId = address.Id;
+            //иногда отпадает id разабраться почему
+            User addUser = new User
+            {
+              
                 FullName = fullname,
                 Email = username,
                 Salt = GetSalt(),
-                RoleId = clientRole.Id
-            };
-            toAdd.Password = GetSha256(password, toAdd.Salt);
+                RoleId = 1,
+                DateOfBirth= dateOfBirth,
+                PhoneNumber = phoneNumber,
+                AddressId = adressId,
 
-            return await users.AddAsync(toAdd);
+            };
+            Debug.WriteLine("Send to debug output.");
+            Debug.WriteLine("Send to debug output.");
+            Debug.WriteLine("Send to debug output.");
+            Debug.WriteLine("Send to debug output.");
+
+            Debug.WriteLine(addUser.Id);
+            addUser.Password = GetSha256(password, addUser.Salt);
+            return await users.AddAsync(addUser);
         }
         public async Task AddResident(User resident)
         {

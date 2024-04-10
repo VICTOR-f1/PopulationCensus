@@ -12,8 +12,8 @@ using PopulationСensus.Data;
 namespace PopulationСensus.Migrations
 {
     [DbContext(typeof(СensusContext))]
-    [Migration("20240407113640_UnificationUsersResident")]
-    partial class UnificationUsersResident
+    [Migration("20240410200101_AddingUserAnswer1")]
+    partial class AddingUserAnswer1
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -80,20 +80,27 @@ namespace PopulationСensus.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
+                    b.Property<int>("AddressId")
+                        .HasColumnType("integer");
+
                     b.Property<DateTime>("DateOfBirth")
                         .HasColumnType("timestamp without time zone");
+
+                    b.Property<string>("Email")
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
 
                     b.Property<string>("FullName")
                         .HasMaxLength(250)
                         .HasColumnType("character varying(250)");
 
-                    b.Property<string>("Email")
-                        .HasMaxLength(100)
-                        .HasColumnType("character varying(100)");
-
                     b.Property<string>("Password")
                         .HasMaxLength(256)
                         .HasColumnType("character varying(256)");
+
+                    b.Property<string>("PhoneNumber")
+                        .HasMaxLength(15)
+                        .HasColumnType("character varying(15)");
 
                     b.Property<int>("RoleId")
                         .HasColumnType("integer");
@@ -102,22 +109,80 @@ namespace PopulationСensus.Migrations
                         .HasMaxLength(100)
                         .HasColumnType("character varying(100)");
 
+                    b.Property<int?>("UserAnswersId")
+                        .HasColumnType("integer");
+
                     b.HasKey("Id");
 
+                    b.HasIndex("AddressId");
+
                     b.HasIndex("RoleId");
+
+                    b.HasIndex("UserAnswersId")
+                        .IsUnique();
 
                     b.ToTable("Users");
                 });
 
+            modelBuilder.Entity("PopulationСensus.Domain.Entities.UserAnswer", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("Gender")
+                        .HasColumnType("boolean");
+
+                    b.Property<byte>("NumberChildrenBorn")
+                        .HasColumnType("smallint");
+
+                    b.Property<string>("PlaceBirth")
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
+
+                    b.Property<short>("YearBirthFirstChild")
+                        .HasColumnType("smallint");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("UserAnswer");
+                });
+
             modelBuilder.Entity("PopulationСensus.Domain.Entities.User", b =>
                 {
+                    b.HasOne("PopulationСensus.Domain.Entities.Address", "Address")
+                        .WithMany("User")
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("PopulationСensus.Domain.Entities.Role", "Role")
                         .WithMany()
                         .HasForeignKey("RoleId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("PopulationСensus.Domain.Entities.UserAnswer", "UserAnswers")
+                        .WithOne("User")
+                        .HasForeignKey("PopulationСensus.Domain.Entities.User", "UserAnswersId");
+
+                    b.Navigation("Address");
+
                     b.Navigation("Role");
+
+                    b.Navigation("UserAnswers");
+                });
+
+            modelBuilder.Entity("PopulationСensus.Domain.Entities.Address", b =>
+                {
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("PopulationСensus.Domain.Entities.UserAnswer", b =>
+                {
+                    b.Navigation("User");
                 });
 #pragma warning restore 612, 618
         }

@@ -74,7 +74,7 @@ namespace PopulationСensus.Controllers
             }
             try
             {
-                await userService.RegistrationAsync(registration.Fullname, registration.Email, registration.Password);
+                await userService.RegistrationAsync(registration.Fullname, registration.Email, registration.Password,registration.DateOfBirth,registration.PhoneNumber,registration.State,registration.City,registration.Street,registration.ApartmentNumber,registration.ZipCode);
                 return RedirectToAction("RegistrationSuccess", "User");
             }
             catch

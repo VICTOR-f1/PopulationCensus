@@ -220,23 +220,23 @@ input:-moz-placeholder {
 }
 
 input:focus {
-	border-bottom: 1px solid #222;
+	border-bottom: 2px solid #e21a1a;
 }
 
 input:focus::-webkit-input-placeholder {
-	color: #222;
+	color: #e21a1a;
 }
 
 input:focus::-moz-placeholder {
-	color: #222;
+	color: #e21a1a;
 }
 
 input:focus:-ms-input-placeholder {
-	color: #222;
+	color: #e21a1a;
 }
 
 input:focus:-moz-placeholder {
-	color: #222;
+	color: #e21a1a;
 }
 
 input[type=checkbox]:not(old) {

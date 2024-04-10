@@ -52,11 +52,11 @@ namespace PopulationСensus.Controllers
             //}
             //try
             //{
-            //    var address = new Address
-            //    {   
+            //    var userAnswers = new UserAnswers
+            //    {
             //        ZipCode = residentVm.ZipCode,
             //        ApartmentNumber = residentVm.ApartmentNumber,
-            //        Street=residentVm.Street,
+            //        Street = residentVm.Street,
             //        City = residentVm.City,
             //        State = residentVm.State
 
@@ -69,7 +69,7 @@ namespace PopulationСensus.Controllers
             //    {
             //        DateOfBirth = residentVm.DateOfBirth,
             //        FullName = residentVm.FullName,
-            //        AddressId= adressId
+            //        AddressId = adressId
             //    };
             //    await residentService.AddResident(resident);
             //}
