@@ -33,7 +33,6 @@ builder.Services.AddScoped<IRepository<UserAnswer>, EFRepository<UserAnswer>>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserReader, UserReader>();
 
-
 var app = builder.Build();
 app.UseStaticFiles();
 app.UseRouting();

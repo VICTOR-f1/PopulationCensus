@@ -41,7 +41,6 @@ namespace PopulationСensus.Infrastructure
                     
                 }
                 
-
                 return await users.FindWhere(resident =>
                 //resident.AddressId == residentAddress ||
                 resident.FullName.Contains(searchString) ||

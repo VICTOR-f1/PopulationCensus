@@ -33,11 +33,9 @@ namespace PopulationСensus.Infrastructure
             return Convert.ToBase64String(hashBytes);
         }
         public async Task<User?> GetUserAsync(string username, string password)
-        {
-           
-
+        {          
             User? user = (await users.FindWhere(u => u.Email == username)).FirstOrDefault();
-       
+    
             if (user is null)
             {
                 return null;

@@ -15,12 +15,10 @@ namespace PopulationСensus.ViewModels
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? DateOfBirth { get; set; }
 
-
         [MinLength(3, ErrorMessage = "Длинна почты не должна быть меньше трёх символов")]
         [MaxLength(150, ErrorMessage = "Длина почты не должна превышать сто пятьдесят символов")]
         [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$", ErrorMessage = "Некоректная почта")]
         public string Email { get; set; }
-
 
         [MinLength(8, ErrorMessage = "Пароль должен быть длиной 8 или более символов")]
         [DataType(DataType.Password)]

@@ -8,7 +8,6 @@ namespace PopulationСensus.Domain.Services
         Task<List<User>> FindUserAsync(string userString);
         Task<User?> FindUserAsync(int userId);
         Task<User?> FindUserByEmailAsync(string mail);
-
         Task<List<Address>> GetAllАddressAsync();
     }
 }

@@ -8,20 +8,15 @@
    <link rel="stylesheet" href="/styles/census-success.css">
    <meta name="viewport" content="width=device-width" />
    <title>@ViewBag.Title</title>
-
 </head>
 <body>
-
  <div class="container">
     <div style="text-align: center;">
         <h1>Спасибо что приняли участие в переписи населения </h1>
         <p>Если перенаправление на страницу входа не произошло автоматически, то вы можете перейти по <a asp-controller="Census" asp-action="Index">ссылке</a> </p>
     </div>
 </div>
-
 </body> 
-   
-
 <script>
     function goToLoginPage() {
         window.location = '/Census/Index';

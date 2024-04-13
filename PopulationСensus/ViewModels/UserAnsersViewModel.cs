@@ -5,9 +5,6 @@ namespace PopulationСensus.ViewModels
 {
     public class UserAnswerViewModel
     {
-
-
-
         [Required(ErrorMessage = "Не указан пол")]
         [Display(Name = "Пол")]
         public bool Gender { get; set; }
