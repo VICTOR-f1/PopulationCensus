@@ -51,8 +51,9 @@
 	width: 100%;
 }
 .text-danger {
-	color: #a94442;
-	font-size:14px;
+	font-family: "TochkaScript", sans-serif;
+	color: #e21a1a;
+	font-size: 15px;
 }
 .form-container .form-horizontal .form-group {
 	color: #333;
@@ -163,7 +164,7 @@
 
 .form-container .form-horizontal .signup {
 	background-color: #e21a1a;
-	font-size: 14px;
+	font-size: 16px;
 	color: #fff;
 	font-weight: 700;
 	transition: all 0.4s ease-out 0s;

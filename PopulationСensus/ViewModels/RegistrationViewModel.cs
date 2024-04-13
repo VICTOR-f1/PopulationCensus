@@ -13,7 +13,7 @@ namespace PopulationСensus.ViewModels
         [Required(ErrorMessage = "Не указана дата рождения")]
         [Display(Name = "Дата рождения")]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
-        public DateTime DateOfBirth { get; set; }
+        public DateTime? DateOfBirth { get; set; }
 
 
         [MinLength(3, ErrorMessage = "Длинна почты не должна быть меньше трёх символов")]
@@ -48,11 +48,11 @@ namespace PopulationСensus.ViewModels
 
         [Required(ErrorMessage = "Не указан номер дома")]
         [Display(Name = "Номер дома")]
-        public short ApartmentNumber { get; set; }
+        public short? ApartmentNumber { get; set; }
 
         [Required(ErrorMessage = "Не указан индекс")]
         [Display(Name = "Индекс")]
-        public int ZipCode { get; set; }
+        public int? ZipCode { get; set; }
 
         [Required(ErrorMessage = "Не указан номер телефона")]
         [Display(Name = "Номер телефона")]

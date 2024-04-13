@@ -63,22 +63,25 @@ namespace PopulationСensus.Controllers
         [HttpPost]
         public async Task<IActionResult> Registration(RegistrationViewModel registration)
         {
+            
             if (!ModelState.IsValid)
             {
                 return View(registration);
             }
             if (await userService.IsUserExistsAsync(registration.Email))
             {
+                ViewBag.modelError = $"Почта {registration.Email} уже существует!";
                 ModelState.AddModelError("user_exists", $"Почта {registration.Email} уже существует!");
                 return View(registration);
             }
             try
             {
-                await userService.RegistrationAsync(registration.Fullname, registration.Email, registration.Password,registration.DateOfBirth,registration.PhoneNumber,registration.State,registration.City,registration.Street,registration.ApartmentNumber,registration.ZipCode);
+                await userService.RegistrationAsync(registration.Fullname, registration.Email, registration.Password, (DateTime)registration.DateOfBirth,registration.PhoneNumber,registration.State,registration.City,registration.Street, (short)registration.ApartmentNumber, (int)registration.ZipCode);
                 return RedirectToAction("RegistrationSuccess", "User");
             }
             catch
             {
+                ViewBag.modelError = "Не удалось зарегистрироваться, попробуйте попытку регистрации позже";
                 ModelState.AddModelError("reg_error", $"Не удалось зарегистрироваться, попробуйте попытку регистрации позже");
                 return View(registration);
             }

@@ -29,6 +29,7 @@ builder.Services.AddDbContext<ÑensusContext>(opt => opt.UseNpgsql(builder.Config
 builder.Services.AddScoped<IRepository<User>, EFRepository<User>>();
 builder.Services.AddScoped<IRepository<Role>, EFRepository<Role>>();
 builder.Services.AddScoped<IRepository<Address>, EFRepository<Address>>();
+builder.Services.AddScoped<IRepository<UserAnswer>, EFRepository<UserAnswer>>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserReader, UserReader>();
 

@@ -6,15 +6,21 @@ using PopulationСensus.Domain.Entities;
 using PopulationСensus.Domain.Services;
 using PopulationСensus.Infrastructure;
 using PopulationСensus.ViewModels;
+using System.Diagnostics;
+using System.Reflection;
+using System.Security.Claims;
 
 namespace PopulationСensus.Controllers
 {
     public class CensusController : Controller
     {
         private readonly IUserReader reader;
-        public CensusController(IUserReader reader)
+        private readonly IUserService userService;
+
+        public CensusController(IUserReader reader, IUserService userService)
         {
             this.reader = reader;
+            this.userService = userService;
         }
 
         [Authorize]
@@ -34,7 +40,13 @@ namespace PopulationСensus.Controllers
            
             return View(viewModel);
         }
+       
+        [Authorize]
+        public  IActionResult CensusSuccess()
+        {
 
+            return View();
+        }
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> AddCensus()
@@ -44,44 +56,36 @@ namespace PopulationСensus.Controllers
         }
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> AddCensus(ResidentViewModel residentVm)
+        public async Task<IActionResult> AddCensus(UserAnswerViewModel residentVm)
         {
-            //if (!ModelState.IsValid)
-            //{
-            //    return View(residentVm);
-            //}
-            //try
-            //{
-            //    var userAnswers = new UserAnswers
-            //    {
-            //        ZipCode = residentVm.ZipCode,
-            //        ApartmentNumber = residentVm.ApartmentNumber,
-            //        Street = residentVm.Street,
-            //        City = residentVm.City,
-            //        State = residentVm.State
+            if (!ModelState.IsValid)
+            {
+                return View(residentVm);
+            }
+            try
+            {           
+                var userAnswers = new UserAnswer
+                {
+                    Gender=residentVm.Gender,
+                    NumberChildrenBorn= residentVm.NumberChildrenBorn,
+                    YearBirthFirstChild=residentVm.YearBirthFirstChild,
+                    PlaceBirth = residentVm.PlaceBirth
 
-            //    };
-            //    await residentService.AddAddress(address);
+                };
+                await userService.AddUserAnswer(userAnswers);
 
-            //    int adressId = address.Id;
-
-            //    var resident = new Resident()
-            //    {
-            //        DateOfBirth = residentVm.DateOfBirth,
-            //        FullName = residentVm.FullName,
-            //        AddressId = adressId
-            //    };
-            //    await residentService.AddResident(resident);
-            //}
-            //catch
-            //{
-            //    ModelState.AddModelError("database", "Ошибка при сохранении в базу данных.");
-            //    return View(residentVm);
-
-
-            //}
-            //return RedirectToAction("ResultCensus", "Census");
-            return View();
+                var user = await reader.FindUserByEmailAsync(User.Identity.Name);
+                user.UserAnswersId = userAnswers.Id;
+                await userService.UpdateUser(user);
+            }
+            catch
+            {
+                ViewBag.modelError = "Ошибка при сохранении в базу данных.";
+                ModelState.AddModelError("database", "Ошибка при сохранении в базу данных.");
+                return View(residentVm);
+            }
+            return RedirectToAction("Index", "Census");
+           
         }
 
     }

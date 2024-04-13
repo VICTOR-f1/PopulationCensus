@@ -1,4 +1,5 @@
-﻿using PopulationСensus.Domain.Entities;
+﻿using Microsoft.AspNetCore.Identity;
+using PopulationСensus.Domain.Entities;
 using PopulationСensus.Domain.Services;
 using System.Reflection.PortableExecutable;
 using static System.Reflection.Metadata.BlobBuilder;
@@ -47,14 +48,13 @@ namespace PopulationСensus.Infrastructure
                 resident.DateOfBirth.ToString().Contains(searchString));
             }
         }
-
-
-        public async Task<User> FindUserAsync(int residentId) => await users.FindAsync(residentId);
+        public async Task<User> FindUserByEmailAsync(string mail) => await users.FirstOrDefult(resident =>resident.Email==mail);
+  
+        public async Task<User> FindUserAsync(int userId) => await users.FindAsync(userId);
 
         public async Task<List<User>> GetAllUserAsync() => await users.GetAllAsync();
 
         public async Task<List<Address>> GetAllАddressAsync() => await addresses.GetAllAsync();
-
 
     }
 }

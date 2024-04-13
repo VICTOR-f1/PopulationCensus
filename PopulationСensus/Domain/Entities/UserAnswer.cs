@@ -11,9 +11,9 @@ namespace PopulationСensus.Domain.Entities
         //пол
         public bool Gender { get; set; }
         //количество рожденных детей
-        public byte NumberChildrenBorn { get; set; }
+        public byte? NumberChildrenBorn { get; set; }
         //год рождения первого ребёнка
-        public short YearBirthFirstChild { get; set; }
+        public short? YearBirthFirstChild { get; set; }
         //место рождения
         [StringLength(150)]
         public string PlaceBirth { get; set; } = null!;

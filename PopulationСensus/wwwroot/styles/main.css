@@ -33,7 +33,10 @@ body {
 	letter-spacing: 0.2px;
 	font: 600 16px/28px "TTNormsTochkaExte", Arial, Helvetica, sans-serif;
 }
-
+.funk-tochka-script-font {
+	font-family: "TochkaScript", sans-serif;
+	color: #e21a1a;
+}
 .funk-tochka-script-font {
 	font-family: "TochkaScript", sans-serif;
 	color: #e21a1a;
@@ -258,7 +261,9 @@ p {
 .navbar-toggler {
 	padding: 0;
 }
-
+.back{
+	position:fixed;
+}
 .navbar-toggler .toggler-icon {
 	width: 30px;
 	height: 2px;

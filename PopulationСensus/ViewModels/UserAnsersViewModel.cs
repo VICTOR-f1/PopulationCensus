@@ -3,7 +3,7 @@ using System.Xml.Linq;
 
 namespace PopulationСensus.ViewModels
 {
-    public class UserAnsersViewModel
+    public class UserAnswerViewModel
     {
 
 
@@ -12,13 +12,15 @@ namespace PopulationСensus.ViewModels
         [Display(Name = "Пол")]
         public bool Gender { get; set; }
 
-        [Required(ErrorMessage = " Не указано количество рожденных детей")]
+        [Required(ErrorMessage = "Не указано количество рожденных детей")]
+        [Range(0, 30,ErrorMessage = "Не корректный ввод")]
         [Display(Name = "Количество рожденных вами детей")]
-        public byte NumberChildrenBorn { get; set; }
+        public byte? NumberChildrenBorn { get; set; }
 
         [Required(ErrorMessage = "Не указан год рождения первого ребёнка")]
-        [Display(Name = "Количество рожденных вами детей")]
-        public short YearBirthFirstChild { get; set; }
+        [Range(1950, 2024, ErrorMessage = "Не корректный ввод")]
+        [Display(Name = "Год рождения первого ребёнка")]
+        public short? YearBirthFirstChild { get; set; }
 
         [Required(ErrorMessage = "Не указано место рождения")]
         [Display(Name = "Место рождения")]

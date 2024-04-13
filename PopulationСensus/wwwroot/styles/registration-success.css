@@ -1,0 +1,36 @@
+﻿.font-montserrat {
+    font-family: "Montserrat", "Arial", "Helvetica Neue", sans-serif;
+}
+
+body {
+    background-color: #f8f8f8;
+    background-repeat: no-repeat;
+    background-size: cover;
+    font-family: "Montserrat", "Arial", "Helvetica Neue", sans-serif;
+}
+
+.container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+h1 {
+    font-size: 28px;
+}
+
+p {
+    font-weight: 400;
+    font-size: 22px;
+}
+
+@media (max-width: 767px) {
+    p {
+        font-size: 18px;
+    }
+
+    h1 {
+        font-size: 24px;
+    }
+}

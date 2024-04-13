@@ -103,7 +103,7 @@ h2 {
 }
 
 body {
-	font-size: 13px;
+	font-size: 16px;
 	line-height: 1.8;
 	color: #222;
 	background: #f8f8f8;
@@ -155,6 +155,7 @@ figure {
 	background: black;
 	border-bottom: none;
 	width: auto;
+	font-size:17px;
 	padding: 15px 39px;
 	border-radius: 10px;
 	transition: all 0.4s ease-out 0s;
@@ -174,7 +175,7 @@ figure {
 }
 
 .signup-image-link {
-	font-size: 14px;
+	font-size: 16px;
 	color: #222;
 	display: block;
 	text-align: center;
@@ -201,6 +202,7 @@ input {
 	border-bottom: 1px solid #999;
 	padding: 10px;
 	box-sizing: border-box;
+	font-size:16px;
 }
 
 input::-webkit-input-placeholder {
@@ -286,7 +288,7 @@ input[type=checkbox]:not(old):checked+label>span:before {
 	content: '\f26b';
 	display: block;
 	color: #222;
-	font-size: 11px;
+	font-size: 14px;
 	line-height: 1.2;
 	text-align: center;
 	font-family: 'Material-Design-Iconic-Font';
@@ -337,7 +339,9 @@ label {
 	-ms-align-items: center;
 	margin-top: 80px;
 }
-
+.social-login span{
+	font-size:16px;
+}
 .social-label {
 	display: inline-block;
 	margin-right: 15px;
@@ -438,4 +442,11 @@ label {
 		margin-right: 0px;
 		margin-bottom: 10px;
 	}
+}
+.error-messages ul {
+	font-family: "TochkaScript", sans-serif;
+	color: #e21a1a !important;
+	margin: 0 !important;
+	list-style: none;
+	padding-left: 0;
 }

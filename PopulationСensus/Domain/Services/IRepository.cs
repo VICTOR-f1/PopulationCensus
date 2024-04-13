@@ -11,5 +11,6 @@ namespace PopulationСensus.Domain.Services
         Task<T> AddAsync(T entity);
         Task<T> UpdateAsync(T entity);
         Task DeleteAsync(T entity);
+        Task<T> FirstOrDefult(Expression<Func<T, bool>> predicate);
     }
 }

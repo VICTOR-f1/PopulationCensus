@@ -1,0 +1,47 @@
+﻿@using Microsoft.AspNetCore.Http.Extensions;
+<!DOCTYPE html>
+@{
+    var currentUrl = ViewContext.HttpContext.Request.GetDisplayUrl().ToString();
+}
+<html>
+   <head>
+      <meta name="viewport" content="width=device-width" />
+      <title>@ViewBag.Title</title>
+      <!--====== Favicon Icon ======-->
+      <link rel="shortcut icon" href="/favicon.png" type="image/png">
+      <!--====== Animate CSS ======-->
+      <link rel="stylesheet" href="/styles/animate.css">
+      <!--====== Magnific Popup CSS ======-->
+      <link rel="stylesheet" href="/styles/magnific-popup.css">
+      <!--====== Slick CSS ======-->
+      <link rel="stylesheet" href="/styles/slick.css">
+      <!--====== Bootstrap CSS ======-->
+      <link rel="stylesheet" href="/styles/bootstrap.min.css">
+      <!--====== Default CSS ======-->
+      <link rel="stylesheet" href="/styles/default.css">
+      <!--====== Style CSS ======-->
+      <link rel="stylesheet" href="/styles/main.css">
+   </head>
+   <body>
+      <!--ШАПКА-->
+      <header>
+         <nav>
+            <div class="brand"></div>
+            <div class="links"></div>
+
+                        <a class="navbar-brand back" href="/Census/Index">
+                        <span class="funk-tochka-script-font">Вернуться</span>
+                        </a>
+
+         </nav>
+      </header>
+      <!--ОСНОВНАЯ ЧАСТЬ-->
+      <main>
+         <div class="content">
+            @RenderBody()
+         </div>
+      </main>
+      <!--ШАПКА-->
+    
+   </body>
+</html>

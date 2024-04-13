@@ -39,7 +39,10 @@ namespace PopulationСensus.Infrastructure
         {
             return await context.Set<T>().FindAsync(id);
         }
-
+        public async Task<T> FirstOrDefult(Expression<Func<T, bool>> predicate)
+        {
+            return await context.Set<T>().FirstOrDefaultAsync(predicate);
+        }
         public async Task<List<T>> FindWhere(Expression<Func<T, bool>> predicate)
         {
             return await context.Set<T>().Where(predicate).ToListAsync();

@@ -2,6 +2,7 @@
 using PopulationСensus.Domain.Entities;
 using PopulationСensus.Domain.Services;
 using System.Diagnostics;
+using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -12,13 +13,15 @@ namespace PopulationСensus.Infrastructure
         private readonly IRepository<User> users;
         private readonly IRepository<Role> roles;
         private readonly IRepository<Address> addresses;
+        private readonly IRepository<UserAnswer> userAnswers;
         public UserService(IRepository<User> usersRepository,
             IRepository<Role> rolesRepository,
-            IRepository<Address> addresses)
+            IRepository<Address> addresses,IRepository<UserAnswer> userAnswers)
         {
             users = usersRepository;
             roles = rolesRepository;
             this.addresses = addresses;
+            this.userAnswers = userAnswers;
 
         }
         private string GetSalt() =>
@@ -70,7 +73,7 @@ namespace PopulationСensus.Infrastructure
             };
             await AddAddress(address);
             int adressId = address.Id;
-            //иногда отпадает id разабраться почему
+            //иногда отпадает id
             User addUser = new User
             {
               
@@ -92,15 +95,15 @@ namespace PopulationСensus.Infrastructure
             addUser.Password = GetSha256(password, addUser.Salt);
             return await users.AddAsync(addUser);
         }
-        public async Task AddResident(User resident)
+        public async Task AddUser(User resident)
         {
             await users.AddAsync(resident);
         }
-        public async Task UpdateResident(User resident)
+        public async Task UpdateUser(User resident)
         {
             await users.UpdateAsync(resident);
         }
-        public async Task DeleteResident(User resident)
+        public async Task DeleteUser(User resident)
         {
             await users.DeleteAsync(resident);
         }
@@ -118,6 +121,11 @@ namespace PopulationСensus.Infrastructure
         public async Task DeleteAddress(Address address)
         {
             await addresses.DeleteAsync(address);
+        }
+
+        public async Task AddUserAnswer(UserAnswer userAnswer)
+        {
+            await userAnswers.AddAsync(userAnswer);
         }
     }
 }
