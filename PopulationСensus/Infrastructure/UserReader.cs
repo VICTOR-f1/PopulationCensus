@@ -24,6 +24,7 @@ namespace PopulationСensus.Infrastructure
             }
             else
             {
+                searchString=searchString.Trim();
                 var a = await GetAllАddressAsync();
                 /*переделать если останеться время*/
                 int residentAddress = 0;
@@ -42,7 +43,7 @@ namespace PopulationСensus.Infrastructure
                 }
                 
                 return await users.FindWhere(resident =>
-                //resident.AddressId == residentAddress ||
+                resident.AddressId == residentAddress ||
                 resident.FullName.Contains(searchString) ||
                 resident.DateOfBirth.ToString().Contains(searchString));
             }

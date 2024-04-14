@@ -28,6 +28,11 @@ namespace PopulationСensus.Controllers
             return View();
         }
         [Authorize(Roles = "admin")]
+        public async Task<IActionResult> ResultCensus(int userAnswersId)
+        {
+            return View();
+        }
+        [Authorize(Roles = "admin")]
         public async Task<IActionResult> ResultCensus(string searchString = "")
         {
             var viewModel = new ResidentCatalogViewModel()
@@ -39,7 +44,12 @@ namespace PopulationСensus.Controllers
            
             return View(viewModel);
         }
-       
+        [Authorize]
+        public IActionResult GratitudeCensusSuccess()
+        {
+
+            return View();
+        }
         [Authorize]
         public  IActionResult CensusSuccess()
         {
@@ -50,25 +60,47 @@ namespace PopulationСensus.Controllers
         [Authorize]
         public async Task<IActionResult> AddCensus()
         {
-            
-            return View();
+
+            var user = await reader.FindUserByEmailAsync(User.Identity.Name);
+            if (user.UserAnswersId==null)
+            {
+                return View();
+            }
+            else
+            {
+                return RedirectToAction("GratitudeCensusSuccess", "Census");
+
+            }
+
         }
         [HttpPost]
         [Authorize]
-        public async Task<IActionResult> AddCensus(UserAnswerViewModel residentVm)
+        public async Task<IActionResult> AddCensus(UserAnswerViewModel userAnswerVm)
         {
             if (!ModelState.IsValid)
             {
-                return View(residentVm);
+                return View(userAnswerVm);
             }
             try
             {           
                 var userAnswers = new UserAnswer
                 {
-                    Gender=residentVm.Gender,
-                    NumberChildrenBorn= residentVm.NumberChildrenBorn,
-                    YearBirthFirstChild=residentVm.YearBirthFirstChild,
-                    PlaceBirth = residentVm.PlaceBirth
+                    Gender= userAnswerVm.Gender,
+                    NumberChildrenBorn= userAnswerVm.NumberChildrenBorn,
+                    YearBirthFirstChild= userAnswerVm.YearBirthFirstChild,
+                    PlaceBirth = userAnswerVm.PlaceBirth,
+                    LivedOtherCountries= userAnswerVm.LivedOtherCountries,
+                    WhereLiveBeforeArriving= userAnswerVm.WhereLiveBeforeArriving,
+                    YearArrival= userAnswerVm.YearArrival,
+                    SpeakRussian = userAnswerVm.SpeakRussian,
+                    UseRussianInConversation = userAnswerVm.UseRussianInConversation,
+                    NativeLanguage = userAnswerVm.NativeLanguage,
+                    Citizenship = userAnswerVm.Citizenship,
+                    Education = userAnswerVm.Education,
+                    HaveDegree= userAnswerVm.HaveDegree,
+                    CanReadAndWrite= userAnswerVm.CanReadAndWrite,
+                    MaritalStatus= userAnswerVm.MaritalStatus,
+                    Nationality= userAnswerVm.Nationality,
 
                 };
                 await userService.AddUserAnswer(userAnswers);
@@ -81,9 +113,9 @@ namespace PopulationСensus.Controllers
             {
                 ViewBag.modelError = "Ошибка при сохранении в базу данных.";
                 ModelState.AddModelError("database", "Ошибка при сохранении в базу данных.");
-                return View(residentVm);
+                return View(userAnswerVm);
             }
-            return RedirectToAction("Index", "Census");
+            return RedirectToAction("CensusSuccess", "Census");
            
         }
 

@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PopulationСensus.Data;
@@ -11,9 +12,11 @@ using PopulationСensus.Data;
 namespace PopulationСensus.Migrations
 {
     [DbContext(typeof(СensusContext))]
-    partial class СensusContextModelSnapshot : ModelSnapshot
+    [Migration("20240414073241_AdditionUserAnswer")]
+    partial class AdditionUserAnswer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -137,8 +140,8 @@ namespace PopulationСensus.Migrations
                         .HasColumnType("character varying(70)");
 
                     b.Property<string>("Education")
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
+                        .HasMaxLength(70)
+                        .HasColumnType("character varying(70)");
 
                     b.Property<bool>("Gender")
                         .HasColumnType("boolean");
@@ -150,23 +153,19 @@ namespace PopulationСensus.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("MaritalStatus")
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
-
-                    b.Property<string>("Nationality")
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
+                        .HasMaxLength(70)
+                        .HasColumnType("character varying(70)");
 
                     b.Property<string>("NativeLanguage")
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
+                        .HasMaxLength(70)
+                        .HasColumnType("character varying(70)");
 
                     b.Property<byte?>("NumberChildrenBorn")
                         .HasColumnType("smallint");
 
                     b.Property<string>("PlaceBirth")
-                        .HasMaxLength(70)
-                        .HasColumnType("character varying(70)");
+                        .HasMaxLength(150)
+                        .HasColumnType("character varying(150)");
 
                     b.Property<bool>("SpeakRussian")
                         .HasColumnType("boolean");
@@ -175,10 +174,10 @@ namespace PopulationСensus.Migrations
                         .HasColumnType("boolean");
 
                     b.Property<string>("WhereLiveBeforeArriving")
-                        .HasMaxLength(70)
-                        .HasColumnType("character varying(70)");
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
 
-                    b.Property<short?>("YearArrival")
+                    b.Property<short>("YearArrival")
                         .HasColumnType("smallint");
 
                     b.Property<short?>("YearBirthFirstChild")

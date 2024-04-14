@@ -12,7 +12,6 @@ AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 DbContextOptionsBuilder optionsBuilder = new DbContextOptionsBuilder();
 optionsBuilder.UseNpgsql(builder.Configuration.GetConnectionString("local"));
 builder.Services.AddControllersWithViews();
-//аутентификации на основе Cookies
 builder.Services
     .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(opt =>

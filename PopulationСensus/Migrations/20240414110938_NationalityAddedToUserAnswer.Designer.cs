@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 using PopulationСensus.Data;
@@ -11,9 +12,11 @@ using PopulationСensus.Data;
 namespace PopulationСensus.Migrations
 {
     [DbContext(typeof(СensusContext))]
-    partial class СensusContextModelSnapshot : ModelSnapshot
+    [Migration("20240414110938_NationalityAddedToUserAnswer")]
+    partial class NationalityAddedToUserAnswer
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

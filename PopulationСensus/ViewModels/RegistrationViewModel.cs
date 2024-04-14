@@ -4,7 +4,7 @@ namespace PopulationСensus.ViewModels
 {
     public class RegistrationViewModel
     {
-        [MinLength(5, ErrorMessage = "ФИО не может быть короче двух символов")]
+        [MinLength(5, ErrorMessage = "ФИО не может быть короче пяти символов")]
         [MaxLength(250, ErrorMessage = "Максимальная длина ФИО составляет 100 символов")]
         [Required(ErrorMessage = "Не указано ФИО")]
         [Display(Name = "ФИО")]
