@@ -25,10 +25,16 @@
     .table-dark {
         background-color: #002B43;
     }
-    body {
-        font-family:  "Arial", "Helvetica Neue", sans-serif;
-        font-weight: 500;
-    }
+button {
+    border: none;
+    cursor: pointer;
+    appearance: none;
+    background-color: inherit;
+}
+body {
+    font-family: "Arial", "Helvetica Neue", sans-serif;
+    font-weight: 500;
+}
     .searchbar{
         margin-left:15px;
     }

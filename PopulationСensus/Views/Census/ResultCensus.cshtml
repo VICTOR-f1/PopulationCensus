@@ -15,7 +15,7 @@
          <div class="main-content-card">
             <div class="row">
                <div class="searchbar">
-                  <form>
+                  <form method="POST">
                      <label >Поиск:</label>
                      <input name="searchstring" type="text" onchange="submitForm()" />
                   </form>
@@ -30,28 +30,33 @@
                      </tr>
                   </thead>
                   <tbody>
-                        @{
-                           int i = 0;
-                           foreach (User resident in Model.User)
-                           {
-                             i++;
-                             <tr>
-                               <td>@i</td>
-                               <td>@resident.FullName</td>
-                               <td>@resident.DateOfBirth.ToShortDateString()</td>                          
-                               <td class="d-flex justify-content-between">@resident.Address.State @resident.Address.City 
-                               @resident.Address.Street @resident.Address.ApartmentNumber @resident.Address.ZipCode
-                               @if(@resident.UserAnswersId!=null)
-                               {
-                                 <div class="d-flex justify-content-end">
-                                 <a href="/Census/Index"> <img id="view-icon-image" src="/images/view-icon.png"/></a>
-                                 </div>
-                               }                             
-                               </td>
-                             </tr>
-                           }
-                        }             
-               </tbody>
+                     @{
+                     int i = 0;
+                     foreach (User resident in Model.User)
+                     {
+                     i++;
+                     <tr>
+                        <td>@i</td>
+                        <td>@resident.FullName</td>
+                        <td>@resident.DateOfBirth.ToShortDateString()</td>
+                        <td class="d-flex justify-content-between">
+                           @resident.Address.State @resident.Address.City 
+                           @resident.Address.Street @resident.Address.ApartmentNumber @resident.Address.ZipCode
+                           @if(@resident.UserAnswersId!=null)
+                           {               
+                           <form>
+                              <div class="d-flex justify-content-end">
+                                 <a    asp-action="ViewingUserAnswer"   asp-controller="Census" asp-route-userAnswerId="@resident.UserAnswersId">
+                                     <img id="view-icon-image" src="/images/view-icon.png"/>
+                                 </a>
+                              </div>
+                           </form>
+                           }                             
+                        </td>
+                     </tr>
+                     }
+                     }             
+                  </tbody>
                </table>
             </div>
          </div>
@@ -62,4 +67,12 @@
           document.querySelector('form').submit();
       }
    </script>
+   @if (TempData["Message"] != null)
+   {
+   <script type="text/javascript">
+      window.onload = function () {
+          alert('@TempData["Message"]');
+      };
+   </script>
+   }
 </body>

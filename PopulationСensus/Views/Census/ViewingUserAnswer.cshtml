@@ -1,0 +1,121 @@
+﻿@model UserAnswerViewModel
+@*
+For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+<head>
+   <link rel="shortcut icon" href="/favicon.png" type="image/png">
+   <link rel="stylesheet" href="/styles/add-census.css">
+   <meta name="viewport" content="width=device-width" />
+   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+   <link href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
+   <style>
+      .label-output{
+      border-bottom: 1px solid #999;
+      padding-top: 10px;     
+      color: #666;
+      font-weight: 600 !important;
+      font-family: "Arial", "Helvetica Neue", sans-serif;
+      }
+   </style>
+</head>
+<h1>Просмотр ответов </h1>
+<body>
+   <div class="container-fluid px-1 py-5 mx-auto main-container">
+   <div class="row d-flex justify-content-center">
+      <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
+         <div class="card shadow-lg">
+            <h5 class="text-center mb-4 title">Всероссийская перепись населения </h5>
+            <form class="form-card" method="POST">
+               <div class="row justify-content-between text-left">
+                  <div class="form-group col-sm-6 flex-column d-flex">
+                     <label asp-for="PlaceBirth" class="form-control-label"></label> 
+                     <label class="label-output">@ViewBag.PlaceBirth</label>
+                  </div>
+                  <div class="form-group col-sm-6 flex-column d-flex">
+                     <label asp-for="Gender" class="form-control-label"></label> 
+                     <label class="label-output">@ViewBag.Gender</label>
+                  </div>
+               </div>
+               <div class="row justify-content-between text-left">
+                  <div class="form-group col-sm-6 flex-column d-flex"> 
+                     <label asp-for="YearBirthFirstChild" class="form-control-label"></label> 
+                     <label class="label-output">@ViewBag.YearBirthFirstChild</label>       
+                  </div>
+                  <div class="form-group col-sm-6 flex-column d-flex"> 
+                     <label asp-for="NumberChildrenBorn" class="form-control-label"></label> 
+                     <label class="label-output">@ViewBag.NumberChildrenBorn</label>   
+                  </div>
+               </div>
+               <div class="row justify-content-between text-left">
+                  <div class="form-group col-sm-6 flex-column d-flex"> 
+                     <label asp-for="WhereLiveBeforeArriving" class="form-control-label"></label> 
+                     <label class="label-output">@ViewBag.WhereLiveBeforeArriving</label>   
+                  </div>
+                  <div class="form-group col-sm-6 flex-column d-flex">
+                     <label asp-for="LivedOtherCountries" class="form-control-label"></label> 
+                     <label class="label-output">@ViewBag.LivedOtherCountries</label>   
+                  </div>
+               </div>
+               <div class="row justify-content-between text-left">
+                  <div class="form-group col-sm-6 flex-column d-flex"> 
+                     <label asp-for="YearArrival" class="form-control-label"></label> 
+                     <label class="label-output">@ViewBag.YearArrival</label>   
+                  </div>
+                  <div class="form-group col-sm-6 flex-column d-flex">
+                     <label asp-for="SpeakRussian" class="form-control-label"></label> 
+                     <label class="label-output">@ViewBag.SpeakRussian</label>   
+                  </div>
+               </div>
+               <div class="row justify-content-between text-left">
+                  <div class="form-group col-sm-6 flex-column d-flex"> 
+                     <label asp-for="NativeLanguage" class="form-control-label"></label> 
+                     <label class="label-output">@ViewBag.NativeLanguage</label>   
+                  </div>
+                  <div class="form-group col-sm-6 flex-column d-flex">
+                     <label asp-for="UseRussianInConversation" class="form-control-label"></label> 
+                     <label class="label-output">@ViewBag.UseRussianInConversation</label>   
+                  </div>
+               </div>
+               <div class="row justify-content-between text-left">
+                  <div class="form-group col-sm-6 flex-column d-flex"> 
+                     <label asp-for="Citizenship" class="form-control-label"></label> 
+                     <label class="label-output">@ViewBag.Citizenship</label>   
+                  </div>
+                  <div class="form-group col-sm-6 flex-column d-flex">
+                     <label asp-for="Education" class="form-control-label"></label> 
+                     <label class="label-output">@ViewBag.Education</label>   
+                  </div>
+               </div>
+               <div class="row justify-content-between text-left">
+                  <div class="form-group col-sm-6 flex-column d-flex"> 
+                     <label asp-for="Nationality" class="form-control-label"></label> 
+                     <label class="label-output">@ViewBag.Nationality</label>   
+                  </div>
+                  <div class="form-group col-sm-6 flex-column d-flex">
+                     <label asp-for="CanReadAndWrite" class="form-control-label"></label> 
+                     <label class="label-output">@ViewBag.CanReadAndWrite</label>   
+                  </div>
+               </div>
+               <div class="row justify-content-between text-left">
+                  <div class="form-group col-sm-6 flex-column d-flex"> 
+                     <label asp-for="MaritalStatus" class="form-control-label"></label> 
+                     <label class="label-output">@ViewBag.MaritalStatus</label>   
+                  </div>
+                  <div class="form-group col-sm-6 flex-column d-flex">
+                     <label asp-for="HaveDegree" class="form-control-label"></label> 
+                     <label class="label-output">@ViewBag.HaveDegree</label>   
+                  </div>
+               </div>
+               <div class="row justify-content-end">
+                  <div class="form-group col-sm-6">
+                     <div  class="text-danger" asp-validation-summary="None">@ViewBag.modelError</div>
+                     <button type="submit" class="btn-block main-btn btn-primary">Отправить</button> 
+                  </div>
+               </div>
+            </form>
+         </div>
+      </div>
+   </div>
+</body>

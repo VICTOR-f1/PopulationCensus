@@ -27,11 +27,7 @@ namespace PopulationСensus.Controllers
         {
             return View();
         }
-        [Authorize(Roles = "admin")]
-        public async Task<IActionResult> ResultCensus(int userAnswersId)
-        {
-            return View();
-        }
+     
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> ResultCensus(string searchString = "")
         {
@@ -40,10 +36,46 @@ namespace PopulationСensus.Controllers
                  User= await reader.FindUserAsync(searchString),
                 Address = await reader.GetAllАddressAsync(),
             };
-            
-           
             return View(viewModel);
         }
+        [HttpGet]
+        [Authorize(Roles = "admin")]
+        public async Task<IActionResult> ViewingUserAnswer(int userAnswerId)
+        {
+
+            var userAnswer = await reader.FindUserAnswerAsync(userAnswerId);
+            if (userAnswer is null)
+            {
+                return NotFound();
+            }
+
+            ViewBag.PlaceBirth = userAnswer.PlaceBirth;
+            ViewBag.Gender = userAnswer.Gender;
+            ViewBag.YearBirthFirstChild = userAnswer.YearBirthFirstChild;
+            ViewBag.NumberChildrenBorn = userAnswer.NumberChildrenBorn;
+            ViewBag.WhereLiveBeforeArriving = userAnswer.WhereLiveBeforeArriving ?? "пусто";
+            ViewBag.LivedOtherCountries = userAnswer.LivedOtherCountries;           
+            ViewBag.YearArrival = userAnswer.YearArrival;
+            ViewBag.SpeakRussian = userAnswer.SpeakRussian;
+            ViewBag.UseRussianInConversation=userAnswer.UseRussianInConversation;
+            ViewBag.NativeLanguage = userAnswer.NativeLanguage;
+            ViewBag.Nationality = userAnswer.Nationality;
+            ViewBag.Citizenship = userAnswer.Citizenship;
+            ViewBag.Education = userAnswer.Education;
+            ViewBag.HaveDegree = userAnswer.HaveDegree;
+            ViewBag.CanReadAndWrite = userAnswer.CanReadAndWrite;
+            ViewBag.MaritalStatus = userAnswer.MaritalStatus;
+
+            if (userAnswer.YearBirthFirstChild == null)
+                ViewBag.YearBirthFirstChild = "пусто";
+            if (userAnswer.NumberChildrenBorn == null)
+                ViewBag.NumberChildrenBorn = "пусто";
+            if (userAnswer.YearArrival == null)
+                ViewBag.YearArrival = "пусто";
+
+            return View();
+        }
+      
         [Authorize]
         public IActionResult GratitudeCensusSuccess()
         {
@@ -56,6 +88,8 @@ namespace PopulationСensus.Controllers
 
             return View();
         }
+      
+
         [HttpGet]
         [Authorize]
         public async Task<IActionResult> AddCensus()
