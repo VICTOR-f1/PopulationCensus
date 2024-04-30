@@ -7,10 +7,13 @@ using PopulationÑensus.Domain.Services;
 using PopulationÑensus.Infrastructure;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
-//÷òîáû ìîæíî îòïğàâëÿòü DateTime â PostgreSQL 
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 DbContextOptionsBuilder optionsBuilder = new DbContextOptionsBuilder();
 optionsBuilder.UseNpgsql(builder.Configuration.GetConnectionString("local"));
+using (var context = new ÑensusContext(optionsBuilder.Options))
+{
+    //EFSeed.Seed(context);
+}
 builder.Services.AddControllersWithViews();
 builder.Services
     .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
