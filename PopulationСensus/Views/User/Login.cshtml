@@ -3,42 +3,42 @@
     Layout = null;
 }
 <html>
-   <head>
-      <link rel="shortcut icon" href="/favicon.png" type="image/png">
-      <link rel="stylesheet" href="/styles/login.css">
-      <link rel="stylesheet" href="/styles/material-design-iconic-font.min.css">
-      <meta name="viewport" content="width=device-width" />
-      <title>@ViewBag.Title</title>
-   </head>
-   <body>
-      <section class="sign-in">
-         <div class="container">
+<head>
+    <link rel="shortcut icon" href="/favicon.png" type="image/png">
+    <link rel="stylesheet" href="/styles/login.css">
+    <link rel="stylesheet" href="/styles/material-design-iconic-font.min.css">
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <section class="sign-in">
+        <div class="container">
             <div class="signin-content">
-               <div class="signin-image">
-                  <figure><img src="/images/signin-image.jpg" alt="sing up image"></figure>
-               </div>
-               <div class="signin-form">
-                  <h2 class="form-title">Войти в акаунт</h2>
-                  <form method="POST" class="register-form">
-                     <div class="form-group">
-                        <input type="text"  asp-for="Email"  placeholder="Почта"/>
-                     </div>
-                     <div class="form-group">
-                        <input asp-for="Password" type="password"  placeholder="Пароль"/>                         
-                     </div>
-                     <div class="error-messages"  asp-validation-summary="All"></div>
-                     <div class="form-group form-button">
-                        <input  type="submit" class="form-submit" value="Войти"/>
-                     </div>
-                  </form>
-                  <div class="social-login">
-                     <span class="social-label">или</span>
-                     <a asp-controller="User" asp-action="Registration" class="signup-image-link">cоздайте акаунт</a>
-                  </div>
-               </div>
+                <div class="signin-image">
+                    <figure><img src="/images/signin-image.jpg" alt="sing up image"></figure>
+                </div>
+                <div class="signin-form">
+                    <h2 class="form-title">Войти в акаунт</h2>
+                    <form method="POST" class="register-form">
+                        <div class="form-group">
+                            <input type="text" asp-for="Email" placeholder="Почта" />
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="Password" type="password" placeholder="Пароль" />
+                        </div>
+                        <div class="error-messages" asp-validation-summary="All"></div>
+                        <div class="form-group form-button">
+                            <input type="submit" class="form-submit" value="Войти" />
+                        </div>
+                    </form>
+                    <div class="social-login">
+                        <span class="social-label">или</span>
+                        <a asp-controller="User" asp-action="Registration" class="signup-image-link">cоздайте акаунт</a>
+                    </div>
+                </div>
             </div>
-         </div>
-        </section>
-      </div>
-   </body>
+        </div>
+    </section>
+    </div>
+</body>
 </html>
