@@ -12,8 +12,8 @@ using PopulationСensus.Data;
 namespace PopulationСensus.Migrations
 {
     [DbContext(typeof(СensusContext))]
-    [Migration("20240414110938_NationalityAddedToUserAnswer")]
-    partial class NationalityAddedToUserAnswer
+    [Migration("20240503183911_main")]
+    partial class main
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -37,12 +37,12 @@ namespace PopulationСensus.Migrations
                         .HasColumnType("smallint");
 
                     b.Property<string>("City")
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
+                        .HasMaxLength(70)
+                        .HasColumnType("character varying(70)");
 
                     b.Property<string>("State")
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
+                        .HasMaxLength(70)
+                        .HasColumnType("character varying(70)");
 
                     b.Property<string>("Street")
                         .HasMaxLength(150)

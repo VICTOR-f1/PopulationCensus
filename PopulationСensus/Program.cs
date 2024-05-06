@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
 using PopulationÑensus.Data;
 using PopulationÑensus.Domain.Entities;
 using PopulationÑensus.Domain.Services;
@@ -10,10 +11,11 @@ WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);
 DbContextOptionsBuilder optionsBuilder = new DbContextOptionsBuilder();
 optionsBuilder.UseNpgsql(builder.Configuration.GetConnectionString("local"));
-using (var context = new ÑensusContext(optionsBuilder.Options))
-{
-    //EFSeed.Seed(context);
-}
+var services = new ServiceCollection();
+services.AddScoped<IUserService, UserService>();
+services.AddScoped<IUserReader, UserReader>();
+
+
 builder.Services.AddControllersWithViews();
 builder.Services
     .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
@@ -34,6 +36,13 @@ builder.Services.AddScoped<IRepository<Address>, EFRepository<Address>>();
 builder.Services.AddScoped<IRepository<UserAnswer>, EFRepository<UserAnswer>>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IUserReader, UserReader>();
+
+using (var context = new ÑensusContext(optionsBuilder.Options))
+{
+    //var serviceProvider = services.BuildServiceProvider();
+    //var eFSeed = serviceProvider.GetRequiredService<EFSeed>();
+    //eFSeed.Seed(context);
+}
 
 var app = builder.Build();
 app.UseStaticFiles();

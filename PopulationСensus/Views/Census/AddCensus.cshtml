@@ -1,6 +1,6 @@
 ﻿@model UserAnswerViewModel
 @{
-    Layout = "/Views/Shared/_LayoutHeaderOnly.cshtml";
+Layout = "/Views/Shared/_LayoutHeaderOnly.cshtml";
 }
 <head>
    <link rel="shortcut icon" href="/favicon.png" type="image/png">
@@ -10,7 +10,7 @@
    <link href="https://fonts.googleapis.com/css?family=Montserrat:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i" rel="stylesheet">
 </head>
 <body>
-   <div class="container-fluid px-1 py-5 mx-auto main-container">
+  <div class="container-fluid px-1 py-5 mx-auto main-container">
    <div class="row d-flex justify-content-center">
       <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
          <div class="card shadow-lg">
@@ -19,19 +19,19 @@
                <div class="row justify-content-between text-left">
                   <div class="form-group col-sm-6 flex-column d-flex">
                      <label asp-for="PlaceBirth" class="form-control-label"></label> 
-                     <input asp-for="PlaceBirth" placeholder="Субъект РФ или иностранного государства"> 
+                     <input asp-for="PlaceBirth" placeholder="Субъект государства"> 
                      <span asp-validation-for="PlaceBirth"  class="text-danger"></span>
                   </div>
                   <div class="form-group col-sm-6 flex-column d-flex">
                      <div class="input-group">
                         <label asp-for="Gender" class="form-control-label col-md-12 px-0"></label> 
-                        <div id="radio-buttons-gender" class="p-t-10">
-                           <label  class="radio-container">Женщина
-                           <input onchange="genderEnable(YearBirthFirstChild,NumberChildrenBorn)" value="True" asp-for="Gender" id="female" checked type="radio">
+                        <div  class="p-t-10">
+                           <label   class="radio-container"> Женщина
+                           <input onchange="genderEnable(YearBirthFirstChild,NumberChildrenBorn)" value="True" asp-for="Gender" id="female" checked type="radio">                          
                            <span class="checkmark"></span>
                            </label>
-                           <label class="radio-container radio-container--right">Мужчина
-                           <input onchange="elementDisabled(YearBirthFirstChild, NumberChildrenBorn)" value="False" asp-for="Gender" id="male" type="radio">
+                           <label class="radio-container radio-container--right">Да
+                           <input onchange="elementDisabled(YearBirthFirstChild, NumberChildrenBorn)" value="False" asp-for="Gender" id="male" type="radio"> 
                            <span class="checkmark"></span>
                            </label>
                         </div>
@@ -41,12 +41,12 @@
                <div class="row justify-content-between text-left">
                   <div class="form-group col-sm-6 flex-column d-flex"> 
                      <label asp-for="YearBirthFirstChild" class="form-control-label"></label> 
-                     <input  id="YearBirthFirstChild" asp-for="YearBirthFirstChild" placeholder="Оставьте пустым если не было детей"> 
+                     <input  id="YearBirthFirstChild" asp-for="YearBirthFirstChild" placeholder="Пусто если не было детей"> 
                      <span asp-validation-for="YearBirthFirstChild"  class="text-danger"></span>
                   </div>
                   <div class="form-group col-sm-6 flex-column d-flex"> 
                      <label asp-for="NumberChildrenBorn" class="form-control-label"></label> 
-                     <input  asp-for="NumberChildrenBorn" type="number" placeholder="Оставьте пустым если не было детей"> 
+                     <input  asp-for="NumberChildrenBorn" type="number" placeholder="Пусто если не было детей"> 
                      <span asp-validation-for="NumberChildrenBorn"  class="text-danger"></span>
                   </div>
                </div>
@@ -103,7 +103,6 @@
                   <div class="form-group col-sm-6 flex-column d-flex">
                      <div class="input-group">
                         <label asp-for="UseRussianInConversation" class="form-control-label col-md-12 px-0"></label> 
-                        <span asp-validation-for="UseRussianInConversation"  class="text-danger"></span>
                         <div  class="p-t-10">
                            <label  class="radio-container">Нет
                            <input  value="False" asp-for="UseRussianInConversation"  checked type="radio">
@@ -141,7 +140,6 @@
                   <div class="form-group col-sm-6 flex-column d-flex">
                      <div class="input-group">
                         <label asp-for="CanReadAndWrite" class="form-control-label col-md-12 px-0"></label> 
-                        <span asp-validation-for="CanReadAndWrite"  class="text-danger"></span>
                         <div  class="p-t-10">
                            <label  class="radio-container">Нет
                            <input  value="False" asp-for="CanReadAndWrite"  checked type="radio">
@@ -170,13 +168,12 @@
                   <div class="form-group col-sm-6 flex-column d-flex">
                      <div class="input-group">
                         <label asp-for="HaveDegree" class="form-control-label col-md-12 px-0"></label> 
-                        <span asp-validation-for="HaveDegree"  class="text-danger"></span>
-                        <div class="p-t-10">
-                           <label  class="radio-container">Не имею
+                        <div  class="p-t-10">
+                           <label  class="radio-container">Нет
                            <input  value="False" asp-for="HaveDegree"  checked type="radio">
                            <span class="checkmark"></span>
                            </label>
-                           <label class="radio-container radio-container--right">Имею
+                           <label class="radio-container radio-container--right">Да
                            <input  value="True" asp-for="HaveDegree"  type="radio">
                            <span class="checkmark"></span>
                            </label>
@@ -194,12 +191,13 @@
          </div>
       </div>
    </div>
+ </div>
    <script>
       function elementDisabled(nameElement1,nameElement2) {
         nameElement1.value = "";
         nameElement1.placeholder = "";
         nameElement1.disabled = true;
-
+      
         nameElement2.value = "";
         nameElement2.placeholder = "";
         nameElement2.disabled = true;
@@ -207,16 +205,16 @@
          function genderEnable(nameElement1,nameElement2) {
         nameElement1.disabled = false;
         nameElement1.placeholder = "Оставьте пустым если не было детей";
-
+      
         nameElement2.disabled = false;
         nameElement2.placeholder = "Укажите ноль если нету";
       }
         function elementEnable(nameElement1,nameElement2) {
         nameElement1.disabled = false;
-
+      
         nameElement2.disabled = false;
       }
       document.getElementById("myDropdown").selectedIndex = -1;
-
+      
    </script>
 </body>

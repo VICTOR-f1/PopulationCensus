@@ -7,7 +7,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace PopulationСensus.Migrations
 {
     /// <inheritdoc />
-    public partial class AddingUserAnswer : Migration
+    public partial class main : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -21,8 +21,8 @@ namespace PopulationСensus.Migrations
                     ZipCode = table.Column<int>(type: "integer", nullable: false),
                     ApartmentNumber = table.Column<short>(type: "smallint", nullable: false),
                     Street = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: true),
-                    City = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: true),
-                    State = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: true)
+                    City = table.Column<string>(type: "character varying(70)", maxLength: 70, nullable: true),
+                    State = table.Column<string>(type: "character varying(70)", maxLength: 70, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -49,9 +49,21 @@ namespace PopulationСensus.Migrations
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Gender = table.Column<bool>(type: "boolean", nullable: false),
-                    NumberChildrenBorn = table.Column<byte>(type: "smallint", nullable: false),
-                    YearBirthFirstChild = table.Column<short>(type: "smallint", nullable: false),
-                    PlaceBirth = table.Column<string>(type: "character varying(150)", maxLength: 150, nullable: true)
+                    NumberChildrenBorn = table.Column<byte>(type: "smallint", nullable: true),
+                    YearBirthFirstChild = table.Column<short>(type: "smallint", nullable: true),
+                    PlaceBirth = table.Column<string>(type: "character varying(70)", maxLength: 70, nullable: true),
+                    LivedOtherCountries = table.Column<bool>(type: "boolean", nullable: false),
+                    WhereLiveBeforeArriving = table.Column<string>(type: "character varying(70)", maxLength: 70, nullable: true),
+                    YearArrival = table.Column<short>(type: "smallint", nullable: true),
+                    SpeakRussian = table.Column<bool>(type: "boolean", nullable: false),
+                    UseRussianInConversation = table.Column<bool>(type: "boolean", nullable: false),
+                    NativeLanguage = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: true),
+                    Citizenship = table.Column<string>(type: "character varying(70)", maxLength: 70, nullable: true),
+                    Nationality = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: true),
+                    Education = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: true),
+                    HaveDegree = table.Column<bool>(type: "boolean", nullable: false),
+                    CanReadAndWrite = table.Column<bool>(type: "boolean", nullable: false),
+                    MaritalStatus = table.Column<string>(type: "character varying(30)", maxLength: 30, nullable: true)
                 },
                 constraints: table =>
                 {
@@ -71,7 +83,7 @@ namespace PopulationСensus.Migrations
                     Salt = table.Column<string>(type: "character varying(100)", maxLength: 100, nullable: true),
                     RoleId = table.Column<int>(type: "integer", nullable: false),
                     AddressId = table.Column<int>(type: "integer", nullable: false),
-                    UserAnswersId = table.Column<int>(type: "integer", nullable: false),
+                    UserAnswersId = table.Column<int>(type: "integer", nullable: true),
                     PhoneNumber = table.Column<string>(type: "character varying(15)", maxLength: 15, nullable: true)
                 },
                 constraints: table =>
@@ -93,8 +105,7 @@ namespace PopulationСensus.Migrations
                         name: "FK_Users_UserAnswer_UserAnswersId",
                         column: x => x.UserAnswersId,
                         principalTable: "UserAnswer",
-                        principalColumn: "Id",
-                        onDelete: ReferentialAction.Cascade);
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(

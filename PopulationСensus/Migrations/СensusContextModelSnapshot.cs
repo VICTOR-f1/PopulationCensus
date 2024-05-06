@@ -34,12 +34,12 @@ namespace PopulationСensus.Migrations
                         .HasColumnType("smallint");
 
                     b.Property<string>("City")
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
+                        .HasMaxLength(70)
+                        .HasColumnType("character varying(70)");
 
                     b.Property<string>("State")
-                        .HasMaxLength(30)
-                        .HasColumnType("character varying(30)");
+                        .HasMaxLength(70)
+                        .HasColumnType("character varying(70)");
 
                     b.Property<string>("Street")
                         .HasMaxLength(150)

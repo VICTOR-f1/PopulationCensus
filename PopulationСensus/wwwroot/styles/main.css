@@ -5,18 +5,15 @@
 	font-style: normal
 }
 
-@font-face {
-	font-family: TochkaMedium;
-	src: url(/font/TTNormsPro-Medium.ttf);
-	font-weight: 500;
-	font-style: normal
-}
 
 @font-face {
 	font-family: TochkaRegular;
 	src: url(/font/TTNormsPro-Regular.ttf);
 	font-weight: 500;
 	font-style: normal
+}
+.font-face {
+	font-family: "Montserrat", "Arial", "Helvetica Neue", sans-serif;
 }
 
 .footer-sticky {
@@ -31,7 +28,7 @@
 body {
 	color: #191919;
 	letter-spacing: 0.2px;
-	font: 600 16px/28px "TTNormsTochkaExte", Arial, Helvetica, sans-serif;
+	font: 600 16px/28px "Montserrat", Arial, Helvetica, sans-serif;
 }
 .funk-tochka-script-font {
 	font-family: "TochkaScript", sans-serif;
@@ -61,7 +58,7 @@ img {
 
 p {
 	color: #191919;
-	font: 600 14px "TTNormsTochkaExte", Arial, Helvetica, sans-serif;
+	font: 600 14px "Montserrat", Arial, Helvetica, sans-serif;
 }
 
 a:focus,
@@ -104,7 +101,7 @@ h2,
 h3,
 h4,
 h5 {
-	font-family: "TTNormsTochkaExte", sans-serif;
+	font-family: "Montserrat", sans-serif;
 	font-weight: 700;
 	color: #191919;
 	margin: 0px;
@@ -138,7 +135,7 @@ p {
 	line-height: 24px;
 	color: #191919;
 	letter-spacing: 0.2px;
-	font-family: "TTNormsTochkaExte", sans-serif;
+	font-family: "Montserrat", sans-serif;
 	margin: 0px;
 }
 
@@ -180,7 +177,7 @@ p {
 
 @media (max-width: 767px) {
 	.main-btn {
-		padding: 0 25px;
+		padding: 0 5px !important;
 		height: 50px;
 		line-height: 50px;
 		font-size: 14px;
@@ -259,24 +256,26 @@ p {
 }
 
 .navbar-toggler {
-	padding: 0;
+	position: relative;
+	top: 1px;
+	display: inline-block;
+	background-image: url('../images/icons-menu.png');
+	font-style: normal;
+	font-weight: 400;
+	line-height: 0.5;
+	-webkit-font-smoothing: antialiased;
+	-moz-osx-font-smoothing: grayscale;
+}
+
+@media (min-width: 990px) {
+	.navbar-toggler {
+		display: none;
+	}
 }
 .back{
 	position:fixed;
 }
-.navbar-toggler .toggler-icon {
-	width: 30px;
-	height: 2px;
-	background-color: #fff;
-	display: block;
-	margin: 5px 0;
-	position: relative;
-	-webkit-transition: all 0.3s ease-out 0s;
-	-moz-transition: all 0.3s ease-out 0s;
-	-ms-transition: all 0.3s ease-out 0s;
-	-o-transition: all 0.3s ease-out 0s;
-	transition: all 0.3s ease-out 0s;
-}
+
 
 @media only screen and (min-width: 768px) and (max-width: 991px) {
 	.navbar-collapse {
@@ -965,9 +964,7 @@ body {
 }
 
 @media only screen and (max-width: 575px) {
-	.support-button p {
-		font-size: 14px;
-	}
+	
 }
 
 .support-button i {
@@ -979,11 +976,12 @@ body {
 	.support-button i {
 		font-size: 1rem;
 	}
-}
-
-
-@media only screen and (max-width: 575px) {
 	.support-button a {
-		font-size: 13px;
+		font-size: 16px;
+	}
+	.support-button p {
+		font-size: 16px;
 	}
 }
+
+
