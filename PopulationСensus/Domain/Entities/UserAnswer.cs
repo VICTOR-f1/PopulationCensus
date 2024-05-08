@@ -39,14 +39,14 @@ namespace PopulationСensus.Domain.Entities
         [StringLength(30)]
         public string Nationality { get; set; } = null!;
         //образование
-        [StringLength(30)]
+        [StringLength(25)]
         public string Education { get; set; } = null!;
         //есть учённая степень
         public bool HaveDegree { get; set; }
         //умеете писать и читать 
         public bool CanReadAndWrite { get; set; }
         // состояние в браке
-        [StringLength(30)]
+        [StringLength(70)]
         public string MaritalStatus { get; set; } = null!;
     }
 }

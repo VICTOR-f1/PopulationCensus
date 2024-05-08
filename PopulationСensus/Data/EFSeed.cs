@@ -58,83 +58,86 @@ namespace PopulationСensus.Data
             //    };
             //  context.Addresses.Add(address);
             #endregion
-            //List<string> countres = new List<string>() { "Украина","Таджикистан","Азербайджан","Казахстан","Киргизия"};
-            //List<string> language = new List<string>() { "Украинский", "Русский", "Таджикский", "Казахстанский", "Киргизкий","Русский", "Русский", };
-            //List<string> nationalityList = new List<string>() { "Украинец", "Русский", "Таджик", "Казах", "Киргиз", "Русский", "Русский", };
-            //List<string> education = new List<string>() { "Общее", "Средне профессиональное", "Высшеее" };
-            //List<string> maritalStatusList = new List<string>() { "В зарегистрированном браке", "В незарегистрированном супружеском союзе", "Офицально разведён(а)", "Разошёлся(лась)", "Вдовец вдова", "Никогда не состоял(а) в браке, супружеском союзе" };
+            List<string> countres = new List<string>() { "Украина", "Таджикистан", "Азербайджан", "Казахстан", "Киргизия" };
+            List<string> language = new List<string>() { "Украинский", "Русский", "Таджикский", "Казахстанский", "Киргизкий", "Русский", "Русский", };
+            List<string> nationalityList = new List<string>() { "Украинец", "Русский", "Таджик", "Казах", "Киргиз", "Русский", "Русский", };
+            List<string> education = new List<string>() { "Общее", "Средне профессиональное", "Высшеее" };
+            List<string> maritalStatusList = new List<string>() { "В зарегистрированном браке", "В незарегистрированном супружеском союзе", "Офицально разведён(а)", "Разошёлся(лась)", "Вдовец вдова", "Никогда не состоял(а) в браке, супружеском союзе" };
 
-            for (int i = 18; i < 121; i++)
+            for (int i = 19; i < 121; i++)
             {
                 var user = await reader.FindUserAsync(i);
 
-                //Faker faker = new Faker("ru");
-                //bool gender = faker.Random.Bool();
-                //byte? NumberChildrenBorn = null;
-                //short? YearBirthFirstChild = null;
-                //if (gender == true)
-                //{
-                //     NumberChildrenBorn = faker.Random.Byte(0, 5);
-                //     YearBirthFirstChild = faker.Random.Short(1970, 2024);
-                //}
+                Faker faker = new Faker("ru");
+                bool gender = faker.Random.Bool();
+                byte? NumberChildrenBorn = null;
+                short? YearBirthFirstChild = null;
+                if (gender == true)
+                {
+                    NumberChildrenBorn = faker.Random.Byte(0, 5);
+                    YearBirthFirstChild = faker.Random.Short(1970, 2024);
+                }
 
-                //var changeLivedOtherCountries = faker.Random.Byte(0, 100);
-                //bool LivedOtherCountries=false;
-                //if (changeLivedOtherCountries > 80)
-                //     LivedOtherCountries = true;
+                var changeLivedOtherCountries = faker.Random.Byte(0, 100);
+                bool LivedOtherCountries = false;
+                if (changeLivedOtherCountries > 80)
+                    LivedOtherCountries = true;
 
-                //string whereLiveBeforeArriving = null;
-                //if (LivedOtherCountries == true)   
-                //     whereLiveBeforeArriving = countres[faker.Random.Byte(0,4)];
+                string whereLiveBeforeArriving = null;
+                if (LivedOtherCountries == true)
+                    whereLiveBeforeArriving = countres[faker.Random.Byte(0, 4)];
 
-                //short yearArrival = 0;
-                //if (LivedOtherCountries == true)
-                //{
-                //    short dateOfBirth = 0;
-                //    yearArrival = faker.Random.Short(dateOfBirth, (short)(dateOfBirth + 10));
+                short? yearArrival = null;
+                if (LivedOtherCountries == true)
+                {
+                    short dateOfBirth = 0;
+                    yearArrival = faker.Random.Short(dateOfBirth, (short)(dateOfBirth + 10));
 
-                //}
+                }
 
-                //bool speakRussian= true;
-                //if (LivedOtherCountries)
-                //    speakRussian = faker.Random.Bool();
+                bool speakRussian = true;
+                if (LivedOtherCountries)
+                    speakRussian = faker.Random.Bool();
 
-                //bool useRussianInConversation = true;
-                //if (speakRussian)
-                //    useRussianInConversation = faker.Random.Bool();
-                
-                //bool haveDegree= faker.Random.Bool();
-                //bool canReadAndWrite= false;
-                //if (!haveDegree)
-                //{
-                //    canReadAndWrite = faker.Random.Bool();
-                //}
-                //var userAnswers = new UserAnswer
-                //{
-                //    Gender = gender,
-                //    NumberChildrenBorn = NumberChildrenBorn,
-                //    YearBirthFirstChild = YearBirthFirstChild,
-                //    PlaceBirth = faker.Address.State(),
-                //    LivedOtherCountries = LivedOtherCountries,
-                //    WhereLiveBeforeArriving = whereLiveBeforeArriving,
-                //    YearArrival = yearArrival,
-                //    SpeakRussian = speakRussian,
-                //    UseRussianInConversation = useRussianInConversation,
-                //    NativeLanguage = language[faker.Random.Byte(0, 6)],
-                //    Citizenship = countres[faker.Random.Byte(0, 4)],
-                //    Education = education[faker.Random.Byte(0, 2)],
-                //    HaveDegree = haveDegree,
-                //    CanReadAndWrite = canReadAndWrite,
-                //    MaritalStatus = maritalStatusList[faker.Random.Byte(0, 5)],
-                //    Nationality = nationalityList[faker.Random.Byte(0, 6)],
+                bool useRussianInConversation = true;
+                if (speakRussian)
+                    useRussianInConversation = faker.Random.Bool();
 
-                //};
-                //await userService.AddUserAnswer(userAnswers);
+                bool haveDegree = faker.Random.Bool();
+                bool canReadAndWrite = false;
+                if (!haveDegree)
+                {
+                    canReadAndWrite = faker.Random.Bool();
+                }
+                var userAnswers = new UserAnswer
+                {
+                    Gender = gender,
+                    NumberChildrenBorn = NumberChildrenBorn,
+                    YearBirthFirstChild = YearBirthFirstChild,
+                    PlaceBirth = faker.Address.State(),
+                    LivedOtherCountries = LivedOtherCountries,
+                    WhereLiveBeforeArriving = whereLiveBeforeArriving,
+                    YearArrival = yearArrival,
+                    SpeakRussian = speakRussian,
+                    UseRussianInConversation = useRussianInConversation,
+                    NativeLanguage = language[faker.Random.Byte(0, 6)],
+                    Citizenship = countres[faker.Random.Byte(0, 4)],
+                    Education = education[faker.Random.Byte(0, 2)],
+                    HaveDegree = haveDegree,
+                    CanReadAndWrite = canReadAndWrite,
+                    MaritalStatus = maritalStatusList[faker.Random.Byte(0, 5)],
+                    Nationality = nationalityList[faker.Random.Byte(0, 6)],
 
-                //user.UserAnswersId = userAnswers.Id;
-                //await userService.UpdateUser(user);
+                };
+                await userService.AddUserAnswer(userAnswers);
+
+                user.UserAnswersId = userAnswers.Id;
+                await userService.UpdateUser(user);
             }
-         
+            var a = "";
+
         }
     }
+
 }
+

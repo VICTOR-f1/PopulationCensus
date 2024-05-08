@@ -20,13 +20,12 @@ For more information on enabling MVC for empty projects, visit https://go.micros
       }
    </style>
 </head>
-<h1>Просмотр ответов </h1>
 <body>
-   <div class="container-fluid px-1 py-5 mx-auto main-container">
+   <div class="main-containner container-fluid px-1 py-5 mx-auto main-container">
    <div class="row d-flex justify-content-center">
       <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
-         <div class="card shadow-lg">
-            <h5 class="text-center mb-4 title">Всероссийская перепись населения </h5>
+         <div class="card shadow-lg mt-80">
+            <h1 class="text-center mb-4 title">Просмотр ответ пользователя</h1>
             <form class="form-card" method="POST">
                <div class="row justify-content-between text-left">
                   <div class="form-group col-sm-6 flex-column d-flex">
@@ -107,13 +106,7 @@ For more information on enabling MVC for empty projects, visit https://go.micros
                      <label asp-for="HaveDegree" class="form-control-label"></label> 
                      <label class="label-output">@ViewBag.HaveDegree</label>   
                   </div>
-               </div>
-               <div class="row justify-content-end">
-                  <div class="form-group col-sm-6">
-                     <div  class="text-danger" asp-validation-summary="None">@ViewBag.modelError</div>
-                     <button type="submit" class="btn-block main-btn btn-primary">Отправить</button> 
-                  </div>
-               </div>
+               </div>           
             </form>
          </div>
       </div>

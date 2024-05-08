@@ -1,8 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
-using PopulationСensus.Domain.Entities;
+﻿using PopulationСensus.Domain.Entities;
 using PopulationСensus.Domain.Services;
-using System.Reflection.PortableExecutable;
-using static System.Reflection.Metadata.BlobBuilder;
 
 namespace PopulationСensus.Infrastructure
 {

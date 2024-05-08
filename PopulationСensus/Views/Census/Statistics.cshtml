@@ -1,0 +1,46 @@
+﻿@{
+}
+
+<!DOCTYPE HTML>
+<html>
+<head>
+	<link rel="shortcut icon" href="/favicon.png" type="image/png">
+	<link rel="stylesheet" href="/styles/statistics.css">
+	<script src="/scripts/canvasjs.min.js"></script>
+	<script>
+		window.onload = function () {
+
+			var chart = new CanvasJS.Chart("chartContainer", {
+				animationEnabled: true,
+				theme: "light2",
+				title: {
+					text: "Число людей прошедших регистрация"
+				},
+				axisY: {
+					titleFontSize: 18
+				},
+				data: [{
+					type: "line",
+					yValueFormatString: "HK$#,###",
+					xValueType: "dateTime",
+					xValueFormatString: "DD MMM",
+					dataPoints: @Html.Raw(ViewBag.DataPoints)
+						}]
+			});
+
+
+
+			chart.render();
+
+		}
+	</script>
+</head>
+<body>
+	<div class="main-containner">
+		<div id="chartContainer" class="mt-120" style="height: 370px; width: 100%;">
+
+		</div>
+	</div>
+
+</body>
+</html> 

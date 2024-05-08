@@ -259,3 +259,6 @@ input::placeholder {
 input:disabled {
 	background-color: #BCBCBC;
 }
+.main-containner {
+	background: #f4f4f8 !important;
+}

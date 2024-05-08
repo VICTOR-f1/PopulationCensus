@@ -125,5 +125,9 @@ namespace PopulationСensus.Infrastructure
         {
             await userAnswers.AddAsync(userAnswer);
         }
+        public async Task UpdateUserAnswer(UserAnswer userAnswer)
+        {
+            await userAnswers.UpdateAsync(userAnswer);
+        }
     }
 }

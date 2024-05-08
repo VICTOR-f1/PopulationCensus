@@ -14,6 +14,8 @@ namespace PopulationСensus.Domain.Services
         Task UpdateAddress(Address address);
         Task DeleteAddress(Address address);
         Task AddUserAnswer(UserAnswer userAnswer);
+        Task UpdateUserAnswer(UserAnswer userAnswer);
+
 
     }
 }

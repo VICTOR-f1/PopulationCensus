@@ -51,7 +51,7 @@ var currentUrl = ViewContext.HttpContext.Request.GetDisplayUrl().ToString();
                         <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                            <ul id="nav" class="navbar-nav ml-auto">
                               <li class="nav-item">
-                                 <a class="page-scroll" href="#practice">Статистика</a>
+                                 <a class="page-scroll"  asp-controller="Census" asp-action="Statistics">Статистика</a>
                               </li>
                               <li class="nav-item">
                                  <a class="page-scroll" href="/Census/Index#faq">Частые вопросы</a>
