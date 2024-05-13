@@ -1,4 +1,11 @@
-.main-containner {
-    background-color: #f4f4f8;
-    min-height: 500px;
+.container {
+    width: 100%;
+    padding-right: 15px;
+    padding-left: 15px;
+    margin-right: auto;
+    margin-left: auto;
+}
+#numberPeoplePassed {
+    height: 80vh;
+    width: 100%;
 }

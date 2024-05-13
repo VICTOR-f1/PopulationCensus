@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
+using PopulationCensus.Domain.Entities;
 using PopulationСensus.Domain.Entities;
 using PopulationСensus.Domain.Services;
 using PopulationСensus.ViewModels;
-using Newtonsoft.Json;
-using System.Collections.Generic;
-using PopulationCensus.Domain.Entities;
 
 namespace PopulationСensus.Controllers
 {
@@ -20,17 +19,17 @@ namespace PopulationСensus.Controllers
             this.userService = userService;
         }
 
-        public IActionResult Index() 
+        public IActionResult Index()
         {
             return View();
         }
-     
+
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> ResultCensus(string searchString = "")
         {
             var viewModel = new ResidentCatalogViewModel()
             {
-                 User= await reader.FindUserAsync(searchString),
+                User = await reader.FindUserAsync(searchString),
                 Address = await reader.GetAllАddressAsync(),
             };
             return View(viewModel);
@@ -51,10 +50,10 @@ namespace PopulationСensus.Controllers
             ViewBag.YearBirthFirstChild = userAnswer.YearBirthFirstChild;
             ViewBag.NumberChildrenBorn = userAnswer.NumberChildrenBorn;
             ViewBag.WhereLiveBeforeArriving = userAnswer.WhereLiveBeforeArriving ?? "пусто";
-            ViewBag.LivedOtherCountries = userAnswer.LivedOtherCountries;           
+            ViewBag.LivedOtherCountries = userAnswer.LivedOtherCountries;
             ViewBag.YearArrival = userAnswer.YearArrival;
             ViewBag.SpeakRussian = userAnswer.SpeakRussian;
-            ViewBag.UseRussianInConversation=userAnswer.UseRussianInConversation;
+            ViewBag.UseRussianInConversation = userAnswer.UseRussianInConversation;
             ViewBag.NativeLanguage = userAnswer.NativeLanguage;
             ViewBag.Nationality = userAnswer.Nationality;
             ViewBag.Citizenship = userAnswer.Citizenship;
@@ -72,7 +71,7 @@ namespace PopulationСensus.Controllers
 
             return View();
         }
-      
+
         [Authorize]
         public IActionResult GratitudeCensusSuccess()
         {
@@ -80,53 +79,50 @@ namespace PopulationСensus.Controllers
             return View();
         }
 
-        public IActionResult Statistics()
+        public async Task<IActionResult> Statistics()
         {
-			List<DataPoint> dataPoints = new List<DataPoint>();
+            List<DataPoint> numberPeoplePassed = null;
+            List<DataPoint> registeredButNotPass = new List<DataPoint>();
+            numberPeoplePassed = DataPoint.CreateListNumberPeoplePassed(numberPeoplePassed);
 
-			dataPoints.Add(new DataPoint(1496255400000, 2500));
-			dataPoints.Add(new DataPoint(1496341800000, 2790));
-			dataPoints.Add(new DataPoint(1496428200000, 3380));
-			dataPoints.Add(new DataPoint(1496514600000, 4940));
-			dataPoints.Add(new DataPoint(1496601000000, 4020));
-			dataPoints.Add(new DataPoint(1496687400000, 3390));
-			dataPoints.Add(new DataPoint(1496773800000, 4200));
-			dataPoints.Add(new DataPoint(1496860200000, 3150));
-			dataPoints.Add(new DataPoint(1496946600000, 3230));
-			dataPoints.Add(new DataPoint(1497033000000, 4200));
-			dataPoints.Add(new DataPoint(1497119400000, 5210));
-			dataPoints.Add(new DataPoint(1497205800000, 4940));
-			dataPoints.Add(new DataPoint(1497292200000, 3500));
-			dataPoints.Add(new DataPoint(1497378600000, 3790));
-			dataPoints.Add(new DataPoint(1497465000000, 3230));
-			dataPoints.Add(new DataPoint(1497551400000, 2900));
-			dataPoints.Add(new DataPoint(1497637800000, 3080));
-			dataPoints.Add(new DataPoint(1497724200000, 3370));
-			dataPoints.Add(new DataPoint(1497810600000, 2880));
-			dataPoints.Add(new DataPoint(1497897000000, 3170));
-			dataPoints.Add(new DataPoint(1497983400000, 3280));
-			dataPoints.Add(new DataPoint(1498069800000, 4070));
-			dataPoints.Add(new DataPoint(1498156200000, 5280));
-			dataPoints.Add(new DataPoint(1498242600000, 4970));
-			dataPoints.Add(new DataPoint(1498329000000, 2560));
-			dataPoints.Add(new DataPoint(1498415400000, 2790));
-			dataPoints.Add(new DataPoint(1498501800000, 3800));
-			dataPoints.Add(new DataPoint(1498588200000, 4400));
-			dataPoints.Add(new DataPoint(1498674600000, 4020));
-			dataPoints.Add(new DataPoint(1498761000000, 3900));
 
-			ViewBag.DataPoints = JsonConvert.SerializeObject(dataPoints);
+            var userAnswer = await reader.GetAllUserAnswerAsync();
+            var user = await reader.GetAllUserAsync();
+            foreach (var item in userAnswer)
+            {
+                int month = item.Date.Month;
+                numberPeoplePassed[month - 1].Y++;
+            }
+            registeredButNotPass.Add(new DataPoint("Прошли перепись", 0));
+            registeredButNotPass.Add(new DataPoint("Только зарегистрировались", 0));
+            int passed = 0;
+            int notPassed = 0;
+            foreach (var item in user)
+            {
+                if (item.UserAnswersId != null)
+                    passed++;
+                else
+                    notPassed++;
+            }
+            double prosent = 100/(passed + notPassed);
+            passed = (int)(passed / prosent);
+            notPassed = (int)(notPassed / prosent);
+            ViewBag.DataPointsNumberPeoplePassed = JsonConvert.SerializeObject(numberPeoplePassed);
+            ViewBag.RegisteredButNotPass = JsonConvert.SerializeObject(registeredButNotPass);
 
-			return View();
-		}
+
+
+
+            return View();
+        }
 
         [Authorize]
-        public  IActionResult CensusSuccess()
+        public IActionResult CensusSuccess()
         {
 
             return View();
         }
-      
+
 
         [HttpGet]
         [Authorize]
@@ -134,7 +130,7 @@ namespace PopulationСensus.Controllers
         {
 
             var user = await reader.FindUserByEmailAsync(User.Identity.Name);
-            if (user.UserAnswersId==null)
+            if (user.UserAnswersId == null)
             {
                 return View();
             }
@@ -154,25 +150,25 @@ namespace PopulationСensus.Controllers
                 return View(userAnswerVm);
             }
             try
-            {           
+            {
                 var userAnswers = new UserAnswer
                 {
-                    Gender= userAnswerVm.Gender,
-                    NumberChildrenBorn= userAnswerVm.NumberChildrenBorn,
-                    YearBirthFirstChild= userAnswerVm.YearBirthFirstChild,
+                    Gender = userAnswerVm.Gender,
+                    NumberChildrenBorn = userAnswerVm.NumberChildrenBorn,
+                    YearBirthFirstChild = userAnswerVm.YearBirthFirstChild,
                     PlaceBirth = userAnswerVm.PlaceBirth,
-                    LivedOtherCountries= userAnswerVm.LivedOtherCountries,
-                    WhereLiveBeforeArriving= userAnswerVm.WhereLiveBeforeArriving,
-                    YearArrival= userAnswerVm.YearArrival,
+                    LivedOtherCountries = userAnswerVm.LivedOtherCountries,
+                    WhereLiveBeforeArriving = userAnswerVm.WhereLiveBeforeArriving,
+                    YearArrival = userAnswerVm.YearArrival,
                     SpeakRussian = userAnswerVm.SpeakRussian,
                     UseRussianInConversation = userAnswerVm.UseRussianInConversation,
                     NativeLanguage = userAnswerVm.NativeLanguage,
                     Citizenship = userAnswerVm.Citizenship,
                     Education = userAnswerVm.Education,
-                    HaveDegree= userAnswerVm.HaveDegree,
-                    CanReadAndWrite= userAnswerVm.CanReadAndWrite,
-                    MaritalStatus= userAnswerVm.MaritalStatus,
-                    Nationality= userAnswerVm.Nationality,
+                    HaveDegree = userAnswerVm.HaveDegree,
+                    CanReadAndWrite = userAnswerVm.CanReadAndWrite,
+                    MaritalStatus = userAnswerVm.MaritalStatus,
+                    Nationality = userAnswerVm.Nationality,
 
                 };
                 await userService.AddUserAnswer(userAnswers);
@@ -188,7 +184,7 @@ namespace PopulationСensus.Controllers
                 return View(userAnswerVm);
             }
             return RedirectToAction("CensusSuccess", "Census");
-           
+
         }
 
     }

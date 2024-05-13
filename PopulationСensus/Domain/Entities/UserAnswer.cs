@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Bogus.DataSets;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Security.Cryptography;
@@ -48,5 +49,8 @@ namespace PopulationСensus.Domain.Entities
         // состояние в браке
         [StringLength(70)]
         public string MaritalStatus { get; set; } = null!;
-    }
+
+		// Дата
+		public DateTime Date { get; set; }
+	}
 }

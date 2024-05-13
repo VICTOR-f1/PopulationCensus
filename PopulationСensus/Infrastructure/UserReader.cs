@@ -53,8 +53,9 @@ namespace PopulationСensus.Infrastructure
         public async Task<User> FindUserAsync(int userId) => await users.FindAsync(userId);
 
         public async Task<List<User>> GetAllUserAsync() => await users.GetAllAsync();
+		public async Task<List<UserAnswer>> GetAllUserAnswerAsync() => await usersAnswers.GetAllAsync();
 
-        public async Task<List<Address>> GetAllАddressAsync() => await addresses.GetAllAsync();
+		public async Task<List<Address>> GetAllАddressAsync() => await addresses.GetAllAsync();
 
         public async Task<UserAnswer> FindUserAnswerAsync(int userAnswerId) => await usersAnswers.FindAsync(userAnswerId);
 
