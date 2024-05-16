@@ -30,7 +30,7 @@ Layout = "/Views/Shared/_LayoutHeaderOnly.cshtml";
                            <input onchange="genderEnable(YearBirthFirstChild,NumberChildrenBorn)" value="True" asp-for="Gender" id="female" checked type="radio">                          
                            <span class="checkmark"></span>
                            </label>
-                           <label class="radio-container radio-container--right">Да
+                           <label class="radio-container radio-container--right">Мужчина
                            <input onchange="elementDisabled(YearBirthFirstChild, NumberChildrenBorn)" value="False" asp-for="Gender" id="male" type="radio"> 
                            <span class="checkmark"></span>
                            </label>
@@ -125,9 +125,10 @@ Layout = "/Views/Shared/_LayoutHeaderOnly.cshtml";
                   <div class="form-group col-sm-6 flex-column d-flex">
                      <label asp-for="Education" class="form-control-label"></label> 
                      <select asp-for="Education" id="myDropdown">
+                        <option>Отсутствует</option>
                         <option>Общее</option>
                         <option>Средне профессиональное</option>
-                        <option>Высшеее</option>
+                        <option>Высшее</option>
                      </select>
                   </div>
                </div>
