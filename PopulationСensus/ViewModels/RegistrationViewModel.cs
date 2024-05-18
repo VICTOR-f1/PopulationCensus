@@ -15,6 +15,7 @@ namespace PopulationСensus.ViewModels
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public DateTime? DateOfBirth { get; set; }
 
+        [Required(ErrorMessage = "Укажите почту")]
         [MinLength(3, ErrorMessage = "Длинна почты не должна быть меньше трёх символов")]
         [MaxLength(150, ErrorMessage = "Длина почты не должна превышать сто пятьдесят символов")]
         [RegularExpression(@"^([\w\.\-]+)@([\w\-]+)((\.(\w){2,3})+)$", ErrorMessage = "Некоректная почта")]
