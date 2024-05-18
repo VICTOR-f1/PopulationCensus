@@ -1,8 +1,4 @@
-﻿using Bogus.DataSets;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Security.Cryptography;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace PopulationСensus.Domain.Entities
 {
@@ -50,7 +46,7 @@ namespace PopulationСensus.Domain.Entities
         [StringLength(70)]
         public string MaritalStatus { get; set; } = null!;
 
-		// Дата
-		public DateTime Date { get; set; }
-	}
+        // Дата
+        public DateTime Date { get; set; }
+    }
 }

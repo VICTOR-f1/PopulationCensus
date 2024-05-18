@@ -1,12 +1,9 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.DependencyInjection;
 using PopulationÑensus.Data;
 using PopulationÑensus.Domain.Entities;
 using PopulationÑensus.Domain.Services;
 using PopulationÑensus.Infrastructure;
-using System;
 
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 AppContext.SetSwitch("Npgsql.EnableLegacyTimestampBehavior", true);

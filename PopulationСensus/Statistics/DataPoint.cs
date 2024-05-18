@@ -1,5 +1,4 @@
-﻿using PopulationСensus.Domain.Services;
-using System.Runtime.Serialization;
+﻿using System.Runtime.Serialization;
 
 namespace PopulationCensus.Statistics
 {
@@ -13,7 +12,6 @@ namespace PopulationCensus.Statistics
             Y = y;
         }
 
-
         //Explicitly setting the name to be used while serializing to JSON.
         [DataMember(Name = "label")]
         public string Label = "";
@@ -21,6 +19,6 @@ namespace PopulationCensus.Statistics
         //Explicitly setting the name to be used while serializing to JSON.
         [DataMember(Name = "y")]
         public double? Y = null;
-     
+
     }
 }

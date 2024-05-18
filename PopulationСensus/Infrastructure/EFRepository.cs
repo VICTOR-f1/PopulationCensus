@@ -5,7 +5,7 @@ using PopulationСensus.Domain.Services;
 using System.Linq.Expressions;
 
 namespace PopulationСensus.Infrastructure
-{   
+{
     public class EFRepository<T> : IRepository<T> where T : Entity
     {
         private readonly СensusContext context;
@@ -25,7 +25,7 @@ namespace PopulationСensus.Infrastructure
         {
             context.Entry(entity).State = EntityState.Deleted;
             await context.SaveChangesAsync();
-        }     
+        }
         public async Task<T?> FindAsync(int id)
         {
             return await context.Set<T>().FindAsync(id);
@@ -48,6 +48,10 @@ namespace PopulationСensus.Infrastructure
             await context.SaveChangesAsync();
             return entity;
         }
+        public async Task<List<int>> FindWhereId(Expression<Func<T, bool>> predicate)
+        {
+            return await context.Set<T>().Where(predicate).Select(x => x.Id).ToListAsync();
 
+        }
     }
 }

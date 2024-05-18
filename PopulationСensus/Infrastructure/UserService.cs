@@ -1,8 +1,6 @@
-﻿using PopulationСensus.Data;
-using PopulationСensus.Domain.Entities;
+﻿using PopulationСensus.Domain.Entities;
 using PopulationСensus.Domain.Services;
 using System.Diagnostics;
-using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 
@@ -16,7 +14,7 @@ namespace PopulationСensus.Infrastructure
         private readonly IRepository<UserAnswer> userAnswers;
         public UserService(IRepository<User> usersRepository,
             IRepository<Role> rolesRepository,
-            IRepository<Address> addresses,IRepository<UserAnswer> userAnswers)
+            IRepository<Address> addresses, IRepository<UserAnswer> userAnswers)
         {
             users = usersRepository;
             roles = rolesRepository;
@@ -33,9 +31,9 @@ namespace PopulationСensus.Infrastructure
             return Convert.ToBase64String(hashBytes);
         }
         public async Task<User?> GetUserAsync(string username, string password)
-        {          
+        {
             User? user = (await users.FindWhere(u => u.Email == username)).FirstOrDefault();
-    
+
             if (user is null)
             {
                 return null;
@@ -55,7 +53,7 @@ namespace PopulationСensus.Infrastructure
             return found is not null;
         }
 
-        public async Task<User> RegistrationAsync(string fullname, string username, string password,DateTime dateOfBirth, string phoneNumber, string state, string city, string street, short apartmentNumber, int zipCode)
+        public async Task<User> RegistrationAsync(string fullname, string username, string password, DateTime dateOfBirth, string phoneNumber, string state, string city, string street, short apartmentNumber, int zipCode)
         {
             // проверяем, есть ли пользователь с таким же username
             bool userExists = await IsUserExistsAsync(username);
@@ -63,23 +61,23 @@ namespace PopulationСensus.Infrastructure
 
             Address address = new Address
             {
-                State=state,
-                City=city,
-                Street=street,
-                ApartmentNumber=apartmentNumber,
-                ZipCode=zipCode
+                State = state,
+                City = city,
+                Street = street,
+                ApartmentNumber = apartmentNumber,
+                ZipCode = zipCode
             };
             await AddAddress(address);
             int adressId = address.Id;
             //иногда отпадает id
             User addUser = new User
             {
-              
+
                 FullName = fullname,
                 Email = username,
                 Salt = GetSalt(),
                 RoleId = 1,
-                DateOfBirth= dateOfBirth,
+                DateOfBirth = dateOfBirth,
                 PhoneNumber = phoneNumber,
                 AddressId = adressId,
 

@@ -1,15 +1,13 @@
 ﻿using Bogus;
-using Bogus.DataSets;
 using PopulationСensus.Domain.Entities;
 using PopulationСensus.Domain.Services;
-using PopulationСensus.Infrastructure;
 
 
 namespace PopulationСensus.Data
 {
-    public   class EFSeed
+    public class EFSeed
     {
-        private readonly IUserReader reader  ;
+        private readonly IUserReader reader;
         private readonly IUserService userService;
         public EFSeed(IUserReader reader, IUserService userService)
         {

@@ -8,7 +8,7 @@ namespace PopulationСensus.ViewModels
         [Display(Name = "Пол")]
         public bool Gender { get; set; }
 
-        [Range(0, 30,ErrorMessage = "Не корректный ввод")]
+        [Range(0, 30, ErrorMessage = "Не корректный ввод")]
         [Display(Name = "Сколько детей вы родили")]
         public byte? NumberChildrenBorn { get; set; }
 

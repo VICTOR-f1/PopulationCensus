@@ -8,6 +8,7 @@ namespace PopulationСensus.Domain.Services
         Task<T?> FindAsync(int id);
         Task<List<T>> GetAllAsync();
         Task<List<T>> FindWhere(Expression<Func<T, bool>> predicate);
+        Task<List<int>> FindWhereId(Expression<Func<T, bool>> predicate);
         Task<T> AddAsync(T entity);
         Task<T> UpdateAsync(T entity);
         Task DeleteAsync(T entity);

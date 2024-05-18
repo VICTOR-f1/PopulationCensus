@@ -1,13 +1,11 @@
-﻿using Microsoft.AspNetCore.Authentication.Cookies;
-using Microsoft.AspNetCore.Authentication;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using PopulationСensus.Domain.Entities;
 using PopulationСensus.Domain.Services;
 using PopulationСensus.ViewModels;
 using System.Security.Claims;
 using System.Security.Principal;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 
 namespace PopulationСensus.Controllers
 {
@@ -63,7 +61,7 @@ namespace PopulationСensus.Controllers
         [HttpPost]
         public async Task<IActionResult> Registration(RegistrationViewModel registration)
         {
-            
+
             if (!ModelState.IsValid)
             {
                 return View(registration);
@@ -76,7 +74,7 @@ namespace PopulationСensus.Controllers
             }
             try
             {
-                await userService.RegistrationAsync(registration.Fullname, registration.Email, registration.Password, (DateTime)registration.DateOfBirth,registration.PhoneNumber,registration.State,registration.City,registration.Street, (short)registration.ApartmentNumber, (int)registration.ZipCode);
+                await userService.RegistrationAsync(registration.Fullname, registration.Email, registration.Password, (DateTime)registration.DateOfBirth, registration.PhoneNumber, registration.State, registration.City, registration.Street, (short)registration.ApartmentNumber, (int)registration.ZipCode);
                 return RedirectToAction("RegistrationSuccess", "User");
             }
             catch
@@ -116,8 +114,8 @@ namespace PopulationСensus.Controllers
         {
             return View();
         }
-     
-    
+
+
 
     }
 }
