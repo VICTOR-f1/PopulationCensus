@@ -1,80 +1,133 @@
 ﻿@using PopulationСensus.Domain.Entities
 @model ResidentCatalogViewModel
 @{
+    List<(int, int)> listGender = new List<(int, int)>();
+    listGender.Add((1, 2312));
+    listGender.Add((2, 31312));
 }
 <head>
-   <link rel="shortcut icon" href="/favicon.png" type="image/png">
-   <link rel="stylesheet" href="/styles/result-census.css">
-   <meta name="viewport" content="width=device-width" />
-   <title>@ViewBag.Title</title>
+    <link rel="shortcut icon" href="/favicon.png" type="image/png">
+    <link rel="stylesheet" href="/styles/result-census.css">
+    <meta name="viewport" content="width=device-width" />
+    <script src="~/js/bootstrap-multiselect.js"></script>
+    <link href="~/css/bootstrap-multiselect.css" rel="stylesheet" />
+    <title>@ViewBag.Title</title>
 </head>
 <body>
-   <div class="main-content">
-      <div class="container">
-         </br>
-         <div class="main-content-card">
-            <div class="row">
-               <div class="searchbar">
-                  <form method="POST">
-                     <label >Поиск:</label>
-                     <input name="searchstring" id="input-search" type="text" onchange="submitForm()" />
-                  </form>
-               </div>
-               <table class="table table-striped table-bordered main-content-table">
-                  <thead class="table-dark">
-                     <tr>
-                        <th scope="col">#</th>
-                        <th scope="col">ФИО</th>
-                        <th id="DataOfBirthTh" scope="col"></th>
-                        <th scope="col">Адресс</th> 
-                     </tr>
-                  </thead>
-                  <tbody>
-                     @{
-                     int i = 0;
-                     foreach (User resident in Model.User)
-                     {
-                     i++;
-                     <tr>
-                        <td>@i</td>
-                        <td>@resident.FullName</td>
-                        <td>@resident.DateOfBirth.ToShortDateString()</td>
-                        <td class="d-flex justify-content-between">
-                           @resident.Address.State @resident.Address.City 
-                           @resident.Address.Street @resident.Address.ApartmentNumber @resident.Address.ZipCode
-                           @if(@resident.UserAnswersId!=null)
-                           {               
-                           <form>
-                              <div class="d-flex justify-content-end">
-                                 <a    asp-action="ViewingUserAnswer"   asp-controller="Census" asp-route-userAnswerId="@resident.UserAnswersId">
-                                     <img id="view-icon-image" src="/images/view-icon.png"/>
-                                 </a>
-                              </div>
-                           </form>
-                           }                             
-                        </td>
-                     </tr>
-                     }
-                     }             
-                  </tbody>
-               </table>
+    <div class="main-content ">
+        <div class="container">
+            <br />
+            <div class="main-content-card">
+                <div class="row">
+                    <div class="searchbar">
+                        <form method="POST">
+                            <label class="title">Поиск</label>
+                            <div class="row justify-content-between text-left">
+                                <div class="form-group col-sm-4 flex-column d-flex">
+                                    <div class="input-group">
+                                        <label class="form-control-label col-md-12 px-0">Пол</label>
+                                        <div class="p-t-5">
+                                            <select class="form-control" name="gender">
+                                                <option value="true">Женщина</option>
+                                                <option value="false">Мужчина</option>
+                                                <option selected="selected" value="allGender">Все</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-4 flex-column d-flex">
+                                    <div class="input-group">
+                                        <label class="form-control-label col-md-12 px-0">Пол</label>
+                                        <div class="p-t-5">
+                                            <select class="form-control">
+                                                <option value="true">Женщина</option>
+                                                <option value="false">Мужчина</option>
+                                                <option value="all">Все</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-4 flex-column d-flex">
+                                    <div class="input-group">
+                                        <label class="form-control-label col-md-12 px-0">Пол</label>
+                                        <div class="p-t-5">
+                                            <select class="form-control">
+                                                <option value="male">Женщина</option>
+                                                <option value="female">Мужчина</option>
+                                                <option value="all">Все</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="float-end">
+                                <label>Количество ответов подходящих под выборку: <b>@ViewBag.enumerator</b></label>
+                            </div>
+                            <button class="btn-block main-btn btn-primary" type="submit">Сделать выборку</button>
+                        </form>
+                    </div>
+
+                    <table class="table table-striped table-bordered main-content-table">
+                        <thead class="table-dark">
+                            <tr>
+                                <th scope="col">#</th>
+                                <th scope="col">ФИО</th>
+                                <th id="DataOfBirthTh" scope="col"></th>
+                                <th scope="col">Адресс</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            @{
+                                int i = 0;
+                                foreach (User resident in Model.User)
+                                {
+                                    i++;
+                                    <tr>
+                                        <td>@i</td>
+                                        <td>@resident.FullName</td>
+                                        <td>@resident.DateOfBirth.ToShortDateString()</td>
+                                        <td class="d-flex justify-content-between">
+                                            @resident.Address.State @resident.Address.City
+                                            @resident.Address.Street @resident.Address.ApartmentNumber @resident.Address.ZipCode
+                                            @if (@resident.UserAnswerId != null)
+                                            {
+                                                <form>
+                                                    <div class="d-flex justify-content-end">
+                                                        <a asp-action="ViewingUserAnswer" asp-controller="Census" asp-route-userAnswerId="@resident.UserAnswerId">
+                                                            <img id="view-icon-image" src="/images/view-icon.png" />
+                                                        </a>
+                                                    </div>
+                                                </form>
+                                            }
+                                        </td>
+                                    </tr>
+                                }
+                            }
+
+                        </tbody>
+                    </table>
+                </div>
             </div>
-         </div>
-      </div>
-   </div>
-   <script>
-      function submitForm() {
-          document.querySelector('form').submit();
-      }
-   </script>
-   @if (TempData["Message"] != null)
-   {
-   <script type="text/javascript">
-      window.onload = function () {
-          alert('@TempData["Message"]');
-      };
-   </script>
-   }
+        </div>
+    </div>
+    <script>
+
+
+
+    </script>
+    @if (TempData["Message"] != null)
+    {
+        <script type="text/javascript">
+            window.onload = function () {
+                alert('@TempData["Message"]');
+            };
+            $(function () {
+                $('#Country').multiselect({
+                    includeSelectAllOption: true,
+                });
+            });
+        </script>
+    }
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript"></script>

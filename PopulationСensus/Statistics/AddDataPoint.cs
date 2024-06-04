@@ -52,7 +52,7 @@ namespace PopulationCensus.Statistics
 
             foreach (var item in user)
             {
-                if (item.UserAnswersId != null)
+                if (item.UserAnswerId != null)
                     dataPoints[0].Y++;
                 else
                     dataPoints[1].Y++;

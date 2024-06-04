@@ -11,5 +11,7 @@ namespace PopulationСensus.Domain.Services
         Task<UserAnswer?> FindUserAnswerAsync(int userAnswerId);
         Task<User?> FindUserByEmailAsync(string mail);
         Task<List<Address>> GetAllАddressAsync();
+        Task<List<User>> GetUserAsync(string gender="");
+
     }
 }

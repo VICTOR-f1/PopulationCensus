@@ -26,8 +26,8 @@ namespace PopulationСensus.Domain.Entities
         public int AddressId { get; set; }
         public Address Address { get; set; } = null!;
 
-        public int? UserAnswersId { get; set; }
-        public UserAnswer UserAnswers { get; set; } = null!;
+        public int? UserAnswerId { get; set; }
+        public UserAnswer UserAnswer { get; set; } = null!;
 
         [StringLength(15)]
         public string PhoneNumber { get; set; }

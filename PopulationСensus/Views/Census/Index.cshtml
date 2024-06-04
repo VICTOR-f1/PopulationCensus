@@ -32,260 +32,261 @@
 </head>
 <body>
 
-<div id="home" class="header_slider slider-active">
-    <div class="single_slider bg_cover d-flex align-items-center"
-         style="background-image: url(/images/population-census.jpg)">
+    <div id="home" class="header_slider slider-active">
+        <div class="single_slider bg_cover d-flex align-items-center"
+             style="background-image: url(/images/population-census.jpg)">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-9">
+                        <div class="slider_content">
+                            <h2 class="slider_title" data-animation="fadeInUp" data-delay="0.2s">
+                                Всероссийская перепись
+                                населения 2024 года
+                            </h2>
+                            <p class="p-font20" data-animation="fadeInUp" data-delay="0.7s">
+                                Участвуй в Всероссийской
+                                переписи населения 2024 года, чтобы помочь государству точно определить демографическую
+                                ситуацию и разработать эффективные стратегии развития!
+                            </p>
+                            @{
+                                if (User.IsInRole("admin"))
+                                {
+                                    <a asp-controller="Census" asp-action="ResultCensus" class="main-btn" data-scroll-nav="0">Просмотреть результаты</a>
+                                }
+                                else if (User.IsInRole("client"))
+                                {
+                                    <a asp-controller="Census" asp-action="AddCensus" class="main-btn" data-scroll-nav="0">Участие в переписи</a>
+                                }
+                                else if (!User.Identity.IsAuthenticated)
+                                {
+                                    <a asp-controller="User" asp-action="Login" class="main-btn" data-scroll-nav="0">Участие в переписи</a>
+                                }
+                            }
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!--====== ОПИСАНИЕ НАЧАЛО ======-->
+
+    <section id="about" class="about_area">
+        <div class="about_law_area pt-100">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-5">
+                        <div class="about_law_title mt-30">
+                            <h4 class="title">О онлайн<br> <span>переписи населения</span> </h4>
+                        </div>
+                    </div>
+                    <div class="col-lg-7">
+                        <div class="about_law_content mt-30">
+                            <p>В современном мире, когда технологии развиваются с невероятной скоростью, перепись населения может проводиться в режиме онлайн. Это значительно упрощает процесс сбора информации и ускоряет получение результатов.</p>
+                            <br>
+                            <p>Онлайн перепись населения представляет собой форму сбора данных через интернет. Для этого создаются специальные сайты или приложения, которые позволяют гражданам заполнить анкету, не выходя из дома. Такой подход позволяет существенно сократить затраты на проведение переписи и повысить ее точность.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <!--====== ПРЕИМУЩЕСТВА НАЧАЛО ======-->
+
+        <div class="about_hire_area pt-80 pb-130">
+            <div class="container">
+                <div class="row">
+                    <div class="col-lg-6">
+                        <div class="about_image mt-50">
+                            <img src="/images/about.jpg" alt="about">
+                        </div>
+                    </div>
+                    <div class="col-lg-6">
+                        <div class="about_content mt-50">
+                            <div class="section_title">
+                                <h3 class="title">Преимущества онлайн переписи населения</h3>
+                            </div>
+                            <ul class="about_list">
+                                <li class="d-flex">
+                                    <div class="about_check">
+                                        <i class="lni lni-checkmark-circle"></i>
+                                    </div>
+                                    <div class="about_list_content media-body">
+                                        <h5 class="title"><span>Удобство</span></h5>
+                                        <p> гражданам не нужно никуда идти или стоять в очереди, чтобы заполнить анкету. Все данные можно ввести с помощью компьютера, планшета или смартфона.</p>
+                                    </div>
+                                </li>
+                                <li class="d-flex">
+                                    <div class="about_check">
+                                        <i class="lni lni-checkmark-circle"></i>
+                                    </div>
+                                    <div class="about_list_content media-body">
+                                        <h5 class="title"><span>Быстрота</span></h5>
+                                        <p>результаты переписи могут быть получены гораздо быстрее, чем при традиционном способе проведения переписи. </p>
+                                    </div>
+                                </li>
+                                <li class="d-flex">
+                                    <div class="about_check">
+                                        <i class="lni lni-checkmark-circle"></i>
+                                    </div>
+                                    <div class="about_list_content media-body">
+                                        <h5 class="title"><span>Доступность</span></h5>
+                                        <p>онлайн перепись доступна для всех граждан, независимо от их места жительства или возраста. </p>
+                                    </div>
+                                </li>
+                                <li class="d-flex">
+                                    <div class="about_check">
+                                        <i class="lni lni-checkmark-circle"></i>
+                                    </div>
+                                    <div class="about_list_content media-body">
+                                        <h5 class="title"><span>Отстуствие вреда экологии</span></h5>
+                                        <p>онлайн перепись способствует сокращению использования бумаги и других ресурсов, что положительно сказывается на окружающей среде.</p>
+                                    </div>
+                                </li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--====== ПРЕИМУЩЕСТВА КОНЕЦ======-->
+    <!--====== НУЖНА ПОМОЩЬ? НАЧАЛО ======-->
+
+    <section class="call_action_area pt-115 pb-130 bg_cover">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-lg-12">
+                    <div class="call_action_content text-center">
+                        <h3 class="action_title"> <span>Уже более одного человека приняли участие</span>  </h3>
+                        <p>Присоединяйтесь и вы</p>
+                        <a href="#" class="main-btn">Принять участие</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!--====== НУЖНА ПОМОЩЬ? КОНЕЦ ======-->
+    <!--====== КОНТАКТЫ НАЧАЛО ======-->
+
+    <section id="contact" class="contact_area pt-80 pb-130 gray-bg">
         <div class="container">
             <div class="row">
-                <div class="col-lg-9">
-                    <div class="slider_content">
-                        <h2 class="slider_title" data-animation="fadeInUp" data-delay="0.2s">Всероссийская перепись
-                            населения 2024 года</h2>
-                        <p class="p-font20" data-animation="fadeInUp" data-delay="0.7s">Участвуй в Всероссийской
-                            переписи населения 2024 года, чтобы помочь государству точно определить демографическую
-                            ситуацию и разработать эффективные стратегии развития!</p>
-                        @{
-                            if (User.IsInRole("admin"))
-                            {                                     
-                               <a asp-controller="Census" asp-action="ResultCensus" class="main-btn" data-scroll-nav="0">Просмотреть результаты</a>
-                            }
-                            else if  (User.IsInRole("client"))
-                            {                                     
-                               <a  asp-controller="Census" asp-action="AddCensus" class="main-btn" data-scroll-nav="0">Участие в переписи</a>
-                            }
-                            else if  (!User.Identity.IsAuthenticated)
-                            {
-                               <a  asp-controller="User" asp-action="Login" class="main-btn" data-scroll-nav="0">Участие в переписи</a>
-                            }
-                        }
-                    </div> 
+                <div class="col-lg-6">
+                    <div class="contact_content mt-40">
+                        <div class="section_title pb-25">
+                            <h3 class="title funk-tochka-script-font">Нужна помощь?</h3>
+                            <p>Если у есть вопросы или вам нужна помощь, то вы можете заполнить поля формы зявки или позвонить по номеру телефона указанному ниже. Наши операторы с радостью помогут вам.</p>
+                        </div>
+                        <div class="contact_info">
+                            <h5 class="info_title">Звоните нам 24/7</h5>
+                            <p class="number">8 (919) 396-21-45</p>
+                        </div>
+                    </div>
                 </div>
-            </div> 
-        </div> 
-    </div> 
+                <div class="col-lg-6">
+                    <div class="contact_form pt-20">
+                        <form id="contact-form">
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="single_form">
+                                        <input name="name" type="text" placeholder="Имя">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="single_form">
+                                        <input name="email" type="email" placeholder="Почта">
+                                    </div>
+                                </div>
 
-</div> 
+                                <div class="col-md-12">
+                                    <div class="single_form">
+                                        <textarea id="message" placeholder="Сообщение"></textarea>
+                                    </div>
+                                </div>
+                                <p class="form-message"></p>
+                                <div class="col-md-12">
+                                    <div class="single_form text-right">
+                                        <button class="main-btn">Отправить сообщение</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-<!--====== ОПИСАНИЕ НАЧАЛО ======-->
+    <!--====== КОНТАКТЫ КОНЕЦ======-->
+    <!--====== ЧАСТЫЕ ВОПРОСЫ НАЧАЛО======-->
 
-<section id="about" class="about_area">
-    <div class="about_law_area pt-100">
+    <div class="faq_area section_padding_130" id="faq">
         <div class="container">
-            <div class="row">
-                <div class="col-lg-5">
-                    <div class="about_law_title mt-30">
-                        <h4 class="title">О онлайн<br> <span>переписи населения</span> </h4>
-                    </div> 
-                </div>
-                <div class="col-lg-7">
-                    <div class="about_law_content mt-30">
-                        <p>В современном мире, когда технологии развиваются с невероятной скоростью, перепись населения может проводиться в режиме онлайн. Это значительно упрощает процесс сбора информации и ускоряет получение результатов.</p>
+            <div class="row justify-content-center">
+                <div class="col-12 col-sm-8 col-lg-6">
+                    <div class="section_heading text-center wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+                        <h3><span>Часто задаваемые вопросы</span> </h3>
                         <br>
-                        <p>Онлайн перепись населения представляет собой форму сбора данных через интернет. Для этого создаются специальные сайты или приложения, которые позволяют гражданам заполнить анкету, не выходя из дома. Такой подход позволяет существенно сократить затраты на проведение переписи и повысить ее точность.</p>
-                    </div> 
-                </div>
-            </div> 
-        </div> 
-    </div>
-
-
-    <!--====== ПРЕИМУЩЕСТВА НАЧАЛО ======-->
-
-    <div class="about_hire_area pt-80 pb-130">
-        <div class="container">
-            <div class="row">
-                <div class="col-lg-6">
-                    <div class="about_image mt-50">
-                        <img src="/images/about.jpg" alt="about">
-                    </div> 
-                </div>
-                <div class="col-lg-6">
-                    <div class="about_content mt-50">
-                        <div class="section_title">
-                            <h3 class="title">Преимущества онлайн переписи населения</h3>
-                        </div> 
-                        <ul class="about_list">
-                            <li class="d-flex">
-                                <div class="about_check">
-                                    <i class="lni lni-checkmark-circle"></i>
-                                </div>
-                                <div class="about_list_content media-body">
-                                    <h5 class="title"><span>Удобство</span></h5>
-                                    <p> гражданам не нужно никуда идти или стоять в очереди, чтобы заполнить анкету. Все данные можно ввести с помощью компьютера, планшета или смартфона.</p>
-                                </div>
-                            </li>
-                            <li class="d-flex">
-                                <div class="about_check">
-                                    <i class="lni lni-checkmark-circle"></i>
-                                </div>
-                                <div class="about_list_content media-body">
-                                    <h5 class="title"><span>Быстрота</span></h5>
-                                    <p>результаты переписи могут быть получены гораздо быстрее, чем при традиционном способе проведения переписи. </p>
-                                </div>
-                            </li>
-                            <li class="d-flex">
-                                <div class="about_check">
-                                    <i class="lni lni-checkmark-circle"></i>
-                                </div>
-                                <div class="about_list_content media-body">
-                                    <h5 class="title"><span>Доступность</span></h5>
-                                    <p>онлайн перепись доступна для всех граждан, независимо от их места жительства или возраста. </p>
-                                </div>
-                            </li>
-                            <li class="d-flex">
-                                <div class="about_check">
-                                    <i class="lni lni-checkmark-circle"></i>
-                                </div>
-                                <div class="about_list_content media-body">
-                                    <h5 class="title"><span>Отстуствие вреда экологии</span></h5>
-                                    <p>онлайн перепись способствует сокращению использования бумаги и других ресурсов, что положительно сказывается на окружающей среде.</p>
-                                </div>
-                            </li>
-
-                        </ul>
-                    </div> 
-                </div>
-            </div> 
-        </div> 
-    </div> 
-</section>
-
-<!--====== ПРЕИМУЩЕСТВА КОНЕЦ======-->
-
-<!--====== НУЖНА ПОМОЩЬ? НАЧАЛО ======-->
-
-<section class="call_action_area pt-115 pb-130 bg_cover">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-12">
-                <div class="call_action_content text-center">
-                    <h3 class="action_title"> <span>Уже более одного человека приняли участие</span>  </h3>
-                    <p>Присоединяйтесь и вы</p>
-                    <a href="#" class="main-btn">Принять участие</a>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!--====== НУЖНА ПОМОЩЬ? КОНЕЦ ======-->
-
-<!--====== КОНТАКТЫ НАЧАЛО ======-->
-
-<section id="contact" class="contact_area pt-80 pb-130 gray-bg">
-    <div class="container">
-        <div class="row">
-            <div class="col-lg-6">
-                <div class="contact_content mt-40">
-                    <div class="section_title pb-25">
-                        <h3 class="title funk-tochka-script-font">Нужна помощь?</h3>
-                        <p>Если у есть вопросы или вам нужна помощь, то вы можете заполнить поля формы зявки или позвонить по номеру телефона указанному ниже. Наши операторы с радостью помогут вам.</p>
-                    </div>
-                    <div class="contact_info">
-                        <h5 class="info_title">Звоните нам 24/7</h5>
-                        <p class="number">8 (919) 396-21-45</p>
+                        <div class="line"></div>
                     </div>
                 </div>
             </div>
-            <div class="col-lg-6">
-                <div class="contact_form pt-20">
-                    <form id="contact-form">
-                        <div class="row">
-                            <div class="col-md-6">
-                                <div class="single_form">
-                                    <input name="name" type="text" placeholder="Имя">
-                                </div>
+            <div class="row justify-content-center">
+                <div class="col-12 col-sm-10 col-lg-8">
+                    <div class="accordion faq-accordian" id="faqAccordion">
+                        <div class="card border-0 wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+                            <div class="card-header" id="headingOne">
+                                <h6 class="mb-0 collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"> первый?<span class="lni-chevron-up"></span></h6>
                             </div>
-                            <div class="col-md-6">
-                                <div class="single_form">
-                                    <input name="email" type="email" placeholder="Почта">
-                                </div>
-                            </div>
-
-                            <div class="col-md-12">
-                                <div class="single_form">
-                                    <textarea id="message" placeholder="Сообщение"></textarea>
-                                </div>
-                            </div>
-                            <p class="form-message"></p>
-                            <div class="col-md-12">
-                                <div class="single_form text-right">
-                                    <button class="main-btn">Отправить сообщение</button>
+                            <div class="collapse" id="collapseOne" aria-labelledby="headingOne" data-parent="#faqAccordion">
+                                <div class="card-body">
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto quidem facere deserunt sint animi sapiente vitae suscipit.</p>
+                                    <p>Appland is completely creative, lightweight, clean &amp; super responsive app landing page.</p>
                                 </div>
                             </div>
                         </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-</section>
-
-<!--====== КОНТАКТЫ КОНЕЦ======-->
-
-<!--====== ЧАСТЫЕ ВОПРОСЫ НАЧАЛО======-->
-
-<div class="faq_area section_padding_130" id="faq">
-    <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-12 col-sm-8 col-lg-6">
-                <div class="section_heading text-center wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
-                    <h3><span>Часто задаваемые вопросы</span> </h3>
-                    <br>
-                    <div class="line"></div>
-                </div>
-            </div>
-        </div>
-        <div class="row justify-content-center">
-            <div class="col-12 col-sm-10 col-lg-8">
-                <div class="accordion faq-accordian" id="faqAccordion">
-                    <div class="card border-0 wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
-                        <div class="card-header" id="headingOne">
-                            <h6 class="mb-0 collapsed" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne"> первый?<span class="lni-chevron-up"></span></h6>
+                        <div class="card border-0 wow fadeInUp" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
+                            <div class="card-header" id="headingTwo">
+                                <h6 class="mb-0 collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"> второй?<span class="lni-chevron-up"></span></h6>
+                            </div>
+                            <div class="collapse" id="collapseTwo" aria-labelledby="headingTwo" data-parent="#faqAccordion">
+                                <div class="card-body">
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto quidem facere deserunt sint animi sapiente vitae suscipit.</p>
+                                    <p>Appland is completely creative, lightweight, clean &amp; super responsive app landing page.</p>
+                                </div>
+                            </div>
                         </div>
-                        <div class="collapse" id="collapseOne" aria-labelledby="headingOne" data-parent="#faqAccordion">
-                            <div class="card-body">
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto quidem facere deserunt sint animi sapiente vitae suscipit.</p>
-                                <p>Appland is completely creative, lightweight, clean &amp; super responsive app landing page.</p>
+                        <div class="card border-0 wow fadeInUp" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
+                            <div class="card-header" id="headingThree">
+                                <h6 class="mb-0 collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree"> третий?<span class="lni-chevron-up"></span></h6>
+                            </div>
+                            <div class="collapse" id="collapseThree" aria-labelledby="headingThree" data-parent="#faqAccordion">
+                                <div class="card-body">
+                                    <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto quidem facere deserunt sint animi sapiente vitae suscipit.</p>
+                                    <p>Appland is completely creative, lightweight, clean &amp; super responsive app landing page.</p>
+                                </div>
                             </div>
                         </div>
                     </div>
-                    <div class="card border-0 wow fadeInUp" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.3s; animation-name: fadeInUp;">
-                        <div class="card-header" id="headingTwo">
-                            <h6 class="mb-0 collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="true" aria-controls="collapseTwo"> второй?<span class="lni-chevron-up"></span></h6>
-                        </div>
-                        <div class="collapse" id="collapseTwo" aria-labelledby="headingTwo" data-parent="#faqAccordion">
-                            <div class="card-body">
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto quidem facere deserunt sint animi sapiente vitae suscipit.</p>
-                                <p>Appland is completely creative, lightweight, clean &amp; super responsive app landing page.</p>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="card border-0 wow fadeInUp" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp;">
-                        <div class="card-header" id="headingThree">
-                            <h6 class="mb-0 collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="true" aria-controls="collapseThree"> третий?<span class="lni-chevron-up"></span></h6>
-                        </div>
-                        <div class="collapse" id="collapseThree" aria-labelledby="headingThree" data-parent="#faqAccordion">
-                            <div class="card-body">
-                                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Architecto quidem facere deserunt sint animi sapiente vitae suscipit.</p>
-                                <p>Appland is completely creative, lightweight, clean &amp; super responsive app landing page.</p>
-                            </div>
-                        </div>
-                    </div>
-                </div>
                     <div class="support-button text-center d-flex align-items-center justify-content-center flex-wrap mt-4 wow fadeInUp" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.5s; animation-name: fadeInUp;">
-                    <i class="lni-emoji-sad"></i>
-                    <p class="mb-0 px-2">Не можете найти ответ на вопрос?</p>
-                    <a href="#"><span>Связаться с нами</span></a>
+                        <i class="lni-emoji-sad"></i>
+                        <p class="mb-0 px-2">Не можете найти ответ на вопрос?</p>
+                        <a href="#"><span>Связаться с нами</span></a>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<!--====== ЧАСТЫЕ ВОПРОСЫ КОНЕЦ======-->
-<script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
-<script type="text/javascript"></script>
+    <!--====== ЧАСТЫЕ ВОПРОСЫ КОНЕЦ======-->
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script type="text/javascript"></script>
 
 </body>

@@ -129,7 +129,7 @@ namespace PopulationСensus.Data
                 };
                 await userService.AddUserAnswer(userAnswers);
 
-                user.UserAnswersId = userAnswers.Id;
+                user.UserAnswerId = userAnswers.Id;
                 await userService.UpdateUser(user);
             }
             var a = "";

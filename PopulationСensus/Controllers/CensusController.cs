@@ -1,10 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using PopulationCensus.Statistics;
 using PopulationСensus.Domain.Entities;
 using PopulationСensus.Domain.Services;
 using PopulationСensus.ViewModels;
+using System.Diagnostics;
 
 namespace PopulationСensus.Controllers
 {
@@ -25,15 +28,56 @@ namespace PopulationСensus.Controllers
         }
 
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> ResultCensus(string searchString = "")
+        public async Task<IActionResult> ResultCensus(string gender = "")
         {
-            var viewModel = new ResidentCatalogViewModel()
+
+
+            ResidentCatalogViewModel viewModel = null;
+            if (gender == "")
             {
-                User = await reader.FindUserAsync(searchString),
-                Address = await reader.GetAllАddressAsync(),
-            };
+                var a = await reader.GetAllUserAsync();
+                viewModel = new ResidentCatalogViewModel()
+                {
+                    User = await reader.GetAllUserAsync(),
+                    Address = await reader.GetAllАddressAsync(),
+                    UserAnswers = await reader.GetAllUserAnswerAsync(),
+
+                };
+
+                int i = 0;
+                foreach (var item in a)
+                {
+                    i++;
+                    if (i > 6)
+                    {
+                        Debug.WriteLine("assssssssssssssssss");
+                        Debug.WriteLine(item.UserAnswer.MaritalStatus);
+
+                    }
+                }
+            }
+            else
+            {
+                viewModel = new ResidentCatalogViewModel()
+                {
+                    User = await reader.GetUserAsync("Виктор Андреевич Фарносов"),
+                    Address = await reader.GetAllАddressAsync(),
+                };
+            }
+            if (gender != "")
+                ViewBag.enumerator = "not null";
+
+
+
+            if (viewModel != null)
+                ViewBag.enumerator = viewModel.User.Count;
+            else
+                ViewBag.enumerator = 0;
+
             return View(viewModel);
         }
+
+
         [HttpGet]
         [Authorize(Roles = "admin")]
         public async Task<IActionResult> ViewingUserAnswer(int userAnswerId)
@@ -79,47 +123,6 @@ namespace PopulationСensus.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Statistics()
-        {
-            List<User> user = await reader.GetAllUserAsync();
-            List<UserAnswer> userAnswer = await reader.GetAllUserAnswerAsync();
-            var objAddDataPoint = new AddDataPoint(userAnswer, user);
-
-            List<DataPoint> numberPeoplePassed = null;
-            List<DataPoint> registeredButNotPass = null;
-            List<DataPoint> canWriteAndRead = null;
-            List<DataPoint> haveDegree = null;
-            List<DataPoint> nationality = null;
-            List<DataPoint> livedOtherCountries = null;
-            List<DataPoint> whereLiveBeforeArriving = null;
-            List<DataPoint> education = null;
-            List<DataPoint> gender = null;
-            List<DataPoint> maritalStatus = null;
-
-            numberPeoplePassed = objAddDataPoint.NumberPeoplePassed(numberPeoplePassed);
-            registeredButNotPass = objAddDataPoint.RegisteredButNotPass(registeredButNotPass);
-            canWriteAndRead = objAddDataPoint.CanWriteAndRead(canWriteAndRead);
-            haveDegree = objAddDataPoint.HaveDegree(haveDegree);
-            nationality = objAddDataPoint.Nationality(nationality);
-            livedOtherCountries = objAddDataPoint.LivedOtherCountries(livedOtherCountries);
-            whereLiveBeforeArriving = objAddDataPoint.WhereLiveBeforeArriving(whereLiveBeforeArriving);
-            education = objAddDataPoint.Education(education);
-            gender = objAddDataPoint.Gender(gender);
-            maritalStatus = objAddDataPoint.MaritalStatus(maritalStatus);
-
-            ViewBag.DataPointsNumberPeoplePassed = JsonConvert.SerializeObject(numberPeoplePassed);
-            ViewBag.RegisteredButNotPass = JsonConvert.SerializeObject(registeredButNotPass);
-            ViewBag.CanWriteAndRead = JsonConvert.SerializeObject(canWriteAndRead);
-            ViewBag.HaveDegree = JsonConvert.SerializeObject(haveDegree);
-            ViewBag.Nationality = JsonConvert.SerializeObject(nationality);
-            ViewBag.LivedOtherCountries = JsonConvert.SerializeObject(livedOtherCountries);
-            ViewBag.WhereLiveBeforeArriving = JsonConvert.SerializeObject(whereLiveBeforeArriving);
-            ViewBag.Education = JsonConvert.SerializeObject(education);
-            ViewBag.Gender = JsonConvert.SerializeObject(gender);
-            ViewBag.MaritalStatus = JsonConvert.SerializeObject(maritalStatus);
-
-            return View();
-        }
 
         [Authorize]
         public IActionResult CensusSuccess()
@@ -132,7 +135,7 @@ namespace PopulationСensus.Controllers
         public async Task<IActionResult> AddCensus()
         {
             var user = await reader.FindUserByEmailAsync(User.Identity.Name);
-            if (user.UserAnswersId == null)
+            if (user.UserAnswerId == null)
             {
                 return View();
             }
@@ -175,7 +178,7 @@ namespace PopulationСensus.Controllers
                 await userService.AddUserAnswer(userAnswers);
 
                 var user = await reader.FindUserByEmailAsync(User.Identity.Name);
-                user.UserAnswersId = userAnswers.Id;
+                user.UserAnswerId = userAnswers.Id;
                 await userService.UpdateUser(user);
             }
             catch

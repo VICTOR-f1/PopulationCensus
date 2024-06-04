@@ -4,7 +4,6 @@ namespace PopulationСensus.Domain.Entities
 {
     public class UserAnswer : Entity
     {
-        public User User { get; set; }
         //пол
         public bool Gender { get; set; }
         //количество рожденных детей
@@ -48,5 +47,9 @@ namespace PopulationСensus.Domain.Entities
 
         // Дата
         public DateTime Date { get; set; }
+
+        public List<User> User { get; set; } = null!;
+
+
     }
 }

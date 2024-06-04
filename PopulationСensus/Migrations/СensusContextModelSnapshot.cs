@@ -203,7 +203,7 @@ namespace PopulationСensus.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("PopulationСensus.Domain.Entities.UserAnswer", "UserAnswers")
+                    b.HasOne("PopulationСensus.Domain.Entities.UserAnswer", "UserAnswer")
                         .WithOne("User")
                         .HasForeignKey("PopulationСensus.Domain.Entities.User", "UserAnswersId");
 
@@ -211,7 +211,7 @@ namespace PopulationСensus.Migrations
 
                     b.Navigation("Role");
 
-                    b.Navigation("UserAnswers");
+                    b.Navigation("UserAnswer");
                 });
 
             modelBuilder.Entity("PopulationСensus.Domain.Entities.Address", b =>

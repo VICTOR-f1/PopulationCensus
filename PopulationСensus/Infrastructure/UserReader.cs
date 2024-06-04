@@ -48,6 +48,7 @@ namespace PopulationСensus.Infrastructure
 
         public async Task<UserAnswer> FindUserAnswerAsync(int userAnswerId) => await usersAnswers.FindAsync(userAnswerId);
 
+        public async Task<List<User>> GetUserAsync(string gender="") => await users.GetAllAsync();
 
     }
 }
