@@ -30,21 +30,35 @@ namespace PopulationСensus.Controllers
         }
 
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> ResultCensus(string gender = "",string canReadAndWrite="", string haveDegree = "", int? YearBirthFirstChild=null, int? numberChildrenBorn=null,string placeBirth="", string livedOtherCountries = "",string whereLiveBeforeArriving="")
+        public async Task<IActionResult> ResultCensus(string gender = "", string canReadAndWrite = "", string haveDegree = "", int? YearBirthFirstChild = null, int? numberChildrenBorn = null, string placeBirth = "", string livedOtherCountries = "", string whereLiveBeforeArriving = "")
         {
+            List<User> userList = await reader.GetAllUserAsync();
             List<UserAnswer> userListAnswer = await reader.GetAllUserAnswerAsync();
 
             ResidentCatalogViewModel viewModel = null;
 
-         
+            var userAnswersSelectList = userListAnswer
+               .GroupBy(item => item.PlaceBirth)
+               .Select(grp => new { PlaceBirth = grp.Key, Count = grp.Count() })
+               .OrderByDescending(item => item.Count)
+               .ToList();
+            var whereLiveBeforeArrivingSelectList = userListAnswer
+              .Where(x => x.WhereLiveBeforeArriving != null)
+              .GroupBy(item => item.WhereLiveBeforeArriving)
+              .Select(grp => new { WhereLiveBeforeArriving = grp.Key, Count = grp.Count() })
+              .OrderByDescending(item => item.Count)
+              .ToList();
+            var items = userAnswersSelectList.Select(answer =>
+          new SelectListItem { Text = answer.PlaceBirth.ToString() + ":" + answer.Count.ToString(), Value = answer.PlaceBirth.ToString() });
+
+            var items2 = whereLiveBeforeArrivingSelectList.Select(answer =>
+          new SelectListItem { Text = answer.WhereLiveBeforeArriving.ToString() + ":" + answer.Count.ToString(), Value = answer.WhereLiveBeforeArriving.ToString() });
 
             if (gender == "")
             {
-
-
                 viewModel = new ResidentCatalogViewModel()
                 {
-                    User = await reader.GetAllUserAsync(),
+                    User = userList,
                     Address = await reader.GetAllАddressAsync(),
                     UserAnswers = userListAnswer
 
@@ -53,8 +67,7 @@ namespace PopulationСensus.Controllers
             }
             else
             {
-                List<User> userList = await reader.GetAllUserAsync();
-                List<User> userListCopy = await reader.GetAllUserAsync();
+                List<User> userListCopy = new List<User>();
                 viewModel = new ResidentCatalogViewModel()
                 {
                     Address = await reader.GetAllАddressAsync(),
@@ -66,6 +79,7 @@ namespace PopulationСensus.Controllers
                     if (item.UserAnswerId != null)
                     {
                         userListCopy.Add(item);
+                        Debug.WriteLine(item.UserAnswer.Gender);
                     }
                 }
                 userList = userListCopy;
@@ -75,33 +89,33 @@ namespace PopulationСensus.Controllers
                resident.UserAnswer.Gender.ToString().Contains(gender) ||
                 gender == "allGender").ToList();
 
-               // userList = userList.Where(resident =>
-               // resident.UserAnswer.HaveDegree.ToString().Contains(haveDegree) ||
-               // haveDegree == "allHaveDegree").ToList();
+                userList = userList.Where(resident =>
+                resident.UserAnswer.HaveDegree.ToString().Contains(haveDegree) ||
+                haveDegree == "allHaveDegree").ToList();
 
-               // userList = userList.Where(resident =>
-               //resident.UserAnswer.CanReadAndWrite.ToString().Contains(canReadAndWrite) ||
-               //canReadAndWrite == "AllCanReadAndWrite").ToList();
+                userList = userList.Where(resident =>
+               resident.UserAnswer.CanReadAndWrite.ToString().Contains(canReadAndWrite) ||
+               canReadAndWrite == "AllCanReadAndWrite").ToList();
 
-               // userList = userList.Where(resident =>
-               //resident.UserAnswer.YearBirthFirstChild==YearBirthFirstChild ||
-               //YearBirthFirstChild == null).ToList();
+                userList = userList.Where(resident =>
+               resident.UserAnswer.YearBirthFirstChild==YearBirthFirstChild ||
+               YearBirthFirstChild == null).ToList();
 
-               // userList = userList.Where(resident =>
-               //  resident.UserAnswer.NumberChildrenBorn ==numberChildrenBorn ||
-               // numberChildrenBorn == null).ToList();
+                userList = userList.Where(resident =>
+                 resident.UserAnswer.NumberChildrenBorn ==numberChildrenBorn ||
+                numberChildrenBorn == null).ToList();
 
-               // userList = userList.Where(resident =>
-               //resident.UserAnswer.PlaceBirth == placeBirth ||
-               //placeBirth == "allPlaceBirth").ToList();
+                userList = userList.Where(resident =>
+               resident.UserAnswer.PlaceBirth == placeBirth ||
+               placeBirth == "allPlaceBirth").ToList();
 
-                //userList = userList.Where(resident =>
-                //resident.UserAnswer.LivedOtherCountries.ToString().Contains(livedOtherCountries) ||
-                //livedOtherCountries == null).ToList();
+                userList = userList.Where(resident =>
+                resident.UserAnswer.LivedOtherCountries.ToString().Contains(livedOtherCountries) ||
+                livedOtherCountries == "allLivedOtherCountries").ToList();
 
-                //userList = userList.Where(resident =>
-                //resident.UserAnswer.WhereLiveBeforeArriving == whereLiveBeforeArriving ||
-                //whereLiveBeforeArriving == "whereLiveBeforeArriving").ToList();
+                userList = userList.Where(resident =>
+                resident.UserAnswer.WhereLiveBeforeArriving == whereLiveBeforeArriving ||
+                whereLiveBeforeArriving == "allWhereLiveBeforeArriving").ToList();
 
                 viewModel = new ResidentCatalogViewModel()
                 {
@@ -109,24 +123,6 @@ namespace PopulationСensus.Controllers
                 };
             }
             ViewBag.enumerator = viewModel.User.Count;
-
-            var userAnswersSelectList = userListAnswer
-             .GroupBy(item => item.PlaceBirth)
-             .Select(grp => new { PlaceBirth = grp.Key, Count = grp.Count() })
-             .OrderByDescending(item => item.Count)
-             .ToList();
-            var whereLiveBeforeArrivingSelectList = userListAnswer
-               .Where(x => x.WhereLiveBeforeArriving != null)
-               .GroupBy(item => item.WhereLiveBeforeArriving)
-               .Select(grp => new { WhereLiveBeforeArriving = grp.Key, Count = grp.Count() })
-               .OrderByDescending(item => item.Count)
-               .ToList();
-            var items = userAnswersSelectList.Select(answer =>
-           new SelectListItem { Text = answer.PlaceBirth.ToString() + ":" + answer.Count.ToString(), Value = answer.PlaceBirth.ToString() });
-
-            var items2 = whereLiveBeforeArrivingSelectList.Select(answer =>
-          new SelectListItem { Text = answer.WhereLiveBeforeArriving.ToString() + ":" + answer.Count.ToString(), Value = answer.WhereLiveBeforeArriving.ToString() });
-
             viewModel.UserAnswersSelectList.AddRange(items);
             viewModel.WhereLiveBeforeArrivingSelectList.AddRange(items2);
 
