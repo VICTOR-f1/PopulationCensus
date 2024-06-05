@@ -1,5 +1,6 @@
 ﻿using PopulationСensus.Domain.Entities;
 using PopulationСensus.Domain.Services;
+using System.Diagnostics;
 
 namespace PopulationСensus.Infrastructure
 {
@@ -48,7 +49,6 @@ namespace PopulationСensus.Infrastructure
 
         public async Task<UserAnswer> FindUserAnswerAsync(int userAnswerId) => await usersAnswers.FindAsync(userAnswerId);
 
-        public async Task<List<User>> GetUserAsync(string gender="") => await users.GetAllAsync();
 
     }
 }

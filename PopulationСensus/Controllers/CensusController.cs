@@ -8,6 +8,8 @@ using PopulationСensus.Domain.Entities;
 using PopulationСensus.Domain.Services;
 using PopulationСensus.ViewModels;
 using System.Diagnostics;
+using System.Linq;
+using static System.Net.Mime.MediaTypeNames;
 
 namespace PopulationСensus.Controllers
 {
@@ -28,51 +30,105 @@ namespace PopulationСensus.Controllers
         }
 
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> ResultCensus(string gender = "")
+        public async Task<IActionResult> ResultCensus(string gender = "",string canReadAndWrite="", string haveDegree = "", int? YearBirthFirstChild=null, int? numberChildrenBorn=null,string placeBirth="", string livedOtherCountries = "",string whereLiveBeforeArriving="")
         {
-
+            List<UserAnswer> userListAnswer = await reader.GetAllUserAnswerAsync();
 
             ResidentCatalogViewModel viewModel = null;
+
+         
+
             if (gender == "")
             {
-                var a = await reader.GetAllUserAsync();
+
+
                 viewModel = new ResidentCatalogViewModel()
                 {
                     User = await reader.GetAllUserAsync(),
                     Address = await reader.GetAllАddressAsync(),
-                    UserAnswers = await reader.GetAllUserAnswerAsync(),
+                    UserAnswers = userListAnswer
 
                 };
 
-                int i = 0;
-                foreach (var item in a)
-                {
-                    i++;
-                    if (i > 6)
-                    {
-                        Debug.WriteLine("assssssssssssssssss");
-                        Debug.WriteLine(item.UserAnswer.MaritalStatus);
-
-                    }
-                }
             }
             else
             {
+                List<User> userList = await reader.GetAllUserAsync();
+                List<User> userListCopy = await reader.GetAllUserAsync();
                 viewModel = new ResidentCatalogViewModel()
                 {
-                    User = await reader.GetUserAsync("Виктор Андреевич Фарносов"),
                     Address = await reader.GetAllАddressAsync(),
+                    UserAnswers = userListAnswer,
+                };
+
+                foreach (var item in userList)
+                {
+                    if (item.UserAnswerId != null)
+                    {
+                        userListCopy.Add(item);
+                    }
+                }
+                userList = userListCopy;
+
+                userList = userList.Where(resident =>
+               resident.UserAnswerId != null &&
+               resident.UserAnswer.Gender.ToString().Contains(gender) ||
+                gender == "allGender").ToList();
+
+               // userList = userList.Where(resident =>
+               // resident.UserAnswer.HaveDegree.ToString().Contains(haveDegree) ||
+               // haveDegree == "allHaveDegree").ToList();
+
+               // userList = userList.Where(resident =>
+               //resident.UserAnswer.CanReadAndWrite.ToString().Contains(canReadAndWrite) ||
+               //canReadAndWrite == "AllCanReadAndWrite").ToList();
+
+               // userList = userList.Where(resident =>
+               //resident.UserAnswer.YearBirthFirstChild==YearBirthFirstChild ||
+               //YearBirthFirstChild == null).ToList();
+
+               // userList = userList.Where(resident =>
+               //  resident.UserAnswer.NumberChildrenBorn ==numberChildrenBorn ||
+               // numberChildrenBorn == null).ToList();
+
+               // userList = userList.Where(resident =>
+               //resident.UserAnswer.PlaceBirth == placeBirth ||
+               //placeBirth == "allPlaceBirth").ToList();
+
+                //userList = userList.Where(resident =>
+                //resident.UserAnswer.LivedOtherCountries.ToString().Contains(livedOtherCountries) ||
+                //livedOtherCountries == null).ToList();
+
+                //userList = userList.Where(resident =>
+                //resident.UserAnswer.WhereLiveBeforeArriving == whereLiveBeforeArriving ||
+                //whereLiveBeforeArriving == "whereLiveBeforeArriving").ToList();
+
+                viewModel = new ResidentCatalogViewModel()
+                {
+                    User = userList
                 };
             }
-            if (gender != "")
-                ViewBag.enumerator = "not null";
+            ViewBag.enumerator = viewModel.User.Count;
 
+            var userAnswersSelectList = userListAnswer
+             .GroupBy(item => item.PlaceBirth)
+             .Select(grp => new { PlaceBirth = grp.Key, Count = grp.Count() })
+             .OrderByDescending(item => item.Count)
+             .ToList();
+            var whereLiveBeforeArrivingSelectList = userListAnswer
+               .Where(x => x.WhereLiveBeforeArriving != null)
+               .GroupBy(item => item.WhereLiveBeforeArriving)
+               .Select(grp => new { WhereLiveBeforeArriving = grp.Key, Count = grp.Count() })
+               .OrderByDescending(item => item.Count)
+               .ToList();
+            var items = userAnswersSelectList.Select(answer =>
+           new SelectListItem { Text = answer.PlaceBirth.ToString() + ":" + answer.Count.ToString(), Value = answer.PlaceBirth.ToString() });
 
+            var items2 = whereLiveBeforeArrivingSelectList.Select(answer =>
+          new SelectListItem { Text = answer.WhereLiveBeforeArriving.ToString() + ":" + answer.Count.ToString(), Value = answer.WhereLiveBeforeArriving.ToString() });
 
-            if (viewModel != null)
-                ViewBag.enumerator = viewModel.User.Count;
-            else
-                ViewBag.enumerator = 0;
+            viewModel.UserAnswersSelectList.AddRange(items);
+            viewModel.WhereLiveBeforeArrivingSelectList.AddRange(items2);
 
             return View(viewModel);
         }

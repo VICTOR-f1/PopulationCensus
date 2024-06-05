@@ -297,7 +297,7 @@ textarea {
 
 .input-group {
     position: relative;
-    margin-bottom: 22px;
+    margin-bottom: 15px;
 }
 
 .radio-container--right {
@@ -322,6 +322,7 @@ select {
     background-clip: padding-box;
     border: 1px solid #bdbdbd;
     border-radius: 0.25rem;
+    margin-top:0px !important;
     transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
 }
 
@@ -349,4 +350,7 @@ select {
 .text-danger {
     color: #a94442;
     font-size: 14px;
+}
+.form-control-label{
+    margin-bottom:0px !important;
 }

@@ -21,15 +21,14 @@
                 <div class="row">
                     <div class="searchbar">
                         <form method="POST">
-                            <label class="title">Поиск</label>
                             <div class="row justify-content-between text-left">
                                 <div class="form-group col-sm-4 flex-column d-flex">
                                     <div class="input-group">
                                         <label class="form-control-label col-md-12 px-0">Пол</label>
-                                        <div class="p-t-5">
-                                            <select class="form-control" name="gender">
-                                                <option value="true">Женщина</option>
-                                                <option value="false">Мужчина</option>
+                                        <div class="">
+                                            <select  class="form-control" name="gender">
+                                                <option value="True">Женщина</option>
+                                                <option value="False">Мужчина</option>
                                                 <option selected="selected" value="allGender">Все</option>
                                             </select>
                                         </div>
@@ -37,24 +36,68 @@
                                 </div>
                                 <div class="form-group col-sm-4 flex-column d-flex">
                                     <div class="input-group">
-                                        <label class="form-control-label col-md-12 px-0">Пол</label>
-                                        <div class="p-t-5">
-                                            <select class="form-control">
-                                                <option value="true">Женщина</option>
-                                                <option value="false">Мужчина</option>
-                                                <option value="all">Все</option>
+                                        <label class="form-control-label col-md-12 px-0">Умееют писать или читать</label>
+                                        <div class="">
+                                            <select class="form-control" name="canReadAndWrite">
+                                                <option value="True">Умеют писать и читать</option>
+                                                <option value="False">Не умеют писать и читать</option>
+                                                <option selected="selected" value="AllCanReadAndWrite">Все</option>
                                             </select>
                                         </div>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-4 flex-column d-flex">
                                     <div class="input-group">
-                                        <label class="form-control-label col-md-12 px-0">Пол</label>
-                                        <div class="p-t-5">
-                                            <select class="form-control">
-                                                <option value="male">Женщина</option>
-                                                <option value="female">Мужчина</option>
-                                                <option value="all">Все</option>
+                                        <label class="form-control-label col-md-12 px-0">Есть учённая степень</label>
+                                        <div class="">
+                                            <select name="haveDegree" class="form-control">
+                                                <option value="True">Да</option>
+                                                <option value="False">Нет</option>
+                                                <option selected="selected" value="allHaveDegree">Все</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-4 flex-column d-flex">
+                                    <div class="input-group">
+                                        <label class="form-control-label col-md-12 px-0">Год рождения первого ребёнка</label>
+                                        <input name="YearBirthFirstChild" id="YearBirthFirstChild">
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-4 flex-column d-flex">
+                                    <div class="input-group">
+                                        <label class="form-control-label col-md-12 px-0">Количество детей</label>
+                                        <input name="numberChildrenBorn" id="numberChildrenBorn">
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-4 flex-column d-flex">
+                                    <div class="input-group">
+                                        <label class="form-control-label col-md-12 px-0">Место рождения</label>
+                                        <div class="">
+                                            <select class="form-control" name="placeBirth" asp-items="Model.UserAnswersSelectList">
+                                                <option selected="selected" value="allPlaceBirth">Все</option>
+
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-4 flex-column d-flex">
+                                    <div class="input-group">
+                                        <label class="form-control-label col-md-12 px-0">Жили ли в других странах более года</label>
+                                        <select name="livedOtherCountries" class="form-control">
+                                            <option value="True">Да</option>
+                                            <option value="False">Нет</option>
+                                            <option selected="selected" value="allLivedOtherCountries">Все</option>
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-4 flex-column d-flex">
+                                    <div class="input-group">
+                                        <label class="form-control-label col-md-12 px-0">Страны в которых жили люди до прибытия</label>
+                                        <div class="">
+                                            <select class="form-control" name="whereLiveBeforeArriving" asp-items="Model.WhereLiveBeforeArrivingSelectList">
+                                                <option selected="selected" value="allWhereLiveBeforeArriving">Все</option>
+
                                             </select>
                                         </div>
                                     </div>
@@ -111,7 +154,7 @@
         </div>
     </div>
     <script>
-
+    
 
 
     </script>
