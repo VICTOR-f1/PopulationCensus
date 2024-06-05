@@ -30,7 +30,7 @@ namespace PopulationСensus.Controllers
         }
 
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> ResultCensus(string gender = "", string canReadAndWrite = "", string haveDegree = "", int? YearBirthFirstChild = null, int? numberChildrenBorn = null, string placeBirth = "", string livedOtherCountries = "", string whereLiveBeforeArriving = "")
+        public async Task<IActionResult> ResultCensus(string gender = "", string canReadAndWrite = "", string haveDegree = "", int? YearBirthFirstChild = null, int? numberChildrenBorn = null, string placeBirth = "", string livedOtherCountries = "", string whereLiveBeforeArriving = "", string speakRussian = "",string useRussianInConversation="")
         {
             List<User> userList = await reader.GetAllUserAsync();
             List<UserAnswer> userListAnswer = await reader.GetAllUserAnswerAsync();
@@ -98,7 +98,7 @@ namespace PopulationСensus.Controllers
                canReadAndWrite == "AllCanReadAndWrite").ToList();
 
                 userList = userList.Where(resident =>
-               resident.UserAnswer.YearBirthFirstChild==YearBirthFirstChild ||
+               resident.UserAnswer.CountPeopleLivingHousehold==YearBirthFirstChild ||
                YearBirthFirstChild == null).ToList();
 
                 userList = userList.Where(resident =>
@@ -116,6 +116,14 @@ namespace PopulationСensus.Controllers
                 userList = userList.Where(resident =>
                 resident.UserAnswer.WhereLiveBeforeArriving == whereLiveBeforeArriving ||
                 whereLiveBeforeArriving == "allWhereLiveBeforeArriving").ToList();
+
+                userList = userList.Where(resident =>
+                resident.UserAnswer.SpeakRussian.ToString().Contains(speakRussian) ||
+                speakRussian == "allSpeakRussian").ToList();
+
+                userList = userList.Where(resident =>
+                resident.UserAnswer.UseRussianInConversation.ToString().Contains(useRussianInConversation) ||
+                useRussianInConversation == "allUseRussianInConversation").ToList();
 
                 viewModel = new ResidentCatalogViewModel()
                 {
@@ -143,7 +151,7 @@ namespace PopulationСensus.Controllers
 
             ViewBag.PlaceBirth = userAnswer.PlaceBirth;
             ViewBag.Gender = userAnswer.Gender;
-            ViewBag.YearBirthFirstChild = userAnswer.YearBirthFirstChild;
+            ViewBag.CountPeopleLivingHousehold = userAnswer.CountPeopleLivingHousehold;
             ViewBag.NumberChildrenBorn = userAnswer.NumberChildrenBorn;
             ViewBag.WhereLiveBeforeArriving = userAnswer.WhereLiveBeforeArriving ?? "пусто";
             ViewBag.LivedOtherCountries = userAnswer.LivedOtherCountries;
@@ -158,8 +166,8 @@ namespace PopulationСensus.Controllers
             ViewBag.CanReadAndWrite = userAnswer.CanReadAndWrite;
             ViewBag.MaritalStatus = userAnswer.MaritalStatus;
 
-            if (userAnswer.YearBirthFirstChild == null)
-                ViewBag.YearBirthFirstChild = "пусто";
+            if (userAnswer.CountPeopleLivingHousehold == null)
+                ViewBag.CountPeopleLivingHousehold = "пусто";
             if (userAnswer.NumberChildrenBorn == null)
                 ViewBag.NumberChildrenBorn = "пусто";
             if (userAnswer.YearArrival == null)
@@ -211,7 +219,7 @@ namespace PopulationСensus.Controllers
                 {
                     Gender = userAnswerVm.Gender,
                     NumberChildrenBorn = userAnswerVm.NumberChildrenBorn,
-                    YearBirthFirstChild = userAnswerVm.YearBirthFirstChild,
+                    CountPeopleLivingHousehold = userAnswerVm.CountPeopleLivingHousehold,
                     PlaceBirth = userAnswerVm.PlaceBirth,
                     LivedOtherCountries = userAnswerVm.LivedOtherCountries,
                     WhereLiveBeforeArriving = userAnswerVm.WhereLiveBeforeArriving,

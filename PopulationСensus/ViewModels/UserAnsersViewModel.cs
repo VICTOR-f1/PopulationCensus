@@ -9,12 +9,12 @@ namespace PopulationСensus.ViewModels
         public bool Gender { get; set; }
 
         [Range(0, 30, ErrorMessage = "Не корректный ввод")]
-        [Display(Name = "Сколько детей вы родили")]
+        [Display(Name = "Сколько детей у вас")]
         public byte? NumberChildrenBorn { get; set; }
 
         [Range(1950, 2024, ErrorMessage = "Не корректный ввод")]
-        [Display(Name = "Год рождения первого ребёнка")]
-        public short? YearBirthFirstChild { get; set; }
+        [Display(Name = "Число людей проживающих в вашем домохозайстве")]
+        public short? CountPeopleLivingHousehold { get; set; }
 
         [MinLength(3, ErrorMessage = "Место рождения не может быть короче трёх букв")]
         [MaxLength(70, ErrorMessage = "Место рождения не может быть длинее тридцати букв")]

@@ -111,7 +111,7 @@ namespace PopulationСensus.Data
                 {
                     Gender = gender,
                     NumberChildrenBorn = NumberChildrenBorn,
-                    YearBirthFirstChild = YearBirthFirstChild,
+                    CountPeopleLivingHousehold = YearBirthFirstChild,
                     PlaceBirth = faker.Address.State(),
                     LivedOtherCountries = LivedOtherCountries,
                     WhereLiveBeforeArriving = whereLiveBeforeArriving,

@@ -161,7 +161,7 @@ namespace PopulationСensus.Migrations
                         .HasMaxLength(30)
                         .HasColumnType("character varying(30)");
 
-                    b.Property<byte?>("NumberChildrenBorn")
+                    b.Property<byte?>("CountPeopleLivingHousehold")
                         .HasColumnType("smallint");
 
                     b.Property<string>("PlaceBirth")
@@ -181,7 +181,7 @@ namespace PopulationСensus.Migrations
                     b.Property<short?>("YearArrival")
                         .HasColumnType("smallint");
 
-                    b.Property<short?>("YearBirthFirstChild")
+                    b.Property<short?>("CountPeopleLivingHousehold")
                         .HasColumnType("smallint");
 
                     b.HasKey("Id");
