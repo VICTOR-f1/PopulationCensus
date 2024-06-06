@@ -11,6 +11,7 @@ DbContextOptionsBuilder optionsBuilder = new DbContextOptionsBuilder();
 optionsBuilder.UseNpgsql(builder.Configuration.GetConnectionString("local"));
 
 builder.Services.AddControllersWithViews();
+
 builder.Services
     .AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
     .AddCookie(opt =>

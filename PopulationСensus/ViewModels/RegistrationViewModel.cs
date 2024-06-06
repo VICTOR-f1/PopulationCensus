@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using System.Globalization;
 
 namespace PopulationСensus.ViewModels
 {
@@ -12,7 +13,9 @@ namespace PopulationСensus.ViewModels
 
         [Required(ErrorMessage = "Не указана дата рождения")]
         [Display(Name = "Дата рождения")]
+        [DataType(DataType.Date)]
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
+        [Range(typeof(DateTime), "1900-01-01", "2014-01-01",ErrorMessage ="Ваш возраст не может быть больше 124 или меньше 14")]
         public DateTime? DateOfBirth { get; set; }
 
         [Required(ErrorMessage = "Укажите почту")]
@@ -58,5 +61,6 @@ namespace PopulationСensus.ViewModels
         [MinLength(10, ErrorMessage = "Номер телефона не может быть короче десяти цифр")]
         [MaxLength(11, ErrorMessage = "Максимальная длина номера составляет одинадцать цифр")]
         public string PhoneNumber { get; set; }
+
     }
 }

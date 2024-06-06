@@ -12,7 +12,7 @@ namespace PopulationСensus.ViewModels
         [Display(Name = "Сколько детей у вас")]
         public byte? NumberChildrenBorn { get; set; }
 
-        [Range(1950, 2024, ErrorMessage = "Не корректный ввод")]
+        [Range(0, 20, ErrorMessage = "Не корректный ввод")]
         [Display(Name = "Число людей проживающих в вашем домохозайстве")]
         public short? CountPeopleLivingHousehold { get; set; }
 

@@ -26,7 +26,7 @@
                                     <div class="input-group">
                                         <label class="form-control-label col-md-12 px-0">Пол</label>
                                         <div class="">
-                                            <select  class="form-control" name="gender">
+                                            <select class="form-control" name="gender">
                                                 <option value="True">Женщина</option>
                                                 <option value="False">Мужчина</option>
                                                 <option selected="selected" value="allGender">Все</option>
@@ -60,8 +60,8 @@
                                 </div>
                                 <div class="form-group col-sm-4 flex-column d-flex">
                                     <div class="input-group">
-                                        <label class="form-control-label col-md-12 px-0">Год рождения первого ребёнка</label>
-                                        <input name="YearBirthFirstChild" id="YearBirthFirstChild">
+                                        <label class="form-control-label col-md-12 px-0">Количество жильцов в домохозайстве</label>
+                                        <input name="CountPeopleLivingHousehold" id="CountPeopleLivingHousehold">
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-4 flex-column d-flex">
@@ -76,7 +76,6 @@
                                         <div class="">
                                             <select class="form-control" name="placeBirth" asp-items="Model.UserAnswersSelectList">
                                                 <option selected="selected" value="allPlaceBirth">Все</option>
-
                                             </select>
                                         </div>
                                     </div>
@@ -84,11 +83,13 @@
                                 <div class="form-group col-sm-4 flex-column d-flex">
                                     <div class="input-group">
                                         <label class="form-control-label col-md-12 px-0">Жили ли в других странах более года</label>
-                                        <select name="livedOtherCountries" class="form-control">
-                                            <option value="True">Да</option>
-                                            <option value="False">Нет</option>
-                                            <option selected="selected" value="allLivedOtherCountries">Все</option>
-                                        </select>
+                                        <div class="">
+                                            <select name="livedOtherCountries" class="form-control">
+                                                <option value="True">Да</option>
+                                                <option value="False">Нет</option>
+                                                <option selected="selected" value="allLivedOtherCountries">Все</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-4 flex-column d-flex">
@@ -97,7 +98,6 @@
                                         <div class="">
                                             <select class="form-control" name="whereLiveBeforeArriving" asp-items="Model.WhereLiveBeforeArrivingSelectList">
                                                 <option selected="selected" value="allWhereLiveBeforeArriving">Все</option>
-
                                             </select>
                                         </div>
                                     </div>
@@ -105,27 +105,80 @@
                                 <div class="form-group col-sm-4 flex-column d-flex">
                                     <div class="input-group">
                                         <label class="form-control-label col-md-12 px-0">Говорят по русски</label>
-                                        <select name="speakRussian" class="form-control">
-                                            <option value="True">Да</option>
-                                            <option value="False">Нет</option>
-                                            <option selected="selected" value="allSpeakRussian">Все</option>
-                                        </select>
+                                        <div class="">
+                                            <select name="speakRussian" class="form-control">
+                                                <option value="True">Да</option>
+                                                <option value="False">Нет</option>
+                                                <option selected="selected" value="allSpeakRussian">Все</option>
+                                            </select>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-4 flex-column d-flex">
                                     <div class="input-group">
                                         <label class="form-control-label col-md-12 px-0">Используйте русский в жизни</label>
-                                        <select name="useRussianInConversation" class="form-control">
-                                            <option value="True">Да</option>
-                                            <option value="False">Нет</option>
-                                            <option selected="selected" value="allUseRussianInConversation">Все</option>
-                                        </select>
+                                        <div class="">
+                                            <select name="useRussianInConversation" class="form-control">
+                                                <option value="True">Да</option>
+                                                <option value="False">Нет</option>
+                                                <option selected="selected" value="allUseRussianInConversation">Все</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-4 flex-column d-flex">
+                                    <div class="input-group">
+                                        <label class="form-control-label col-md-12 px-0">Родной язык</label>
+                                        <div class="">
+                                            <select class="form-control" name="nativeLanguage" asp-items="Model.NativeLanguage">
+                                                <option selected="selected" value="allNativeLanguage">Все</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-4 flex-column d-flex">
+                                    <div class="input-group">
+                                        <label class="form-control-label col-md-12 px-0">Гражданство</label>
+                                        <div class="">
+                                            <select class="form-control" name="citizenship" asp-items="Model.Citizenship">
+                                                <option selected="selected" value="allCitizenship">Все</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-4 flex-column d-flex">
+                                    <div class="input-group">
+                                        <label class="form-control-label col-md-12 px-0">Нациальность</label>
+                                        <div class="">
+                                            <select class="form-control" name="nationality" asp-items="Model.Nationality">
+                                                <option selected="selected" value="allNationality">Все</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-4 flex-column d-flex">
+                                    <div class="input-group">
+                                        <label class="form-control-label col-md-12 px-0">Начальная дата</label>
+                                        <div class="">
+                                            <input asp-for="DateFirst" name="dateFirst">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group col-sm-4 flex-column d-flex">
+                                    <div class="input-group">
+                                        <label class="form-control-label col-md-12 px-0">Конечная дата</label>
+                                        <div class="">
+                                            <input asp-for="DateSecond" name="dateSecond">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                             <div class="float-end">
                                 <label>Количество ответов подходящих под выборку: <b>@ViewBag.enumerator</b></label>
+                                <div><label>@ViewBag.date</label></></div>
                             </div>
+                            <div class="text-danger" asp-validation-summary="All"></div>
+                            <div class="text-danger" asp-validation-summary="None">@ViewBag.modelError</div>
                             <button class="btn-block main-btn btn-primary" type="submit">Сделать выборку</button>
                         </form>
                     </div>
@@ -135,25 +188,36 @@
                             <tr>
                                 <th scope="col">#</th>
                                 <th scope="col">ФИО</th>
-                                <th id="DataOfBirthTh" scope="col"></th>
+                                <th scope="col">Д участия</th>
                                 <th scope="col">Адресс</th>
                             </tr>
                         </thead>
                         <tbody>
                             @{
                                 int i = 0;
-                                foreach (User resident in Model.User)
+                                List<User> userListWithAllHaveUserAnswer = new List<User>();
+                                List<User> userList = Model.User;
+
+                                foreach (var item in userList)
                                 {
-                                    i++;
-                                    <tr>
-                                        <td>@i</td>
-                                        <td>@resident.FullName</td>
-                                        <td>@resident.DateOfBirth.ToShortDateString()</td>
-                                        <td class="d-flex justify-content-between">
-                                            @resident.Address.State @resident.Address.City
-                                            @resident.Address.Street @resident.Address.ApartmentNumber @resident.Address.ZipCode
-                                            @if (@resident.UserAnswerId != null)
-                                            {
+                                    if (item.UserAnswerId != null)
+                                    {
+                                        userListWithAllHaveUserAnswer.Add(item);
+                                    }
+                                }
+                                foreach (User resident in userListWithAllHaveUserAnswer.OrderBy(x => x.UserAnswer.Date))
+                                {
+                                    @if (@resident.UserAnswerId != null)
+                                    {
+                                        i++;
+                                        <tr>
+                                            <td>@i</td>
+                                            <td>@resident.FullName</td>
+                                            <td>@resident.UserAnswer.Date.ToShortDateString()</td>
+                                            <td class="d-flex justify-content-between">
+                                                @resident.Address.State @resident.Address.City
+                                                @resident.Address.Street @resident.Address.ApartmentNumber @resident.Address.ZipCode
+
                                                 <form>
                                                     <div class="d-flex justify-content-end">
                                                         <a asp-action="ViewingUserAnswer" asp-controller="Census" asp-route-userAnswerId="@resident.UserAnswerId">
@@ -161,9 +225,10 @@
                                                         </a>
                                                     </div>
                                                 </form>
-                                            }
-                                        </td>
-                                    </tr>
+
+                                            </td>
+                                        </tr>
+                                    }
                                 }
                             }
 
@@ -174,7 +239,7 @@
         </div>
     </div>
     <script>
-    
+
 
 
     </script>
