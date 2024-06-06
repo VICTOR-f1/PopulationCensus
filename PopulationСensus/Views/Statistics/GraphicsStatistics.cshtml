@@ -207,6 +207,33 @@
                     }]
                 });
                 chart10.render();
+
+                var chart11 = new CanvasJS.Chart("State", {
+                    theme: "light1",
+                    exportEnabled: true,
+                    backgroundColor: "#f4f4f8",
+                    animationEnabled: true,
+                    title: {
+                        fontSize: 26,
+                        text: "Районы"
+                    },
+                    axisX: {
+                        lineThickness: 0
+                    },
+                    axisY: {
+                        valueFormatString: " ",
+                        includeZero: true,
+                        gridThickness: 0,
+                        tickLength: 0
+                    },
+                    data: [{
+                        type: "bar",
+                        indexLabel: "{y}",
+                        dataPoints: @Html.Raw(ViewBag.State)
+
+                                }]
+                });
+                chart11.render();
             }
         </script>
     }
@@ -247,7 +274,9 @@
             <div class="chart" id="LivedOtherCountries"></div>
             <div class="chart" id="WhereLiveBeforeArriving"></div>
             <div class="chart" id="Gender"></div>
-            <div class="chart mb-60" id="MaritalStatus"></div>
+            <div class="chart" id="MaritalStatus"></div>
+            <div class="chart mb-60" id="State"></div>
+
         }
     </div>
     <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>

@@ -22,6 +22,7 @@ namespace PopulationСensus.ViewModels
         public List<SelectListItem> UserAnswersSelectList { get; set; } = new();
         public List<SelectListItem> WhereLiveBeforeArrivingSelectList { get; set; } = new();
         public List<SelectListItem> NativeLanguage { get; set; } = new();
+        public List<SelectListItem> State { get; set; } = new();
         public List<SelectListItem> Citizenship { get; set; } = new();
         public List<SelectListItem> Nationality { get; set; } = new();
 

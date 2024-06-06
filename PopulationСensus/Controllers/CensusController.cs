@@ -30,11 +30,20 @@ namespace PopulationСensus.Controllers
         }
 
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> ResultCensus(string dateFirst = "", string dateSecond = "", string gender = "", string canReadAndWrite = "", string haveDegree = "", int? CountPeopleLivingHousehold = null, int? numberChildrenBorn = null, string placeBirth = "", string livedOtherCountries = "", string whereLiveBeforeArriving = "", string speakRussian = "", string useRussianInConversation = "", string nativeLanguage = "", string citizenship = "", string nationality = "")
+        public async Task<IActionResult> ResultCensus(string dateFirst = "", string dateSecond = "", string gender = "", string canReadAndWrite = "", string haveDegree = "", int? CountPeopleLivingHousehold = null, int? numberChildrenBorn = null, string placeBirth = "", string livedOtherCountries = "", string whereLiveBeforeArriving = "", string speakRussian = "", string state = "", string nativeLanguage = "", string citizenship = "", string nationality = "")
         {
             List<User> userList = await reader.GetAllUserAsync();
             List<UserAnswer> userListAnswer = await reader.GetAllUserAnswerAsync();
-
+            List<Address> userAdressList= await reader.GetAllАddressAsync();
+            List<User> userListWithAllHaveUserAnswer = new List<User>();
+            foreach (var item in userList)
+            {
+                if (item.UserAnswerId != null)
+                {
+                    userListWithAllHaveUserAnswer.Add(item);
+                }
+            }
+            userList = userListWithAllHaveUserAnswer;
             ResidentCatalogViewModel viewModel = null;
             bool dateCheck = false;
 
@@ -48,6 +57,7 @@ namespace PopulationСensus.Controllers
             if (dateFirst == "" && dateSecond != "")
             {
                 dateFistDate = new DateTime(2024, 03, 22);
+                dateFirst = dateFistDate.ToString();
             }
             if (dateFirst != "" && dateSecond == "")
             {
@@ -108,7 +118,12 @@ namespace PopulationСensus.Controllers
               .Select(grp => new { Nationality = grp.Key, Count = grp.Count() })
               .OrderByDescending(item => item.Count)
               .ToList();
-
+            var stateSelectList = userAdressList
+              .Where(x => x.State != null)
+              .GroupBy(item => item.State)
+              .Select(grp => new { State = grp.Key, Count = grp.Count() })
+              .OrderByDescending(item => item.Count)
+              .ToList();
             var items = userAnswersSelectList.Select(answer =>
                 new SelectListItem { Text = answer.PlaceBirth.ToString() + ":" + answer.Count.ToString(), Value = answer.PlaceBirth.ToString() });
 
@@ -123,6 +138,10 @@ namespace PopulationСensus.Controllers
 
             var items5 = nationalitySelectList.Select(answer =>
                 new SelectListItem { Text = answer.Nationality.ToString() + ":" + answer.Count.ToString(), Value = answer.Nationality.ToString() });
+
+            var items6 = stateSelectList.Select(answer =>
+                new SelectListItem { Text = answer.State.ToString() + ":" + answer.Count.ToString(), Value = answer.State.ToString() });
+           
             if (gender == "")
             {
                 viewModel = new ResidentCatalogViewModel()
@@ -136,22 +155,18 @@ namespace PopulationСensus.Controllers
             }
             else
             {
-                List<User> userListCopy = new List<User>();
                 viewModel = new ResidentCatalogViewModel()
                 {
                     Address = await reader.GetAllАddressAsync(),
                     UserAnswers = userListAnswer,
                 };
-
-                foreach (var item in userList)
+                if (dateCheck)
                 {
-                    if (item.UserAnswerId != null)
-                    {
-                        userListCopy.Add(item);
-                    }
+                    userList = userList.Where(resident =>
+                    resident.UserAnswer.Date >= dateFistDate &&
+                    resident.UserAnswer.Date <=dateSecondDate).ToList();
+                    ViewBag.date = $"Начальная дата: {dateFistDate.ToShortDateString()} конечная дата: {dateSecondDate.ToShortDateString()}";
                 }
-                userList = userListCopy;
-
                 userList = userList.Where(resident =>
                     resident.UserAnswerId != null &&
                     resident.UserAnswer.Gender.ToString().Contains(gender) ||
@@ -190,8 +205,8 @@ namespace PopulationСensus.Controllers
                     speakRussian == "allSpeakRussian").ToList();
 
                 userList = userList.Where(resident =>
-                    resident.UserAnswer.UseRussianInConversation.ToString().Contains(useRussianInConversation) ||
-                    useRussianInConversation == "allUseRussianInConversation").ToList();
+                    resident.Address.State == state ||
+                    state == "allState").ToList();
 
                 userList = userList.Where(resident =>
                   resident.UserAnswer.NativeLanguage == nativeLanguage ||
@@ -209,20 +224,16 @@ namespace PopulationСensus.Controllers
                     User = userList
                 };
 
-                if (dateCheck)
-                {
-                    ViewBag.date = $"начальная дата: {dateFistDate.ToShortDateString()} конечная дата: {dateSecondDate.ToShortDateString()}";
-                }
+                
             }
-            ViewBag.enumerator = viewModel.User.Count;
-
-
+            ViewBag.enumerator = userList.Count;
 
             viewModel.UserAnswersSelectList.AddRange(items);
             viewModel.WhereLiveBeforeArrivingSelectList.AddRange(items2);
             viewModel.NativeLanguage.AddRange(items3);
             viewModel.Citizenship.AddRange(items4);
             viewModel.Nationality.AddRange(items5);
+            viewModel.State.AddRange(items6);
 
             return View(viewModel);
         }

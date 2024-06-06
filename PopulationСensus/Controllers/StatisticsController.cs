@@ -19,7 +19,9 @@ namespace PopulationCensus.Controllers
         {
             List<User> user = await reader.GetAllUserAsync();
             List<UserAnswer> userAnswer = await reader.GetAllUserAnswerAsync();
-            var objAddDataPoint = new AddDataPoint(userAnswer, user);
+            List<Address> addresses = await reader.GetAllАddressAsync();
+
+            var objAddDataPoint = new AddDataPoint(userAnswer, user, addresses);
 
             List<DataPoint> numberPeoplePassed = null;
             List<DataPoint> registeredButNotPass = null;
@@ -31,6 +33,7 @@ namespace PopulationCensus.Controllers
             List<DataPoint> education = null;
             List<DataPoint> gender = null;
             List<DataPoint> maritalStatus = null;
+            List<DataPoint> state = null;
 
             numberPeoplePassed = objAddDataPoint.NumberPeoplePassed(numberPeoplePassed);
             registeredButNotPass = objAddDataPoint.RegisteredButNotPass(registeredButNotPass);
@@ -42,6 +45,7 @@ namespace PopulationCensus.Controllers
             education = objAddDataPoint.Education(education);
             gender = objAddDataPoint.Gender(gender);
             maritalStatus = objAddDataPoint.MaritalStatus(maritalStatus);
+            state = objAddDataPoint.State(state);
 
             ViewBag.DataPointsNumberPeoplePassed = JsonConvert.SerializeObject(numberPeoplePassed);
             ViewBag.RegisteredButNotPass = JsonConvert.SerializeObject(registeredButNotPass);
@@ -53,11 +57,12 @@ namespace PopulationCensus.Controllers
             ViewBag.Education = JsonConvert.SerializeObject(education);
             ViewBag.Gender = JsonConvert.SerializeObject(gender);
             ViewBag.MaritalStatus = JsonConvert.SerializeObject(maritalStatus);
+            ViewBag.State = JsonConvert.SerializeObject(state);
 
             return View();
         }
 
-        public async Task<IActionResult> Statistics()
+        public IActionResult Statistics()
         {
 
 

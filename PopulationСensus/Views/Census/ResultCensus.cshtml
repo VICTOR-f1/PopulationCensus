@@ -116,13 +116,11 @@
                                 </div>
                                 <div class="form-group col-sm-4 flex-column d-flex">
                                     <div class="input-group">
-                                        <label class="form-control-label col-md-12 px-0">Используйте русский в жизни</label>
+                                        <label class="form-control-label col-md-12 px-0">Район</label>
                                         <div class="">
-                                            <select name="useRussianInConversation" class="form-control">
-                                                <option value="True">Да</option>
-                                                <option value="False">Нет</option>
-                                                <option selected="selected" value="allUseRussianInConversation">Все</option>
-                                            </select>
+                                            <select class="form-control" name="state" asp-items="Model.State">
+                                                    <option selected="selected" value="allState">Все</option>
+                                                </select>
                                         </div>
                                     </div>
                                 </div>
@@ -195,17 +193,7 @@
                         <tbody>
                             @{
                                 int i = 0;
-                                List<User> userListWithAllHaveUserAnswer = new List<User>();
-                                List<User> userList = Model.User;
-
-                                foreach (var item in userList)
-                                {
-                                    if (item.UserAnswerId != null)
-                                    {
-                                        userListWithAllHaveUserAnswer.Add(item);
-                                    }
-                                }
-                                foreach (User resident in userListWithAllHaveUserAnswer.OrderBy(x => x.UserAnswer.Date))
+                                foreach (User resident in Model.User.OrderBy(x => x.UserAnswer.Date))
                                 {
                                     @if (@resident.UserAnswerId != null)
                                     {
@@ -215,7 +203,7 @@
                                             <td>@resident.FullName</td>
                                             <td>@resident.UserAnswer.Date.ToShortDateString()</td>
                                             <td class="d-flex justify-content-between">
-                                                @resident.Address.State @resident.Address.City
+                                                @resident.Address.State 
                                                 @resident.Address.Street @resident.Address.ApartmentNumber @resident.Address.ZipCode
 
                                                 <form>

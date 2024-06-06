@@ -30,7 +30,6 @@ namespace PopulationСensus.Infrastructure
                 return await users.FindWhere(resident =>
                 resident.FullName.Contains(searchString) ||
                 resident.Address.State.Contains(searchString) ||
-                resident.Address.City.Contains(searchString) ||
                 resident.Address.ZipCode.ToString().Contains(searchString) ||
                 resident.Address.Street.Contains(searchString) ||
                 resident.Address.ApartmentNumber.ToString().Contains(searchString) ||

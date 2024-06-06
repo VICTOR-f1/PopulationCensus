@@ -6,10 +6,12 @@ namespace PopulationCensus.Statistics
     {
         private List<UserAnswer> userAnswer;
         private List<User> user;
-        public AddDataPoint(List<UserAnswer> userAnswer, List<User> user)
+        private List<Address> addresses;
+        public AddDataPoint(List<UserAnswer> userAnswer, List<User> user, List<Address> addresses)
         {
             this.userAnswer = userAnswer;
             this.user = user;
+            this.addresses = addresses;
         }
         private List<DataPoint> CreateListNumberPeoplePassed(List<DataPoint> dataPoints)
         {
@@ -99,7 +101,7 @@ namespace PopulationCensus.Statistics
             {
                 new DataPoint("Русский", 0),
                 new DataPoint("Украинец", 0),
-                new DataPoint("Казахстанец", 0),
+                new DataPoint("Казах", 0),
                 new DataPoint("Таджик", 0),
                 new DataPoint("Киргиз", 0)
             };
@@ -117,10 +119,11 @@ namespace PopulationCensus.Statistics
             }
             dataPoints[0].Label = "Русских";
             dataPoints[1].Label = "Украинецев";
-            dataPoints[2].Label = "Казахстанецев";
+            dataPoints[2].Label = "Казахов";
             dataPoints[3].Label = "Таджиков";
             dataPoints[4].Label = "Киргизов";
 
+            dataPoints = dataPoints.OrderBy(x => x.Y).ToList();
             return dataPoints;
         }
         public List<DataPoint> LivedOtherCountries(List<DataPoint> dataPoints)
@@ -167,7 +170,7 @@ namespace PopulationCensus.Statistics
             dataPoints[2].Label = "Азербайджан";
             dataPoints[3].Label = "Украине";
             dataPoints[4].Label = "Казахстане";
-
+            dataPoints = dataPoints.OrderBy(x => x.Y).ToList();
             return dataPoints;
         }
         public List<DataPoint> Education(List<DataPoint> dataPoints)
@@ -233,6 +236,38 @@ namespace PopulationCensus.Statistics
                     }
                 }
             }
+            dataPoints = dataPoints.OrderByDescending(x => x.Y).ToList();
+            return dataPoints;
+        }
+        public List<DataPoint> State(List<DataPoint> dataPoints)
+        {
+            dataPoints = new List<DataPoint>
+            {
+                new DataPoint("Академический", 0),
+                new DataPoint("Верх-Исетский", 0),
+                new DataPoint("Железнодорожный", 0),
+                new DataPoint("Кировский", 0),
+                new DataPoint("Ленинский", 0),
+                new DataPoint("Октябрьский", 0),
+                new DataPoint("Орджоникидзевский", 0),
+                new DataPoint("Чкаловский", 0),
+
+            };
+
+            foreach (var item in addresses)
+            {
+                for (int i = 0; i < dataPoints.Count; i++)
+                {
+
+                    if (item.State == dataPoints[i].Label)
+                    {
+                        dataPoints[i].Y++;
+                        break;
+                    }
+
+                }
+            }
+            dataPoints = dataPoints.OrderByDescending(x=>x.Y).ToList();
             return dataPoints;
         }
     }

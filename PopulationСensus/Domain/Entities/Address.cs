@@ -11,9 +11,6 @@ namespace PopulationСensus.Domain.Entities
         public string Street { get; set; } = null!;
 
         [StringLength(70)]
-        public string City { get; set; } = null!;
-
-        [StringLength(70)]
         public string State { get; set; } = null!;
         public List<User> User { get; set; } = null!;
 

@@ -40,12 +40,8 @@ namespace PopulationСensus.ViewModels
         [Display(Name = "Улица")]
         public string Street { get; set; } = null!;
 
-        [Required(ErrorMessage = "Не указан город")]
-        [Display(Name = "Город")]
-        public string City { get; set; } = null!;
-
-        [Required(ErrorMessage = "Не указана область")]
-        [Display(Name = "Область")]
+        [Required(ErrorMessage = "Не указан районы ")]
+        [Display(Name = "Район")]
         public string State { get; set; } = null!;
 
         [Required(ErrorMessage = "Не указан номер дома")]

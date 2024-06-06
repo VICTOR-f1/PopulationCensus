@@ -53,7 +53,7 @@ namespace PopulationСensus.Infrastructure
             return found is not null;
         }
 
-        public async Task<User> RegistrationAsync(string fullname, string username, string password, DateTime dateOfBirth, string phoneNumber, string state, string city, string street, short apartmentNumber, int zipCode)
+        public async Task<User> RegistrationAsync(string fullname, string username, string password, DateTime dateOfBirth, string phoneNumber, string state, string street, short apartmentNumber, int zipCode)
         {
             // проверяем, есть ли пользователь с таким же username
             bool userExists = await IsUserExistsAsync(username);
@@ -62,7 +62,6 @@ namespace PopulationСensus.Infrastructure
             Address address = new Address
             {
                 State = state,
-                City = city,
                 Street = street,
                 ApartmentNumber = apartmentNumber,
                 ZipCode = zipCode
