@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using PopulationСensus.Domain.Entities;
 using PopulationСensus.Domain.Services;
@@ -53,6 +54,7 @@ namespace PopulationСensus.Controllers
             HttpContext.SignOutAsync();
             return RedirectToAction("Login", "User");
         }
+        
         [HttpGet]
         public IActionResult Registration()
         {
