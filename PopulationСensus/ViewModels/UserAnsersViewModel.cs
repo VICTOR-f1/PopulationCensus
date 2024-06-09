@@ -9,10 +9,12 @@ namespace PopulationСensus.ViewModels
         public bool Gender { get; set; }
 
         [Range(0, 30, ErrorMessage = "Не корректный ввод")]
+        [Required(ErrorMessage = "Не указано количество детей ")]
         [Display(Name = "Сколько детей у вас")]
         public byte? NumberChildrenBorn { get; set; }
 
         [Range(0, 20, ErrorMessage = "Не корректный ввод")]
+        [Required(ErrorMessage = "Не указано число людей проживающих в вашем домохозайстве ")]
         [Display(Name = "Число людей проживающих в вашем домохозайстве")]
         public short? CountPeopleLivingHousehold { get; set; }
 
@@ -21,27 +23,7 @@ namespace PopulationСensus.ViewModels
         [Required(ErrorMessage = "Не указано место рождения")]
         [Display(Name = "Место рождения")]
         public string PlaceBirth { get; set; } = null!;
-
-        [Required(ErrorMessage = "Вы не указали жили ли вы в других странах")]
-        [Display(Name = "Жили ли вы в других странах более года")]
-        public bool LivedOtherCountries { get; set; }
-
-        [MinLength(3, ErrorMessage = "Странна не может быть короче трёх букв")]
-        [MaxLength(70, ErrorMessage = "Странна не может быть длинее тридцати букв")]
-        [Display(Name = "Где вы жили до прибытия (возвращение) в РФ")]
-        public string WhereLiveBeforeArriving { get; set; } = null!;
-
-        [Display(Name = "Год прибытия(возвращение) в РФ")]
-        public short? YearArrival { get; set; }
-
-        [Required(ErrorMessage = "Не указано говорите ли вы русски?")]
-        [Display(Name = "Говорите ли вы русски?")]
-        public bool SpeakRussian { get; set; }
-
-        [Required(ErrorMessage = "Не указано говорите ли вы русски?")]
-        [Display(Name = "Используйте русский в жизни?")]
-        public bool UseRussianInConversation { get; set; }
-
+        
         [MinLength(3, ErrorMessage = "Язык не может быть короче четерёх букв")]
         [MaxLength(70, ErrorMessage = "Язык не может быть длинее тридцати букв")]
         [Required(ErrorMessage = "Вы не указали ваш родной язык")]
@@ -63,17 +45,39 @@ namespace PopulationСensus.ViewModels
         [Required(ErrorMessage = "Вы не указали ваше образование")]
         [Display(Name = "Ваше образование")]
         public string Education { get; set; } = null!;
-
-        [Required(ErrorMessage = "Не указано есть ли у вас учённая степень")]
-        [Display(Name = "Имете учённую степень?")]
-        public bool HaveDegree { get; set; }
-
-        [Required(ErrorMessage = "Не указано умеете ли вы писать и читать")]
-        [Display(Name = "Умеете писать и читать?")]
-        public bool CanReadAndWrite { get; set; }
-
+        
         [Required(ErrorMessage = "Не указано ваше состяние в браке")]
         [Display(Name = "Ваше состяние в браке")]
         public string MaritalStatus { get; set; } = null!;
+
+        [Display(Name = "Тип жилища")]
+        public string TypeOfDwelling { get; set; } = null!;
+
+        [Display(Name = "Получаете ли вы образование в настоящее время")]
+        public string GettingEducation { get; set; } = null!;
+
+        [Display(Name = "Основной источник средств к существованию")]
+        public string SourcesOfLiveliHood { get; set; } = null!;
+
+        [Display(Name = "Имели ли Вы какую-либо оплачиваемую работу или доходное занятие с 24 по 30 сентября 2020 года")]
+        public bool HaveWorkedRecently { get; set; }
+
+        [Display(Name = "Кем вы являлись на основной работе")]
+        public string WhoWereMainJob { get; set; } = null!;
+
+        [Display(Name = "Отопление")]
+        public string Heating { get; set; } = null!;
+
+        [Display(Name = "Водоснабжение")]
+        public string WaterSupply { get; set; } = null!;
+
+        [Display(Name = "Горячее водоснабжение")]
+        public string HotWaterSupply { get; set; } = null!;
+
+        [Display(Name = "Водоотведение(канализация)")]
+        public string WaterDisposalSewerage { get; set; } = null!;
+
+        [Display(Name = "Удаление бытовых отходов")]
+        public string DisposalOfHouseholdWaste { get; set; } = null!;
     }
 }

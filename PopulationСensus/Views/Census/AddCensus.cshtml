@@ -12,14 +12,14 @@
 <body>
     <div class="container-fluid px-1 py-5 mx-auto main-container">
         <div class="row d-flex justify-content-center">
-            <div class="col-xl-7 col-lg-8 col-md-9 col-11 text-center">
+            <div class="col-xl-9 col-lg-11 col-md-11 col-11 text-center">
                 <div class="card shadow-lg">
                     <h5 class="text-center mb-4 title">Перепись населения в Екатеринбурге </h5>
                     <form class="form-card" method="POST">
                         <div class="row justify-content-between text-left">
                             <div class="form-group col-sm-6 flex-column d-flex">
                                 <label asp-for="PlaceBirth" class="form-control-label"></label>
-                                <input asp-for="PlaceBirth" placeholder="Субъект государства">
+                                <input asp-for="PlaceBirth" placeholder="Укажите город">
                                 <span asp-validation-for="PlaceBirth" class="text-danger"></span>
                             </div>
                             <div class="form-group col-sm-6 flex-column d-flex">
@@ -45,116 +45,35 @@
                                 <label asp-for="NativeLanguage" class="form-control-label"></label>
                                 <input asp-for="NativeLanguage">
                                 <span asp-validation-for="NativeLanguage" class="text-danger"></span>
-
                             </div>
                             <div class="form-group col-sm-6 flex-column d-flex">
                                 <label asp-for="NumberChildrenBorn" class="form-control-label"></label>
-                                <input asp-for="NumberChildrenBorn" type="number" placeholder="Пусто если не было детей">
+                                <input asp-for="NumberChildrenBorn" type="number" placeholder="0 если не было детей">
                                 <span asp-validation-for="NumberChildrenBorn" class="text-danger"></span>
                             </div>
                         </div>
                         <div class="row justify-content-between text-left">
                             <div class="form-group col-sm-6 flex-column d-flex">
-                                <label asp-for="CountPeopleLivingHousehold" class="form-control-label"></label>
-                                <input id="CountPeopleLivingHousehold" asp-for="CountPeopleLivingHousehold" placeholder="Пусто если живёте один">
-                                <span asp-validation-for="CountPeopleLivingHousehold" class="text-danger"></span>
-                            </div>
-                            <div class="form-group col-sm-6 flex-column d-flex">
-                                <div class="input-group">
-                                    <label asp-for="LivedOtherCountries" class="form-control-label col-md-12 px-0"></label>
-                                    <div class="p-t-10">
-                                        <label class="radio-container">
-                                            Нет
-                                            <input onchange="elementDisabled(YearArrival, WhereLiveBeforeArriving)" value="False" asp-for="LivedOtherCountries" checked type="radio">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <label class="radio-container radio-container--right">
-                                            Да
-                                            <input onchange="elementEnable(YearArrival, WhereLiveBeforeArriving)" value="True" asp-for="LivedOtherCountries" type="radio">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row justify-content-between text-left">
-                            <div class="form-group col-sm-6 flex-column d-flex">
-                                <div class="input-group">
-                                    <label asp-for="SpeakRussian" class="form-control-label col-md-12 px-0"></label>
-                                    <div class="p-t-10">
-                                        <label class="radio-container">
-                                            Нет
-                                            <input value="False" asp-for="SpeakRussian" checked type="radio">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <label class="radio-container radio-container--right">
-                                            Да
-                                            <input value="True" asp-for="SpeakRussian" type="radio">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </div>
-
-                            </div>
-                            <div class="form-group col-sm-6 flex-column d-flex">
-                                <div class="input-group">
-                                    <label asp-for="UseRussianInConversation" class="form-control-label col-md-12 px-0"></label>
-                                    <div class="p-t-10">
-                                        <label class="radio-container">
-                                            Нет
-                                            <input value="False" asp-for="UseRussianInConversation" checked type="radio">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <label class="radio-container radio-container--right">
-                                            Да
-                                            <input value="True" asp-for="UseRussianInConversation" type="radio">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="row justify-content-between text-left">
-                            <div class="form-group col-sm-6 flex-column d-flex">
-                                <label asp-for="Citizenship" class="form-control-label"></label>
-                                <input asp-for="Citizenship">
-                                <span asp-validation-for="Citizenship" class="text-danger"></span>
-                            </div>
-                            <div class="form-group col-sm-6 flex-column d-flex">
                                 <label asp-for="Education" class="form-control-label"></label>
-                                <select asp-for="Education" id="myDropdown">
+                                <select asp-for="Education">
                                     <option>Отсутствует</option>
                                     <option>Общее</option>
                                     <option>Средне профессиональное</option>
                                     <option>Высшее</option>
                                 </select>
                             </div>
-                        </div>
-                        <div class="row justify-content-between text-left">
                             <div class="form-group col-sm-6 flex-column d-flex">
                                 <label asp-for="Nationality" class="form-control-label"></label>
                                 <input asp-for="Nationality">
                                 <span asp-validation-for="Nationality" class="text-danger"></span>
                             </div>
-                            <div class="form-group col-sm-6 flex-column d-flex">
-                                <div class="input-group">
-                                    <label asp-for="CanReadAndWrite" class="form-control-label col-md-12 px-0"></label>
-                                    <div class="p-t-10">
-                                        <label class="radio-container">
-                                            Нет
-                                            <input value="False" asp-for="CanReadAndWrite" checked type="radio">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                        <label class="radio-container radio-container--right">
-                                            Да
-                                            <input value="True" asp-for="CanReadAndWrite" type="radio">
-                                            <span class="checkmark"></span>
-                                        </label>
-                                    </div>
-                                </div>
-                            </div>
                         </div>
                         <div class="row justify-content-between text-left">
+                            <div class="form-group col-sm-6 flex-column d-flex">
+                                <label asp-for="Citizenship" class="form-control-label"></label>
+                                <input asp-for="Citizenship">
+                                <span asp-validation-for="Citizenship" class="text-danger"></span>           
+                            </div>
                             <div class="form-group col-sm-6 flex-column d-flex">
                                 <label asp-for="MaritalStatus" class="form-control-label"></label>
                                 <select asp-for="MaritalStatus">
@@ -163,25 +82,139 @@
                                     <option>Офицально разведён(а)</option>
                                     <option>Разошёлся(лась)</option>
                                     <option>Вдовец вдова</option>
-                                    <option>Никогда не состоял(а) в браке, супружеском союзе</option>
-                                </select>
+                                    <option selected>Никогда не состоял(а) в браке, супружеском союзе</option>
+                                </select>                              
+                            </div>
+                        </div>
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-sm-6 flex-column d-flex">
+                                <label asp-for="CountPeopleLivingHousehold" class="form-control-label"></label>
+                                <input id="CountPeopleLivingHousehold" asp-for="CountPeopleLivingHousehold" placeholder="0 если живёте один">
+                                <span asp-validation-for="CountPeopleLivingHousehold" class="text-danger"></span>                             
+                            </div>
+                            <div class="form-group col-sm-6 flex-column d-flex">
+                                <label asp-for="GettingEducation" class="form-control-label"></label>
+                                <select asp-for="GettingEducation">
+                                    <option>Не получаю образование </option>
+                                    <option>Основные профессиональные программы</option>
+                                    <option>Дополнительные образовательные программы</option>
+                                    <option>Программы общего образования</option>
+                                </select>                             
+                            </div>
+                        </div>
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-sm-6 flex-column d-flex">
+                                <label asp-for="SourcesOfLiveliHood" class="form-control-label"></label>
+                                <select asp-for="SourcesOfLiveliHood">
+                                    <option>Не имею источник средств к существованию</option>
+                                    <option>Заработная плата</option>
+                                    <option>Предпринимательский доход, самозанятость</option>
+                                    <option>Производство товаров для собственного использования</option>
+                                    <option>Сдача в аренду имущества</option>
+                                    <option>Доход от патентов, авторских прав</option>
+                                    <option>Сбережения, дивиденды, проценты, ссуды, реализация капитала</option>
+                                    <option>Пенсия (кроме пенсии по инвалидности)</option>
+                                    <option>Пенсия по инвалидности</option>
+                                    <option>Стипендия</option>
+                                    <option>Пособие по безработице</option>
+                                    <option>Другие пособия и выппаты от организаций, государства</option>
+                                    <option>Льготы, компенсации, субсидии, выигрыши</option>
+                                    <option>Обеспечение со стороны других лиц, иждивение иной источник</option>
+                                    <option>Иной источник</option>
+                                </select>                     
                             </div>
                             <div class="form-group col-sm-6 flex-column d-flex">
                                 <div class="input-group">
-                                    <label asp-for="HaveDegree" class="form-control-label col-md-12 px-0"></label>
+                                    <label asp-for="HaveWorkedRecently" class="form-control-label col-md-12 px-0"></label>
                                     <div class="p-t-10">
                                         <label class="radio-container">
                                             Нет
-                                            <input value="False" asp-for="HaveDegree" checked type="radio">
+                                            <input onchange="elementDisabled(WhoWereMainJob)" value="False" asp-for="HaveWorkedRecently" type="radio">
                                             <span class="checkmark"></span>
                                         </label>
                                         <label class="radio-container radio-container--right">
                                             Да
-                                            <input value="True" asp-for="HaveDegree" type="radio">
+                                            <input onchange="elementEnable(WhoWereMainJob)" value="True" checked asp-for="HaveWorkedRecently" type="radio">
                                             <span class="checkmark"></span>
                                         </label>
                                     </div>
-                                </div>
+                                </div>                         
+                            </div>
+                        </div>
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-sm-6 flex-column d-flex">
+                                <label asp-for="WhoWereMainJob" class="form-control-label"></label>
+                                <select asp-for="WhoWereMainJob">
+                                    <option>Работающий по найму</option>
+                                    <option>Владелец (совладелец) собственного предприятия (дела) </option>
+                                    <option>Индивидуальный предприниматель</option>
+                                    <option>Самозанятый</option>
+                                    <option>Помогающий на семейном предприятии</option>
+                                    <option>Иное</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-6 flex-column d-flex">                             
+                                <label asp-for="TypeOfDwelling" class="form-control-label"></label>
+                                <select asp-for="TypeOfDwelling">
+                                    <option>Индивидуальный дом</option>
+                                    <option>Общежитие</option>
+                                    <option>Отдельная квартира</option>
+                                    <option>Гостиница</option>
+                                    <option>Коммунальная квартира</option>
+                                    <option>Другое жилище</option>
+                                    <option>Бездомный</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-sm-6 flex-column d-flex">
+                                <label asp-for="Heating" class="form-control-label"></label>
+                                <select asp-for="Heating">
+                                    <option>Централизованное</option>
+                                    <option>От индивидуальных установок, котлов</option>
+                                    <option>Печное</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-6 flex-column d-flex">
+                                <label asp-for="WaterSupply" class="form-control-label"></label>
+                                <select asp-for="WaterSupply">
+                                    <option>Централизонаннам система холодного водоснабжения</option>
+                                    <option>Индивидуальная система водоснабжения</option>
+                                    <option>Водоснабжение вне жилица, колонка</option>
+                                    <option>Колодец, скважина или другой источник водоснабжения</option>
+                                </select>                             
+                            </div>
+                        </div>
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-sm-6 flex-column d-flex">
+                                <label asp-for="HotWaterSupply" class="form-control-label"></label>
+                                <select asp-for="HotWaterSupply">
+                                    <option>Централизованное</option>
+                                    <option>От индивидуальных водонагревателей</option>
+                                    <option>Горячее водоснабжение отсутствует</option>
+                                </select>             
+                            </div>
+                            <div class="form-group col-sm-6 flex-column d-flex">
+                                <label asp-for="WaterDisposalSewerage" class="form-control-label"></label>
+                                <select asp-for="WaterDisposalSewerage">
+                                    <option>Централизованная система</option>
+                                    <option>Индивидуальная система (включая септик)</option>
+                                    <option>Через систему труб выгребные ямы и т.п.</option>
+                                    <option>Водоотведение (канализация) отсутствует</option>
+                                </select>
+                            </div>
+                        </div>
+                        <div class="row justify-content-between text-left">
+                            <div class="form-group col-sm-6 flex-column d-flex">
+                                <label asp-for="DisposalOfHouseholdWaste" class="form-control-label"></label>
+                                <select asp-for="DisposalOfHouseholdWaste">
+                                    <option>Мусоропровод</option>
+                                    <option>Мусоросборники вне дома</option>
+                                    <option>Сбор мусора спецмашиной</option>
+                                    <option>Выброс мусора в ямы, на кучи и т.п.</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-sm-6 flex-column d-flex">                           
                             </div>
                         </div>
                         <div class="row justify-content-end">
@@ -196,28 +229,18 @@
         </div>
     </div>
     <script>
-        function elementDisabled(nameElement1, nameElement2) {
+        function elementDisabled(nameElement1) {
             nameElement1.value = "";
             nameElement1.placeholder = "";
             nameElement1.disabled = true;
 
-            nameElement2.value = "";
-            nameElement2.placeholder = "";
-            nameElement2.disabled = true;
         }
-        function genderEnable(nameElement1, nameElement2) {
-            nameElement1.disabled = false;
-            nameElement1.placeholder = "Оставьте пустым если не было детей";
 
-            nameElement2.disabled = false;
-            nameElement2.placeholder = "Укажите ноль если нету";
-        }
-        function elementEnable(nameElement1, nameElement2) {
+        function elementEnable(nameElement1) {
             nameElement1.disabled = false;
+            nameElement1.value = "Работающий по найму";
 
-            nameElement2.disabled = false;
         }
-        document.getElementById("myDropdown").selectedIndex = -1;
 
     </script>
 </body>

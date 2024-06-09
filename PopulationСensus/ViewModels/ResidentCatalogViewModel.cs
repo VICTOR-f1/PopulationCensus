@@ -19,13 +19,16 @@ namespace PopulationСensus.ViewModels
         [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         [Range(typeof(DateTime), "2024-03-22", "2025-01-01", ErrorMessage = "Слишком большая или маленькая дата ввода")]
         public DateTime? DateSecond{ get; set; }
-        public List<SelectListItem> UserAnswersSelectList { get; set; } = new();
-        public List<SelectListItem> WhereLiveBeforeArrivingSelectList { get; set; } = new();
-        public List<SelectListItem> NativeLanguage { get; set; } = new();
-        public List<SelectListItem> State { get; set; } = new();
-        public List<SelectListItem> Citizenship { get; set; } = new();
-        public List<SelectListItem> Nationality { get; set; } = new();
 
+        public List<SelectListItem> UserAnswersSelectList { get; set; } = new();
+        public List<SelectListItem> NumberChildrenBornSelectList { get; set; } = new();
+        public List<SelectListItem> WhereLiveBeforeArrivingSelectList { get; set; } = new();
+        public List<SelectListItem> NativeLanguageSelectList { get; set; } = new();
+        public List<SelectListItem> StateSelectList { get; set; } = new();
+        public List<SelectListItem> CitizenshipSelectList { get; set; } = new();
+        public List<SelectListItem> NationalitySelectList { get; set; } = new();
+        public List<SelectListItem> AgeStartSelectList { get; set; } = new();
+        public List<SelectListItem> AgeEndSelectList { get; set; } = new();
         public List<User> User { get; set; }
         public List<Address> Address { get; set; }
         public List<UserAnswer> UserAnswers { get; set; }

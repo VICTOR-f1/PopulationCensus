@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.VisualBasic;
 using Newtonsoft.Json;
+using PopulationCensus.Infrastructure;
 using PopulationCensus.Statistics;
 using PopulationСensus.Domain.Entities;
 using PopulationСensus.Domain.Services;
@@ -30,11 +32,11 @@ namespace PopulationСensus.Controllers
         }
 
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> ResultCensus(string dateFirst = "", string dateSecond = "", string gender = "", string canReadAndWrite = "", string haveDegree = "", int? CountPeopleLivingHousehold = null, int? numberChildrenBorn = null, string placeBirth = "", string livedOtherCountries = "", string whereLiveBeforeArriving = "", string speakRussian = "", string state = "", string nativeLanguage = "", string citizenship = "", string nationality = "")
+        public async Task<IActionResult> ResultCensus(string dateFirst = "", string dateSecond = "", string gender = "", int? CountPeopleLivingHousehold = null, int? numberChildrenBorn = null, string placeBirth = "", string state = "", string nativeLanguage = "", string citizenship = "", string nationality = "", string gettingEducation = "", string sourcesOfLiveliHood = "", string whoWereMainJob = "", string haveWorkedRecently = "", string typeOfDwelling = "", string heating = "", string waterSupply = "", string hotWaterSupply = "", string waterDisposalSewerage = "", string disposalOfHouseholdWaste = "", int ageStart = 199, int ageEnd = 199)
         {
             List<User> userList = await reader.GetAllUserAsync();
             List<UserAnswer> userListAnswer = await reader.GetAllUserAnswerAsync();
-            List<Address> userAdressList= await reader.GetAllАddressAsync();
+            List<Address> userAdressList = await reader.GetAllАddressAsync();
             List<User> userListWithAllHaveUserAnswer = new List<User>();
             foreach (var item in userList)
             {
@@ -46,24 +48,46 @@ namespace PopulationСensus.Controllers
             userList = userListWithAllHaveUserAnswer;
             ResidentCatalogViewModel viewModel = null;
             bool dateCheck = false;
+            bool ageCheck = false;
+
 
             DateTime dateFistDate = new DateTime();
             DateTime dateSecondDate = new DateTime();
-            var dateLast= userListAnswer.OrderByDescending(x => x.Date).Select(x => x.Date).First();
+            var dateLast = userListAnswer.OrderByDescending(x => x.Date).Select(x => x.Date).First();
+            var yearSelectList = new List<int>();
+            foreach (var item in userList)
+            {
+                yearSelectList.Add(CalculateAge.CalculateAgeYear(item.DateOfBirth, DateTime.Now));
+            }
+            yearSelectList = yearSelectList.OrderByDescending(x => x).ToList();
+            var ageLast = yearSelectList.First();
+            var ageFirst = yearSelectList.Last();
+
             if (dateFirst != "" || dateSecond != "")
             {
                 dateCheck = true;
+            }
+            if (ageEnd != 199 || ageStart != 199)
+            {
+                ageCheck = true;
             }
             if (dateFirst == "" && dateSecond != "")
             {
                 dateFistDate = new DateTime(2024, 03, 22);
                 dateFirst = dateFistDate.ToString();
             }
+            if (ageStart == 199 && ageEnd!=199)
+            {
+                ageStart = ageFirst;
+            }
             if (dateFirst != "" && dateSecond == "")
             {
                 dateSecond = dateLast.ToString();
             }
-
+            if (ageStart != 199 && ageEnd == 199)
+            {
+                ageEnd = ageLast;
+            }
             if (dateCheck)
             {
 
@@ -81,11 +105,19 @@ namespace PopulationСensus.Controllers
                     ViewBag.modelError = "Самая первая билютень была заполненна 2024-03-22";
 
                 }
-                if (dateFistDate > dateLast || dateSecondDate >dateLast)
+                if (dateFistDate > dateLast || dateSecondDate > dateLast)
                 {
                     dateCheck = false;
                     ViewBag.modelError = $"Самая последняя билютень была заполненна {dateLast.ToShortDateString()}";
 
+                }
+            }
+            if (ageCheck)
+            {
+                if (ageStart>ageEnd)
+                {
+                    ViewBag.modelError = "Начальная дата не может быть больше конечной";
+                    ageCheck = false;
                 }
             }
 
@@ -94,12 +126,6 @@ namespace PopulationСensus.Controllers
                .Select(grp => new { PlaceBirth = grp.Key, Count = grp.Count() })
                .OrderByDescending(item => item.Count)
                .ToList();
-            var whereLiveBeforeArrivingSelectList = userListAnswer
-              .Where(x => x.WhereLiveBeforeArriving != null)
-              .GroupBy(item => item.WhereLiveBeforeArriving)
-              .Select(grp => new { WhereLiveBeforeArriving = grp.Key, Count = grp.Count() })
-              .OrderByDescending(item => item.Count)
-              .ToList();
             var nativeLanguageSelectList = userListAnswer
               .Where(x => x.NativeLanguage != null)
               .GroupBy(item => item.NativeLanguage)
@@ -124,24 +150,49 @@ namespace PopulationСensus.Controllers
               .Select(grp => new { State = grp.Key, Count = grp.Count() })
               .OrderByDescending(item => item.Count)
               .ToList();
-            var items = userAnswersSelectList.Select(answer =>
+            var numberChildrenBornSelectList = userListAnswer
+              .Where(x => x.NumberChildrenBorn != null)
+              .GroupBy(item => item.NumberChildrenBorn)
+              .Select(grp => new { NumberChildrenBorn = grp.Key, Count = grp.Count() })
+              .OrderByDescending(item => item.Count)
+              .ToList();
+           
+            var ageStartSelectList = yearSelectList
+              .GroupBy(item => item)
+              .Select(grp => new { DateOfBirth = grp.Key, Count = grp.Count() })
+              .OrderBy(item => item.DateOfBirth)
+              .ToList();
+            var ageEndSelectList = yearSelectList
+              .GroupBy(item => item)
+              .Select(grp => new { DateOfBirth = grp.Key, Count = grp.Count() })
+              .OrderByDescending(item => item.DateOfBirth)
+              .ToList();
+
+
+            var items1 = userAnswersSelectList.Select(answer =>
                 new SelectListItem { Text = answer.PlaceBirth.ToString() + ":" + answer.Count.ToString(), Value = answer.PlaceBirth.ToString() });
 
-            var items2 = whereLiveBeforeArrivingSelectList.Select(answer =>
-                new SelectListItem { Text = answer.WhereLiveBeforeArriving.ToString() + ":" + answer.Count.ToString(), Value = answer.WhereLiveBeforeArriving.ToString() });
-
-            var items3 = nativeLanguageSelectList.Select(answer =>
+            var items2 = nativeLanguageSelectList.Select(answer =>
                 new SelectListItem { Text = answer.NativeLanguage.ToString() + ":" + answer.Count.ToString(), Value = answer.NativeLanguage.ToString() });
 
-            var items4 = citizenshipSelectList.Select(answer =>
+            var items3 = citizenshipSelectList.Select(answer =>
                 new SelectListItem { Text = answer.Citizenship.ToString() + ":" + answer.Count.ToString(), Value = answer.Citizenship.ToString() });
 
-            var items5 = nationalitySelectList.Select(answer =>
+            var items4 = nationalitySelectList.Select(answer =>
                 new SelectListItem { Text = answer.Nationality.ToString() + ":" + answer.Count.ToString(), Value = answer.Nationality.ToString() });
 
-            var items6 = stateSelectList.Select(answer =>
+            var items5 = stateSelectList.Select(answer =>
                 new SelectListItem { Text = answer.State.ToString() + ":" + answer.Count.ToString(), Value = answer.State.ToString() });
-           
+
+            var items6 = numberChildrenBornSelectList.Select(answer =>
+                new SelectListItem { Text = "Количество детей: " + answer.NumberChildrenBorn.ToString() + "  сумарное количество: " + answer.Count.ToString(), Value = answer.NumberChildrenBorn.ToString() });
+
+            var items7 = ageStartSelectList.Select(answer =>
+                new SelectListItem { Text =  answer.DateOfBirth.ToString(), Value = answer.DateOfBirth.ToString() });
+
+            var items8 = ageEndSelectList.Select(answer =>
+                new SelectListItem { Text =  answer.DateOfBirth.ToString(), Value = answer.DateOfBirth.ToString() });
+
             if (gender == "")
             {
                 viewModel = new ResidentCatalogViewModel()
@@ -164,8 +215,15 @@ namespace PopulationСensus.Controllers
                 {
                     userList = userList.Where(resident =>
                     resident.UserAnswer.Date >= dateFistDate &&
-                    resident.UserAnswer.Date <=dateSecondDate).ToList();
+                    resident.UserAnswer.Date <= dateSecondDate).ToList();
                     ViewBag.date = $"Начальная дата: {dateFistDate.ToShortDateString()} конечная дата: {dateSecondDate.ToShortDateString()}";
+                }
+                if (ageCheck)
+                {
+                    userList = userList.Where(resident =>
+                    CalculateAge.CalculateAgeYear(resident.DateOfBirth,DateTime.Now) >= ageStart &&
+                    CalculateAge.CalculateAgeYear(resident.DateOfBirth, DateTime.Now) <= ageEnd).ToList();
+                    ViewBag.age = $"Начальный возраст: {ageStart} конечный возраст: {ageEnd}";
                 }
                 userList = userList.Where(resident =>
                     resident.UserAnswerId != null &&
@@ -173,36 +231,32 @@ namespace PopulationСensus.Controllers
                     gender == "allGender").ToList();
 
                 userList = userList.Where(resident =>
-                    resident.UserAnswer.HaveDegree.ToString().Contains(haveDegree) ||
-                    haveDegree == "allHaveDegree").ToList();
-
-                userList = userList.Where(resident =>
-                   resident.UserAnswer.CanReadAndWrite.ToString().Contains(canReadAndWrite) ||
-                   canReadAndWrite == "AllCanReadAndWrite").ToList();
-
-                userList = userList.Where(resident =>
                    resident.UserAnswer.CountPeopleLivingHousehold == CountPeopleLivingHousehold ||
                    CountPeopleLivingHousehold == null).ToList();
+                switch (numberChildrenBorn)
+                {
+                    case < 98:
+                        userList = userList.Where(resident =>
+                            resident.UserAnswer.NumberChildrenBorn == numberChildrenBorn).ToList();
+                        break;
+                    case 99:
+                        userList = userList.Where(resident =>
+                            numberChildrenBorn == 99 && resident.UserAnswer.NumberChildrenBorn == 0).ToList();
+                        break;
+                    case 100:
+                        userList = userList.Where(resident =>
+                            numberChildrenBorn == 100 && resident.UserAnswer.NumberChildrenBorn == 2 || resident.UserAnswer.NumberChildrenBorn == 1).ToList();
+                        break;
+                    case 101:
+                        userList = userList.Where(resident =>
+                             resident.UserAnswer.NumberChildrenBorn > 3).ToList();
+                        break;
+                }
 
-                userList = userList.Where(resident =>
-                   resident.UserAnswer.NumberChildrenBorn == numberChildrenBorn ||
-                   numberChildrenBorn == null).ToList();
 
                 userList = userList.Where(resident =>
                    resident.UserAnswer.PlaceBirth == placeBirth ||
                    placeBirth == "allPlaceBirth").ToList();
-
-                userList = userList.Where(resident =>
-                    resident.UserAnswer.LivedOtherCountries.ToString().Contains(livedOtherCountries) ||
-                    livedOtherCountries == "allLivedOtherCountries").ToList();
-
-                userList = userList.Where(resident =>
-                    resident.UserAnswer.WhereLiveBeforeArriving == whereLiveBeforeArriving ||
-                    whereLiveBeforeArriving == "allWhereLiveBeforeArriving").ToList();
-
-                userList = userList.Where(resident =>
-                    resident.UserAnswer.SpeakRussian.ToString().Contains(speakRussian) ||
-                    speakRussian == "allSpeakRussian").ToList();
 
                 userList = userList.Where(resident =>
                     resident.Address.State == state ||
@@ -219,21 +273,64 @@ namespace PopulationСensus.Controllers
                 userList = userList.Where(resident =>
                       resident.UserAnswer.Nationality == nationality ||
                       nationality == "allNationality").ToList();
+
+                userList = userList.Where(resident =>
+                      resident.UserAnswer.GettingEducation == gettingEducation ||
+                      gettingEducation == "allGettingEducation").ToList();
+
+                userList = userList.Where(resident =>
+                      resident.UserAnswer.HaveWorkedRecently.ToString().Contains(haveWorkedRecently) ||
+                    haveWorkedRecently == "allHaveWorkedRecently").ToList();
+
+                userList = userList.Where(resident =>
+                      resident.UserAnswer.SourcesOfLiveliHood == sourcesOfLiveliHood ||
+                      sourcesOfLiveliHood == "allSourcesOfLiveliHood").ToList();
+
+                userList = userList.Where(resident =>
+                      resident.UserAnswer.WhoWereMainJob == whoWereMainJob ||
+                      whoWereMainJob == "allWhoWereMainJob").ToList();
+
+                userList = userList.Where(resident =>
+                      resident.UserAnswer.TypeOfDwelling == typeOfDwelling ||
+                      typeOfDwelling == "allTypeOfDwelling").ToList();
+
+                userList = userList.Where(resident =>
+                     resident.UserAnswer.Heating == heating ||
+                     heating == "allHeating").ToList();
+
+                userList = userList.Where(resident =>
+                     resident.UserAnswer.WaterSupply == waterSupply ||
+                     waterSupply == "allWaterSupply").ToList();
+
+                userList = userList.Where(resident =>
+                     resident.UserAnswer.HotWaterSupply == hotWaterSupply ||
+                     hotWaterSupply == "allHotWaterSupply").ToList();
+
+                userList = userList.Where(resident =>
+                     resident.UserAnswer.WaterDisposalSewerage == waterDisposalSewerage ||
+                     waterDisposalSewerage == "allWaterDisposalSewerage").ToList();
+
+                userList = userList.Where(resident =>
+                     resident.UserAnswer.DisposalOfHouseholdWaste == disposalOfHouseholdWaste ||
+                     disposalOfHouseholdWaste == "allDisposalOfHouseholdWaste").ToList();
+
                 viewModel = new ResidentCatalogViewModel()
                 {
                     User = userList
                 };
 
-                
+
             }
             ViewBag.enumerator = userList.Count;
 
-            viewModel.UserAnswersSelectList.AddRange(items);
-            viewModel.WhereLiveBeforeArrivingSelectList.AddRange(items2);
-            viewModel.NativeLanguage.AddRange(items3);
-            viewModel.Citizenship.AddRange(items4);
-            viewModel.Nationality.AddRange(items5);
-            viewModel.State.AddRange(items6);
+            viewModel.UserAnswersSelectList.AddRange(items1);
+            viewModel.NativeLanguageSelectList.AddRange(items2);
+            viewModel.CitizenshipSelectList.AddRange(items3);
+            viewModel.NationalitySelectList.AddRange(items4);
+            viewModel.StateSelectList.AddRange(items5);
+            viewModel.NumberChildrenBornSelectList.AddRange(items6);
+            viewModel.AgeStartSelectList.AddRange(items7);
+            viewModel.AgeEndSelectList.AddRange(items8);
 
             return View(viewModel);
         }
@@ -258,40 +355,27 @@ namespace PopulationСensus.Controllers
 
             ViewBag.CountPeopleLivingHousehold = userAnswer.CountPeopleLivingHousehold;
             ViewBag.NumberChildrenBorn = userAnswer.NumberChildrenBorn;
-            ViewBag.WhereLiveBeforeArriving = userAnswer.WhereLiveBeforeArriving ?? "пусто";
-            if (userAnswer.LivedOtherCountries)
-                ViewBag.LivedOtherCountries = "Да";
-            else
-                ViewBag.LivedOtherCountries = "Нет";
-            ViewBag.YearArrival = userAnswer.YearArrival;
-            if (userAnswer.SpeakRussian)
-                ViewBag.SpeakRussian = "Да";
-            else
-                ViewBag.SpeakRussian = "Нет";
-            if (userAnswer.UseRussianInConversation)
-                ViewBag.UseRussianInConversation = "Да";
-            else
-                ViewBag.UseRussianInConversation = "Нет";
             ViewBag.NativeLanguage = userAnswer.NativeLanguage;
             ViewBag.Nationality = userAnswer.Nationality;
             ViewBag.Citizenship = userAnswer.Citizenship;
             ViewBag.Education = userAnswer.Education;
-            if (userAnswer.HaveDegree)
-                ViewBag.HaveDegree = "Да";
-            else
-                ViewBag.HaveDegree = "Нет";
-            if (userAnswer.CanReadAndWrite)
-                ViewBag.CanReadAndWrite = "Да";
-            else
-                ViewBag.CanReadAndWrite = "Нет";
             ViewBag.MaritalStatus = userAnswer.MaritalStatus;
+            ViewBag.GettingEducation = userAnswer.GettingEducation;
+            ViewBag.SourcesOfLiveliHood = userAnswer.SourcesOfLiveliHood;
+            ViewBag.HaveWorkedRecently = userAnswer.HaveWorkedRecently;
+            ViewBag.WhoWereMainJob = userAnswer.WhoWereMainJob;
+            ViewBag.TypeOfDwelling = userAnswer.TypeOfDwelling;
+            ViewBag.Heating = userAnswer.Heating;
+            ViewBag.WaterSupply = userAnswer.WaterSupply;
+            ViewBag.HotWaterSupply = userAnswer.HotWaterSupply;
+            ViewBag.WaterDisposalSewerage = userAnswer.WaterDisposalSewerage;
+            ViewBag.DisposalOfHouseholdWaste = userAnswer.DisposalOfHouseholdWaste;
 
-            if (userAnswer.CountPeopleLivingHousehold == null)
+            if (userAnswer.CountPeopleLivingHousehold == 0)
                 ViewBag.CountPeopleLivingHousehold = "пусто";
-            if (userAnswer.NumberChildrenBorn == null)
+            if (userAnswer.NumberChildrenBorn == 0)
                 ViewBag.NumberChildrenBorn = "пусто";
-            if (userAnswer.YearArrival == null)
-                ViewBag.YearArrival = "пусто";
+
 
             return View();
         }
@@ -341,18 +425,22 @@ namespace PopulationСensus.Controllers
                     NumberChildrenBorn = userAnswerVm.NumberChildrenBorn,
                     CountPeopleLivingHousehold = userAnswerVm.CountPeopleLivingHousehold,
                     PlaceBirth = userAnswerVm.PlaceBirth,
-                    LivedOtherCountries = userAnswerVm.LivedOtherCountries,
-                    WhereLiveBeforeArriving = userAnswerVm.WhereLiveBeforeArriving,
-                    YearArrival = userAnswerVm.YearArrival,
-                    SpeakRussian = userAnswerVm.SpeakRussian,
-                    UseRussianInConversation = userAnswerVm.UseRussianInConversation,
                     NativeLanguage = userAnswerVm.NativeLanguage,
+                    Nationality = userAnswerVm.Nationality,
                     Citizenship = userAnswerVm.Citizenship,
                     Education = userAnswerVm.Education,
-                    HaveDegree = userAnswerVm.HaveDegree,
-                    CanReadAndWrite = userAnswerVm.CanReadAndWrite,
                     MaritalStatus = userAnswerVm.MaritalStatus,
-                    Nationality = userAnswerVm.Nationality,
+                    TypeOfDwelling = userAnswerVm.TypeOfDwelling,
+                    GettingEducation = userAnswerVm.GettingEducation,
+                    SourcesOfLiveliHood = userAnswerVm.SourcesOfLiveliHood,
+                    HaveWorkedRecently = userAnswerVm.HaveWorkedRecently,
+                    WhoWereMainJob = userAnswerVm.WhoWereMainJob,
+                    Heating = userAnswerVm.Heating,
+                    WaterSupply = userAnswerVm.WaterSupply,
+                    HotWaterSupply = userAnswerVm.HotWaterSupply,
+                    WaterDisposalSewerage = userAnswerVm.WaterDisposalSewerage,
+                    DisposalOfHouseholdWaste = userAnswerVm.DisposalOfHouseholdWaste,
+                    Date = DateTime.Today
 
                 };
                 await userService.AddUserAnswer(userAnswers);

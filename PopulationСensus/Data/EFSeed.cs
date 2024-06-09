@@ -109,22 +109,22 @@ namespace PopulationСensus.Data
                 }
                 var userAnswers = new UserAnswer
                 {
-                    Gender = gender,
-                    NumberChildrenBorn = NumberChildrenBorn,
-                    CountPeopleLivingHousehold = YearBirthFirstChild,
-                    PlaceBirth = faker.Address.State(),
-                    LivedOtherCountries = LivedOtherCountries,
-                    WhereLiveBeforeArriving = whereLiveBeforeArriving,
-                    YearArrival = yearArrival,
-                    SpeakRussian = speakRussian,
-                    UseRussianInConversation = useRussianInConversation,
-                    NativeLanguage = language[faker.Random.Byte(0, 6)],
-                    Citizenship = countres[faker.Random.Byte(0, 4)],
-                    Education = education[faker.Random.Byte(0, 2)],
-                    HaveDegree = haveDegree,
-                    CanReadAndWrite = canReadAndWrite,
-                    MaritalStatus = maritalStatusList[faker.Random.Byte(0, 5)],
-                    Nationality = nationalityList[faker.Random.Byte(0, 6)],
+                    //Gender = gender,
+                    //NumberChildrenBorn = NumberChildrenBorn,
+                    //CountPeopleLivingHousehold = YearBirthFirstChild,
+                    //PlaceBirth = faker.Address.State(),
+                    //LivedOtherCountries = LivedOtherCountries,
+                    //WhereLiveBeforeArriving = whereLiveBeforeArriving,
+                    //YearArrival = yearArrival,
+                    //SpeakRussian = speakRussian,
+                    //UseRussianInConversation = useRussianInConversation,
+                    //NativeLanguage = language[faker.Random.Byte(0, 6)],
+                    //Citizenship = countres[faker.Random.Byte(0, 4)],
+                    //Education = education[faker.Random.Byte(0, 2)],
+                    //HaveDegree = haveDegree,
+                    //CanReadAndWrite = canReadAndWrite,
+                    //MaritalStatus = maritalStatusList[faker.Random.Byte(0, 5)],
+                    //Nationality = nationalityList[faker.Random.Byte(0, 6)],
 
                 };
                 await userService.AddUserAnswer(userAnswers);

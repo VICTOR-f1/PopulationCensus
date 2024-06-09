@@ -6,44 +6,75 @@ namespace PopulationСensus.Domain.Entities
     {
         //пол
         public bool Gender { get; set; }
+
         //количество рожденных детей
         public byte? NumberChildrenBorn { get; set; }
-        //год рождения первого ребёнка
-        public short? CountPeopleLivingHousehold { get; set; }
+
+
         //место рождения
         [StringLength(70)]
         public string PlaceBirth { get; set; } = null!;
-        //жили ли вы в других странах
-        public bool LivedOtherCountries { get; set; }
-        //где вы жили до прибытия(возвращение) в РФ
-        [StringLength(70)]
-        public string? WhereLiveBeforeArriving { get; set; } = null!;
-        //год прибытия(возвращение) в РФ
-        public short? YearArrival { get; set; }
-        // говорите по русски?
-        public bool SpeakRussian { get; set; }
-        //используете его в повсденевной жизни?
-        public bool UseRussianInConversation { get; set; }
+
         //ваше родной язык
         [StringLength(30)]
         public string NativeLanguage { get; set; } = null!;
+
         //гражданство
         [StringLength(70)]
         public string Citizenship { get; set; } = null!;
-        //национальность
 
+        //национальность
         [StringLength(30)]
         public string Nationality { get; set; } = null!;
+
         //образование
         [StringLength(25)]
         public string Education { get; set; } = null!;
-        //есть учённая степень
-        public bool HaveDegree { get; set; }
-        //умеете писать и читать 
-        public bool CanReadAndWrite { get; set; }
+
         // состояние в браке
         [StringLength(70)]
         public string MaritalStatus { get; set; } = null!;
+
+        // количество людей живущих в домохозайстве
+        public short? CountPeopleLivingHousehold { get; set; } 
+
+        // Тип жилища
+        [StringLength(30)]
+        public string TypeOfDwelling { get; set; } = null!;
+
+        // Получаете ли образование
+        [StringLength(90)]
+        public string GettingEducation { get; set; } = null!;
+
+        // ОСНОВНОЙ источник средств к существованию
+        [StringLength(90)]
+        public string SourcesOfLiveliHood { get; set; } = null!;
+
+        // Имели ли Вы какую-либо оплачиваемую работу или доходное занятие с 24 по 30 сентября 2020 года?
+        public bool HaveWorkedRecently { get; set; } 
+
+        // 19 Кем Вы являлись на основной работе?
+        [StringLength(90)]
+        public string WhoWereMainJob { get; set; } = null!;
+        // Отопление
+        [StringLength(80)]
+        public string Heating { get; set; } = null!;
+
+        // Водоснабжение
+        [StringLength(60)]
+        public string WaterSupply { get; set; } = null!;
+
+        // Горячие водоснабжение
+        [StringLength(60)]
+        public string HotWaterSupply { get; set; } = null!;
+
+        // Водоотведение(канализация)
+        [StringLength(60)]
+        public string WaterDisposalSewerage { get; set; } = null!;
+
+        // Удаление бытовых отходов
+        [StringLength(60)]
+        public string DisposalOfHouseholdWaste { get; set; } = null!;
 
         // Дата
         public DateTime Date { get; set; }
