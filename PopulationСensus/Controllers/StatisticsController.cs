@@ -17,47 +17,64 @@ namespace PopulationCensus.Controllers
         }
         public async Task<IActionResult> GraphicsStatistics()
         {
-            //List<User> user = await reader.GetAllUserAsync();
-            //List<UserAnswer> userAnswer = await reader.GetAllUserAnswerAsync();
-            //List<Address> addresses = await reader.GetAllАddressAsync();
+            List<User> user = await reader.GetAllUserAsync();
+            List<UserAnswer> userAnswer = await reader.GetAllUserAnswerAsync();
+            List<Address> addresses = await reader.GetAllАddressAsync();
 
-            //var objAddDataPoint = new AddDataPoint(userAnswer, user, addresses);
+            var objAddDataPoint = new AddDataPoint(userAnswer, user, addresses);
 
-            //List<DataPoint> numberPeoplePassed = null;
-            //List<DataPoint> registeredButNotPass = null;
-            //List<DataPoint> canWriteAndRead = null;
-            //List<DataPoint> haveDegree = null;
-            //List<DataPoint> nationality = null;
-            //List<DataPoint> livedOtherCountries = null;
-            //List<DataPoint> whereLiveBeforeArriving = null;
-            //List<DataPoint> education = null;
-            //List<DataPoint> gender = null;
-            //List<DataPoint> maritalStatus = null;
-            //List<DataPoint> state = null;
+            List<DataPoint> numberPeoplePassed = null;
+            List<DataPoint> registeredButNotPass = null;
+            List<DataPoint> nationality = null;
+            List<DataPoint> education = null;
+            List<DataPoint> gender = null;
+            List<DataPoint> maritalStatus = null;
+            List<DataPoint> state = null;
+            List<DataPoint> gettingEducation = null;
+            List<DataPoint> sourcesOfLiveliHood = null;
+            List<DataPoint> whoWereMainJob = null;
+            List<DataPoint> typeOfDwelling = null;
+            List<DataPoint> heating = null;
+            List<DataPoint> waterSupply = null;
+            List<DataPoint> hotWaterSupply = null;
+            List<DataPoint> waterDisposalSewerage = null;
+            List<DataPoint> disposalOfHouseholdWaste = null;
 
-            //numberPeoplePassed = objAddDataPoint.NumberPeoplePassed(numberPeoplePassed);
-            //registeredButNotPass = objAddDataPoint.RegisteredButNotPass(registeredButNotPass);
-            //canWriteAndRead = objAddDataPoint.CanWriteAndRead(canWriteAndRead);
-            //haveDegree = objAddDataPoint.HaveDegree(haveDegree);
-            //nationality = objAddDataPoint.Nationality(nationality);
-            //livedOtherCountries = objAddDataPoint.LivedOtherCountries(livedOtherCountries);
-            //whereLiveBeforeArriving = objAddDataPoint.WhereLiveBeforeArriving(whereLiveBeforeArriving);
-            //education = objAddDataPoint.Education(education);
-            //gender = objAddDataPoint.Gender(gender);
-            //maritalStatus = objAddDataPoint.MaritalStatus(maritalStatus);
-            //state = objAddDataPoint.State(state);
 
-            //ViewBag.DataPointsNumberPeoplePassed = JsonConvert.SerializeObject(numberPeoplePassed);
-            //ViewBag.RegisteredButNotPass = JsonConvert.SerializeObject(registeredButNotPass);
-            //ViewBag.CanWriteAndRead = JsonConvert.SerializeObject(canWriteAndRead);
-            //ViewBag.HaveDegree = JsonConvert.SerializeObject(haveDegree);
-            //ViewBag.Nationality = JsonConvert.SerializeObject(nationality);
-            //ViewBag.LivedOtherCountries = JsonConvert.SerializeObject(livedOtherCountries);
-            //ViewBag.WhereLiveBeforeArriving = JsonConvert.SerializeObject(whereLiveBeforeArriving);
-            //ViewBag.Education = JsonConvert.SerializeObject(education);
-            //ViewBag.Gender = JsonConvert.SerializeObject(gender);
-            //ViewBag.MaritalStatus = JsonConvert.SerializeObject(maritalStatus);
-            //ViewBag.State = JsonConvert.SerializeObject(state);
+            numberPeoplePassed = objAddDataPoint.NumberPeoplePassed(numberPeoplePassed);
+            registeredButNotPass = objAddDataPoint.RegisteredButNotPass(registeredButNotPass);
+            nationality = objAddDataPoint.Nationality(nationality);
+            education = objAddDataPoint.Education(education);
+            gender = objAddDataPoint.Gender(gender);
+            maritalStatus = objAddDataPoint.MaritalStatus(maritalStatus);
+            state = objAddDataPoint.State(state);
+            gettingEducation = objAddDataPoint.GettingEducation(gettingEducation);
+            sourcesOfLiveliHood = objAddDataPoint.SourcesOfLiveliHood(sourcesOfLiveliHood);
+            whoWereMainJob = objAddDataPoint.WhoWereMainJob(whoWereMainJob);
+            typeOfDwelling = objAddDataPoint.TypeOfDwelling(typeOfDwelling);
+            heating = objAddDataPoint.Heating(heating);
+            waterSupply = objAddDataPoint.WaterSupply(waterSupply);
+            hotWaterSupply = objAddDataPoint.HotWaterSupply(hotWaterSupply);
+            waterDisposalSewerage = objAddDataPoint.WaterDisposalSewerage(waterDisposalSewerage);
+            disposalOfHouseholdWaste = objAddDataPoint.DisposalOfHouseholdWaste(disposalOfHouseholdWaste);
+
+
+            ViewBag.DataPointsNumberPeoplePassed = JsonConvert.SerializeObject(numberPeoplePassed);
+            ViewBag.RegisteredButNotPass = JsonConvert.SerializeObject(registeredButNotPass);
+            ViewBag.Nationality = JsonConvert.SerializeObject(nationality);
+            ViewBag.Education = JsonConvert.SerializeObject(education);
+            ViewBag.Gender = JsonConvert.SerializeObject(gender);
+            ViewBag.MaritalStatus = JsonConvert.SerializeObject(maritalStatus);
+            ViewBag.State = JsonConvert.SerializeObject(state);
+            ViewBag.GettingEducation = JsonConvert.SerializeObject(gettingEducation);
+            ViewBag.SourcesOfLiveliHood = JsonConvert.SerializeObject(sourcesOfLiveliHood);
+            ViewBag.WhoWereMainJob = JsonConvert.SerializeObject(whoWereMainJob);
+            ViewBag.TypeOfDwelling = JsonConvert.SerializeObject(typeOfDwelling);
+            ViewBag.Heating = JsonConvert.SerializeObject(heating);
+            ViewBag.WaterSupply = JsonConvert.SerializeObject(waterSupply);
+            ViewBag.HotWaterSupply = JsonConvert.SerializeObject(hotWaterSupply);
+            ViewBag.WaterDisposalSewerage = JsonConvert.SerializeObject(waterDisposalSewerage);
+            ViewBag.DisposalOfHouseholdWaste = JsonConvert.SerializeObject(disposalOfHouseholdWaste);
 
             return View();
         }

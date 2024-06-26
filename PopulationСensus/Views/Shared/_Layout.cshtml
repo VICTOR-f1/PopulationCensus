@@ -6,7 +6,6 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
-    <title>@ViewBag.Title</title>
     <!--====== Favicon Icon ======-->
     <link rel="shortcut icon" href="/favicon.png" type="image/png">
     <!--====== Animate CSS ======-->
@@ -50,13 +49,12 @@
                             </button>
                             <div class="collapse navbar-collapse sub-menu-bar" id="navbarSupportedContent">
                                 <ul id="nav" class="navbar-nav ml-auto">
-                                    <li class="nav-item">
-                                        <a class="page-scroll" asp-controller="Statistics" asp-action="GraphicsStatistics">Графики</a>
-                                    </li>
-                                    <li class="nav-item">
-                                        <a class="page-scroll" href="/Census/Index#faq">Частые вопросы</a>
-                                    </li>
-
+                                    @if (User.IsInRole("admin"))
+                                    {
+                                        <li class="nav-item">
+                                            <a class="page-scroll" asp-controller="Statistics" asp-action="GraphicsStatistics">Графики</a>
+                                        </li>
+                                    }
                                     <li class="nav-item">
                                         <a class="page-scroll" href="/Census/Index#contact">Контакты</a>
                                     </li>
@@ -131,7 +129,7 @@
             <div class="footer_copyright">
                 <div class="container">
                     <div class="copyright">
-                        <p class="funk-tochka-script-font"> Разработал Фарносов Виктор в 2024</p>
+                        <p class="funk-tochka-script-font">Разработал Фарносов Виктор в 2024</p>
                     </div>
                 </div>
             </div>

@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using PopulationСensus.Domain.Entities;
 using PopulationСensus.Domain.Services;
 using PopulationСensus.ViewModels;
+using System.Diagnostics;
 using System.Security.Claims;
 using System.Security.Principal;
 
@@ -116,8 +117,34 @@ namespace PopulationСensus.Controllers
         {
             return View();
         }
+        [Authorize]
+        public async Task<IActionResult> BecomeAdmin(string password="")
+        {
+            if (!User.IsInRole("admin"))
+            {
+                string passwordAdmin = "@1qwerty234@123da";
+                if (password == passwordAdmin)
+                {
+                    var userEmail = User.Identity.Name;
+                    User user = await userService.FindUserEmail(userEmail);
+                    user.RoleId = 2;
+                    await userService.UpdateUser(user);
+                    ViewBag.Succes = "Вы стали администратором пожалуйста войдите снова в акаунт";
+                    await HttpContext.SignOutAsync();
 
+                }
+                else if (password != "")
+                {
+                    ViewBag.Succes = "Не верный пароль";
+                }
+            }
+            else
+            {
+                ViewBag.Succes = "Вы уже администратор";
+            }
 
+            return View();
+        }
 
     }
 }

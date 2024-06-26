@@ -23,9 +23,9 @@ For more information on enabling MVC for empty projects, visit https://go.micros
 <body>
     <div class="main-containner container-fluid px-1 py-5 mx-auto main-container">
         <div class="row d-flex justify-content-center">
-            <div class="col-xl-9 col-lg-10 col-md-10 col-11 text-center">
+            <div class="col-xl-10 col-lg-11 col-md-11 col-11 text-center">
                 <div class="card shadow-lg mt-80">
-                    <h1 class="text-center mb-4 title">Просмотр ответ пользователя</h1>
+                    <h1 class="text-center mb-4 title">Просмотр ответа пользователя</h1>
                     <form class="form-card" method="POST">
                         <div class="row justify-content-between text-left">
                             <div class="form-group col-sm-6 flex-column d-flex">
@@ -39,8 +39,8 @@ For more information on enabling MVC for empty projects, visit https://go.micros
                         </div>
                         <div class="row justify-content-between text-left">
                             <div class="form-group col-sm-6 flex-column d-flex">
-                                <label asp-for="CountPeopleLivingHousehold" class="form-control-label"></label>
-                                <label class="label-output">@ViewBag.CountPeopleLivingHousehold</label>
+                                <label asp-for="State" class="form-control-label"></label>
+                                <label class="label-output">@ViewBag.State</label>
                             </div>
                             <div class="form-group col-sm-6 flex-column d-flex">
                                 <label asp-for="NumberChildrenBorn" class="form-control-label"></label>
@@ -82,10 +82,7 @@ For more information on enabling MVC for empty projects, visit https://go.micros
                                 <label asp-for="SourcesOfLiveliHood" class="form-control-label"></label>
                                 <label class="label-output">@ViewBag.SourcesOfLiveliHood</label>
                             </div>
-                            <div class="form-group col-sm-6 flex-column d-flex">
-                                <label asp-for="HaveWorkedRecently" class="form-control-label"></label>
-                                <label class="label-output">@ViewBag.HaveWorkedRecently</label>
-                            </div>
+                          
                         </div>
                         <div class="row justify-content-between text-left">
                             <div class="form-group col-sm-6 flex-column d-flex">
@@ -121,6 +118,10 @@ For more information on enabling MVC for empty projects, visit https://go.micros
                             <div class="form-group col-sm-6 flex-column d-flex">
                                 <label asp-for="DisposalOfHouseholdWaste" class="form-control-label"></label>
                                 <label class="label-output">@ViewBag.DisposalOfHouseholdWaste</label>
+                            </div>
+                            <div class="form-group col-sm-6 flex-column d-flex">
+                                <label asp-for="CountPeopleLivingHousehold" class="form-control-label"></label>
+                                <label class="label-output">@ViewBag.CountPeopleLivingHousehold</label>
                             </div>
                         </div>
                     </form>

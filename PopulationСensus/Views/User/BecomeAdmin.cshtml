@@ -1,0 +1,29 @@
+﻿@*
+*@
+@{
+    Layout = null;
+}
+<head>
+    <link rel="shortcut icon" href="/favicon.png" type="image/png">
+    <link rel="stylesheet" href="/styles/census-success.css">
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div class="container">
+        <div style="text-align: center;">
+
+            <form class="form-card" method="POST">
+                <label class="form-control-label">Введите пароль чтобы стать администратором</label>
+                <input name="password">
+                <button class="btn-block main-btn btn-primary" type="submit">Отправить</button>
+                <div class="text-danger">
+                    @ViewBag.Succes
+                </div>
+            </form>
+        </div>
+    </div>
+</body>
+<script>
+
+</script>

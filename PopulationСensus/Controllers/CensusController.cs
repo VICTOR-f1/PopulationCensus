@@ -32,7 +32,7 @@ namespace PopulationСensus.Controllers
         }
 
         [Authorize(Roles = "admin")]
-        public async Task<IActionResult> ResultCensus(string dateFirst = "", string dateSecond = "", string gender = "", int? CountPeopleLivingHousehold = null, int? numberChildrenBorn = null, string placeBirth = "", string state = "", string nativeLanguage = "", string citizenship = "", string nationality = "", string gettingEducation = "", string sourcesOfLiveliHood = "", string whoWereMainJob = "", string haveWorkedRecently = "", string typeOfDwelling = "", string heating = "", string waterSupply = "", string hotWaterSupply = "", string waterDisposalSewerage = "", string disposalOfHouseholdWaste = "", int ageStart = 199, int ageEnd = 199)
+        public async Task<IActionResult> ResultCensus(string dateFirst = "", string dateSecond = "", string gender = "", int? CountPeopleLivingHousehold = null, int? numberChildrenBorn = null, string education = "", string state = "", string nativeLanguage = "", string citizenship = "", string nationality = "", string gettingEducation = "", string sourcesOfLiveliHood = "", string whoWereMainJob = "", string typeOfDwelling = "", string heating = "", string waterSupply = "", string hotWaterSupply = "", string waterDisposalSewerage = "", string disposalOfHouseholdWaste = "", int ageStart = 199, int ageEnd = 199)
         {
             List<User> userList = await reader.GetAllUserAsync();
             List<UserAnswer> userListAnswer = await reader.GetAllUserAnswerAsync();
@@ -121,11 +121,7 @@ namespace PopulationСensus.Controllers
                 }
             }
 
-            var userAnswersSelectList = userListAnswer
-               .GroupBy(item => item.PlaceBirth)
-               .Select(grp => new { PlaceBirth = grp.Key, Count = grp.Count() })
-               .OrderByDescending(item => item.Count)
-               .ToList();
+
             var nativeLanguageSelectList = userListAnswer
               .Where(x => x.NativeLanguage != null)
               .GroupBy(item => item.NativeLanguage)
@@ -169,8 +165,6 @@ namespace PopulationСensus.Controllers
               .ToList();
 
 
-            var items1 = userAnswersSelectList.Select(answer =>
-                new SelectListItem { Text = answer.PlaceBirth.ToString() + ":" + answer.Count.ToString(), Value = answer.PlaceBirth.ToString() });
 
             var items2 = nativeLanguageSelectList.Select(answer =>
                 new SelectListItem { Text = answer.NativeLanguage.ToString() + ":" + answer.Count.ToString(), Value = answer.NativeLanguage.ToString() });
@@ -255,8 +249,8 @@ namespace PopulationСensus.Controllers
 
 
                 userList = userList.Where(resident =>
-                   resident.UserAnswer.PlaceBirth == placeBirth ||
-                   placeBirth == "allPlaceBirth").ToList();
+                   resident.UserAnswer.Education == education ||
+                   education == "allEducation").ToList();
 
                 userList = userList.Where(resident =>
                     resident.Address.State == state ||
@@ -277,10 +271,6 @@ namespace PopulationСensus.Controllers
                 userList = userList.Where(resident =>
                       resident.UserAnswer.GettingEducation == gettingEducation ||
                       gettingEducation == "allGettingEducation").ToList();
-
-                userList = userList.Where(resident =>
-                      resident.UserAnswer.HaveWorkedRecently.ToString().Contains(haveWorkedRecently) ||
-                    haveWorkedRecently == "allHaveWorkedRecently").ToList();
 
                 userList = userList.Where(resident =>
                       resident.UserAnswer.SourcesOfLiveliHood == sourcesOfLiveliHood ||
@@ -323,7 +313,6 @@ namespace PopulationСensus.Controllers
             }
             ViewBag.enumerator = userList.Count;
 
-            viewModel.UserAnswersSelectList.AddRange(items1);
             viewModel.NativeLanguageSelectList.AddRange(items2);
             viewModel.CitizenshipSelectList.AddRange(items3);
             viewModel.NationalitySelectList.AddRange(items4);
@@ -342,6 +331,8 @@ namespace PopulationСensus.Controllers
         {
 
             var userAnswer = await reader.FindUserAnswerAsync(userAnswerId);
+            var user = await reader.FindUserByUserAnswerIdAsync(userAnswerId);
+            var Address = await reader.GetAllАddressAsync();
             if (userAnswer is null)
             {
                 return NotFound();
@@ -352,17 +343,17 @@ namespace PopulationСensus.Controllers
                 ViewBag.Gender = "Женщина";
             else
                 ViewBag.Gender = "Мужчина";
-
+   
             ViewBag.CountPeopleLivingHousehold = userAnswer.CountPeopleLivingHousehold;
             ViewBag.NumberChildrenBorn = userAnswer.NumberChildrenBorn;
             ViewBag.NativeLanguage = userAnswer.NativeLanguage;
             ViewBag.Nationality = userAnswer.Nationality;
             ViewBag.Citizenship = userAnswer.Citizenship;
             ViewBag.Education = userAnswer.Education;
+            ViewBag.State = user.Address.State;
             ViewBag.MaritalStatus = userAnswer.MaritalStatus;
             ViewBag.GettingEducation = userAnswer.GettingEducation;
             ViewBag.SourcesOfLiveliHood = userAnswer.SourcesOfLiveliHood;
-            ViewBag.HaveWorkedRecently = userAnswer.HaveWorkedRecently;
             ViewBag.WhoWereMainJob = userAnswer.WhoWereMainJob;
             ViewBag.TypeOfDwelling = userAnswer.TypeOfDwelling;
             ViewBag.Heating = userAnswer.Heating;
@@ -370,12 +361,6 @@ namespace PopulationСensus.Controllers
             ViewBag.HotWaterSupply = userAnswer.HotWaterSupply;
             ViewBag.WaterDisposalSewerage = userAnswer.WaterDisposalSewerage;
             ViewBag.DisposalOfHouseholdWaste = userAnswer.DisposalOfHouseholdWaste;
-
-            if (userAnswer.CountPeopleLivingHousehold == 0)
-                ViewBag.CountPeopleLivingHousehold = "пусто";
-            if (userAnswer.NumberChildrenBorn == 0)
-                ViewBag.NumberChildrenBorn = "пусто";
-
 
             return View();
         }
@@ -433,7 +418,6 @@ namespace PopulationСensus.Controllers
                     TypeOfDwelling = userAnswerVm.TypeOfDwelling,
                     GettingEducation = userAnswerVm.GettingEducation,
                     SourcesOfLiveliHood = userAnswerVm.SourcesOfLiveliHood,
-                    HaveWorkedRecently = userAnswerVm.HaveWorkedRecently,
                     WhoWereMainJob = userAnswerVm.WhoWereMainJob,
                     Heating = userAnswerVm.Heating,
                     WaterSupply = userAnswerVm.WaterSupply,

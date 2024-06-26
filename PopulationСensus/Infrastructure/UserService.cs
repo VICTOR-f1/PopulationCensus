@@ -126,5 +126,10 @@ namespace PopulationСensus.Infrastructure
         {
             await userAnswers.UpdateAsync(userAnswer);
         }
+
+        public async Task<User> FindUserEmail(string email)
+        {
+           return await users.FirstOrDefult(x=>x.Email==email);
+        }
     }
 }

@@ -48,6 +48,8 @@ namespace PopulationСensus.Infrastructure
 
         public async Task<UserAnswer> FindUserAnswerAsync(int userAnswerId) => await usersAnswers.FindAsync(userAnswerId);
 
-
+        public async Task<User> FindUserByUserAnswerIdAsync(int userAnswerId) => await users.FirstOrDefult(resident => resident.UserAnswerId == userAnswerId);
+        
+       
     }
 }

@@ -50,8 +50,7 @@ namespace PopulationСensus.Domain.Entities
         [StringLength(90)]
         public string SourcesOfLiveliHood { get; set; } = null!;
 
-        // Имели ли Вы какую-либо оплачиваемую работу или доходное занятие с 24 по 30 сентября 2020 года?
-        public bool HaveWorkedRecently { get; set; } 
+
 
         // 19 Кем Вы являлись на основной работе?
         [StringLength(90)]

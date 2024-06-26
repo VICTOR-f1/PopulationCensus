@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width" />
     <script src="~/js/bootstrap-multiselect.js"></script>
     <link href="~/css/bootstrap-multiselect.css" rel="stylesheet" />
-    <title>@ViewBag.Title</title>
+    <title>Результаты переписи </title>
 </head>
 <body>
     <div class="main-content ">
@@ -28,10 +28,10 @@
                                     <div class="input-group">
                                         <label class="form-control-label col-md-12 px-0">Пол</label>
                                         <div class="">
-                                            <select class="form-control" name="gender">
+                                            <select asp-for="Gender" class="form-control" name="gender">
+                                                <option selected value="allGender">Все</option>
                                                 <option value="True">Женщина</option>
                                                 <option value="False">Мужчина</option>
-                                                <option selected="selected" value="allGender">Все</option>
                                             </select>
                                         </div>
                                     </div>
@@ -39,20 +39,23 @@
                                 <div class="form-group col-sm-4 flex-column d-flex">
                                     <div class="input-group">
                                         <label class="form-control-label col-md-12 px-0">Количество детей</label>
-                                        <select class="form-control" name="numberChildrenBorn" asp-items="Model.NumberChildrenBornSelectList">
+                                        <select asp-for="NumberChildrenBorn" class="form-control" name="numberChildrenBorn" asp-items="Model.NumberChildrenBornSelectList">
+                                            <option selected value="98">Все</option>
                                             <option value="101">Многодетные</option>
-                                            <option value="100">Малодетные</option>
                                             <option value="99">Бездетные</option>
-                                            <option selected="selected" value="98">Все</option>
                                         </select>
                                     </div>
                                 </div>
                                 <div class="form-group col-sm-4 flex-column d-flex">
                                     <div class="input-group">
-                                        <label class="form-control-label col-md-12 px-0">Место рождения</label>
+                                        <label class="form-control-label col-md-12 px-0">Образование</label>
                                         <div class="">
-                                            <select class="form-control" name="placeBirth" asp-items="Model.UserAnswersSelectList">
-                                                <option selected="selected" value="allPlaceBirth">Все</option>
+                                            <select asp-for="Education" class="form-control" name="education">
+                                                <option selected="selected" value="allEducation">Все</option>
+                                                <option>Отсутствует</option>
+                                                <option>Общее</option>
+                                                <option>Средне профессиональное</option>
+                                                <option>Высшее</option>
                                             </select>
                                         </div>
                                     </div>
@@ -61,7 +64,7 @@
                                     <div class="input-group">
                                         <label class="form-control-label col-md-12 px-0">Район</label>
                                         <div class="">
-                                            <select class="form-control" name="state" asp-items="Model.StateSelectList">
+                                            <select asp-for="State" class="form-control" name="state" asp-items="Model.StateSelectList">
                                                 <option selected="selected" value="allState">Все</option>
                                             </select>
                                         </div>
@@ -71,7 +74,7 @@
                                     <div class="input-group">
                                         <label class="form-control-label col-md-12 px-0">Родной язык</label>
                                         <div class="">
-                                            <select class="form-control" name="nativeLanguage" asp-items="Model.NativeLanguageSelectList">
+                                            <select asp-for="NativeLanguage" class="form-control" name="nativeLanguage" asp-items="Model.NativeLanguageSelectList">
                                                 <option selected="selected" value="allNativeLanguage">Все</option>
                                             </select>
                                         </div>
@@ -81,7 +84,7 @@
                                     <div class="input-group">
                                         <label class="form-control-label col-md-12 px-0">Гражданство</label>
                                         <div class="">
-                                            <select class="form-control" name="citizenship" asp-items="Model.CitizenshipSelectList">
+                                            <select asp-for="Citizenship" class="form-control" name="citizenship" asp-items="Model.CitizenshipSelectList">
                                                 <option selected="selected" value="allCitizenship">Все</option>
                                             </select>
                                         </div>
@@ -91,7 +94,7 @@
                                     <div class="input-group">
                                         <label class="form-control-label col-md-12 px-0">Нациальность</label>
                                         <div class="">
-                                            <select class="form-control" name="nationality" asp-items="Model.NationalitySelectList">
+                                            <select asp-for="Nationality" class="form-control" name="nationality" asp-items="Model.NationalitySelectList">
                                                 <option selected="selected" value="allNationality">Все</option>
                                             </select>
                                         </div>
@@ -101,7 +104,7 @@
                                     <div class="input-group">
                                         <label class="form-control-label col-md-12 px-0">Получают ли образование</label>
                                         <div class="">
-                                            <select class="form-control" name="gettingEducation">
+                                            <select asp-for="GettingEducation" class="form-control" name="gettingEducation">
                                                 <option value="allGettingEducation" selected>Все</option>
                                                 <option value="Не получаю образование">Не получают образование </option>
                                                 <option>Основные профессиональные программы</option>
@@ -115,7 +118,7 @@
                                     <div class="input-group">
                                         <label class="form-control-label col-md-12 px-0">Источник средств к существованию</label>
                                         <div class="">
-                                            <select class="form-control" name="sourcesOfLiveliHood">
+                                            <select asp-for="SourcesOfLiveliHood" class="form-control" name="sourcesOfLiveliHood">
                                                 <option value="allSourcesOfLiveliHood" selected>Все</option>
                                                 <option>Не имею источник средств к существованию</option>
                                                 <option>Заработная плата</option>
@@ -140,7 +143,7 @@
                                     <div class="input-group">
                                         <label class="form-control-label col-md-12 px-0">Кем вы являлись на работе</label>
                                         <div class="">
-                                            <select class="form-control" name="whoWereMainJob">
+                                            <select asp-for="WhoWereMainJob" class="form-control" name="whoWereMainJob">
                                                 <option value="allWhoWereMainJob" selected>Все</option>
                                                 <option>Работающий по найму</option>
                                                 <option>Владелец (совладелец) собственного предприятия (дела) </option>
@@ -154,21 +157,9 @@
                                 </div>
                                 <div class="form-group col-sm-4 flex-column d-flex">
                                     <div class="input-group">
-                                        <label class="form-control-label col-md-12 px-0">Работали недавно</label>
-                                        <div class="">
-                                            <select class="form-control" name="haveWorkedRecently">
-                                                <option value="True">Да</option>
-                                                <option value="False">Нет</option>
-                                                <option selected="selected" value="allHaveWorkedRecently">Все</option>
-                                            </select>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="form-group col-sm-4 flex-column d-flex">
-                                    <div class="input-group">
                                         <label class="form-control-label col-md-12 px-0">Тип жилища</label>
                                         <div class="">
-                                            <select class="form-control" name="typeOfDwelling">
+                                            <select asp-for="TypeOfDwelling" class="form-control" name="typeOfDwelling">
                                                 <option value="allTypeOfDwelling" selected>Все</option>
                                                 <option>Индивидуальный дом</option>
                                                 <option>Общежитие</option>
@@ -185,7 +176,7 @@
                                     <div class="input-group">
                                         <label class="form-control-label col-md-12 px-0">Отопление</label>
                                         <div class="">
-                                            <select class="form-control" name="heating">
+                                            <select asp-for="Heating" class="form-control" name="heating">
                                                 <option value="allHeating" selected>Все</option>
                                                 <option>Централизованное</option>
                                                 <option>От индивидуальных установок, котлов</option>
@@ -198,7 +189,7 @@
                                     <div class="input-group">
                                         <label class="form-control-label col-md-12 px-0">Водоснабжение</label>
                                         <div class="">
-                                            <select class="form-control" name="waterSupply">
+                                            <select asp-for="WaterSupply" class="form-control" name="waterSupply">
                                                 <option value="allWaterSupply" selected>Все</option>
                                                 <option>Централизонаннам система холодного водоснабжения</option>
                                                 <option>Индивидуальная система одоснабжения</option>
@@ -212,7 +203,7 @@
                                     <div class="input-group">
                                         <label class="form-control-label col-md-12 px-0">Горячие водоснабжение</label>
                                         <div class="">
-                                            <select class="form-control" name="hotWaterSupply">
+                                            <select asp-for="HotWaterSupply" class="form-control" name="hotWaterSupply">
                                                 <option value="allHotWaterSupply" selected>Все</option>
                                                 <option>Централизованное</option>
                                                 <option>От индивидуальных водонагревателей </option>
@@ -225,7 +216,7 @@
                                     <div class="input-group">
                                         <label class="form-control-label col-md-12 px-0">Водоотведение(канализация)</label>
                                         <div class="">
-                                            <select class="form-control" name="waterDisposalSewerage">
+                                            <select asp-for="WaterDisposalSewerage" class="form-control" name="waterDisposalSewerage">
                                                 <option value="allWaterDisposalSewerage" selected>Все</option>
                                                 <option>Централизованная система</option>
                                                 <option>Индивидуальная система (включая септик)</option>
@@ -239,7 +230,7 @@
                                     <div class="input-group">
                                         <label class="form-control-label col-md-12 px-0">Удаление бытовых отходов</label>
                                         <div class="">
-                                            <select class="form-control" name="disposalOfHouseholdWaste">
+                                            <select asp-for="DisposalOfHouseholdWaste" class="form-control" name="disposalOfHouseholdWaste">
                                                 <option value="allDisposalOfHouseholdWaste" selected>Все</option>
                                                 <option>Мусоропровод</option>
                                                 <option>Мусоросборники вне дома</option>
@@ -269,7 +260,7 @@
                                     <div class="input-group">
                                         <label class="form-control-label col-md-12 px-0">Начальный возраст</label>
                                         <div class="">
-                                            <select class="form-control" name="ageStart" asp-items="Model.AgeStartSelectList">
+                                            <select asp-for="AgeStartId" class="form-control" name="ageStart" asp-items="Model.AgeStartSelectList">
                                                 <option selected="selected" value="199">Все</option>
                                             </select>
                                         </div>
@@ -279,7 +270,7 @@
                                     <div class="input-group">
                                         <label class="form-control-label col-md-12 px-0">Конечный возраст</label>
                                         <div class="">
-                                            <select class="form-control" name="ageEnd" asp-items="Model.AgeEndSelectList">
+                                            <select asp-for="AgeEndId" class="form-control" name="ageEnd" asp-items="Model.AgeEndSelectList">
                                                 <option selected="selected" value="199">Все</option>
                                             </select>
                                         </div>

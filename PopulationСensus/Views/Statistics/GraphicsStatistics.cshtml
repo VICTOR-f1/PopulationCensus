@@ -6,6 +6,7 @@
     <link rel="shortcut icon" href="/favicon.png" type="image/png">
     <link rel="stylesheet" href="/styles/statistics.css">
     <script src="/scripts/canvasjs.min.js"></script>
+    <title>Визуализация данных переписи</title>
     @if (User.IsInRole("admin"))
     {
         <script>
@@ -13,7 +14,7 @@
 
                 var chart = new CanvasJS.Chart("numberPeoplePassed", {
                     animationEnabled: true,
-                    theme: "light2", 
+                    theme: "light2",
                     backgroundColor: "#f4f4f8",
                     exportEnabled: true,
                     title: {
@@ -22,11 +23,10 @@
                     },
                     data: [{
                         type: "line",
-                        dataPoints: @Html.Raw(ViewBag.DataPointsNumberPeoplePassed)                         
-                    }]
+                        dataPoints: @Html.Raw(ViewBag.DataPointsNumberPeoplePassed)
+                                }]
                 });
                 chart.render();
-
 
                 var chart2 = new CanvasJS.Chart("registeredButNotPass", {
                     theme: "light1",
@@ -44,13 +44,13 @@
                         showInLegend: "true",
                         legendText: "{label}",
                         indexLabel: "{label} - {y}",
-                        dataPoints: @Html.Raw(ViewBag.RegisteredButNotPass)                         
-                    }]
+                        dataPoints: @Html.Raw(ViewBag.RegisteredButNotPass)
+                                }]
                 });
                 chart2.render();
-                
-                var chart3 = new CanvasJS.Chart("Education", {                
-                    theme: "light1", 
+
+                var chart3 = new CanvasJS.Chart("Education", {
+                    theme: "light1",
                     exportEnabled: true,
                     backgroundColor: "#f4f4f8",
                     animationEnabled: true,
@@ -61,54 +61,14 @@
                     data: [{
                         type: "column",
                         dataPoints: @Html.Raw(ViewBag.Education)
-                    }]
+                                }]
                 });
                 chart3.render();
 
-                var chart4 = new CanvasJS.Chart("canWriteAndRead", {
-                    theme: "light1", 
-                    exportEnabled: true,
-                    backgroundColor: "#f4f4f8",
-                    animationEnabled: true,
-                    title: {
-                        fontSize: 26,
-                        text: "Число людей которые умеют читать"
-                    },
-                    data: [{
-                        type: "pie",
-                        startAngle: 180,
-                        toolTipContent: "<b>{label}</b>: {y}",
-                        showInLegend: "true",
-                        legendText: "{label}",
-                        indexLabel: "{label} - {y}",
-                        dataPoints: @Html.Raw(ViewBag.CanWriteAndRead)
-                                }]
-                });
-                chart4.render();
 
-                var chart5 = new CanvasJS.Chart("HaveDegree", {
+
+                var chart4 = new CanvasJS.Chart("Nationality", {
                     theme: "light1",
-                    exportEnabled: true,
-                    backgroundColor: "#f4f4f8",
-                    animationEnabled: true,
-                    title: {
-                        fontSize: 26,
-                        text: "Число людей у которых есть учённая степень"
-                    },
-                    data: [{
-                        type: "pie",
-                        startAngle: 180,
-                        toolTipContent: "<b>{label}</b>: {y}",
-                        showInLegend: "true",
-                        legendText: "{label}",
-                        indexLabel: "{label} - {y}",
-                        dataPoints: @Html.Raw(ViewBag.HaveDegree)                              
-                    }]
-                });
-                chart5.render();
-
-                var chart6 = new CanvasJS.Chart("Nationality", {
-                    theme: "light1", 
                     exportEnabled: true,
                     backgroundColor: "#f4f4f8",
                     animationEnabled: true,
@@ -118,49 +78,12 @@
                     },
                     data: [{
                         type: "column",
-                        dataPoints: @Html.Raw(ViewBag.Nationality)                             
-                    }]
+                        dataPoints: @Html.Raw(ViewBag.Nationality)
+                                }]
                 });
-                chart6.render();
+                chart4.render();
 
-                var chart7 = new CanvasJS.Chart("LivedOtherCountries", {
-                    theme: "light1", 
-                    exportEnabled: true,
-                    backgroundColor: "#f4f4f8",
-                    animationEnabled: true,
-                    title: {
-                        fontSize: 26,
-                        text: "Число людей которые вернулись или прибыли в РФ к числу людей который всегда жили в РФ"
-                    },
-                    data: [{
-                        type: "pie",
-                        startAngle: 180,
-                        toolTipContent: "<b>{label}</b>: {y}",
-                        showInLegend: "true",
-                        legendText: "{label}",
-                        indexLabel: "{label} - {y}",
-                        dataPoints: @Html.Raw(ViewBag.LivedOtherCountries)                            
-                    }]
-                });
-                chart7.render();
-
-                var chart8 = new CanvasJS.Chart("WhereLiveBeforeArriving", {
-                    theme: "light1", 
-                    exportEnabled: true,
-                    backgroundColor: "#f4f4f8",
-                    animationEnabled: true,
-                    title: {
-                        fontSize: 26,
-                        text: "Страны в которых жили люди до прибытия в рф"
-                    },
-                    data: [{
-                        type: "column",
-                        dataPoints: @Html.Raw(ViewBag.WhereLiveBeforeArriving)                           
-                    }]
-                });
-                chart8.render();
-
-                var chart9 = new CanvasJS.Chart("Gender", {
+                var chart5 = new CanvasJS.Chart("Gender", {
                     theme: "light1",
                     exportEnabled: true,
                     backgroundColor: "#f4f4f8",
@@ -176,12 +99,12 @@
                         showInLegend: "true",
                         legendText: "{label}",
                         indexLabel: "{label} - {y}",
-                        dataPoints: @Html.Raw(ViewBag.Gender)                                
-                    }]
+                        dataPoints: @Html.Raw(ViewBag.Gender)
+                                }]
                 });
-                chart9.render();
+                chart5.render();
 
-                var chart10 = new CanvasJS.Chart("MaritalStatus", {
+                var chart6 = new CanvasJS.Chart("MaritalStatus", {
                     theme: "light1",
                     exportEnabled: true,
                     backgroundColor: "#f4f4f8",
@@ -203,12 +126,12 @@
                         type: "bar",
                         indexLabel: "{y}",
                         dataPoints: @Html.Raw(ViewBag.MaritalStatus)
-                              
-                    }]
-                });
-                chart10.render();
 
-                var chart11 = new CanvasJS.Chart("State", {
+                                }]
+                });
+                chart6.render();
+
+                var chart7 = new CanvasJS.Chart("State", {
                     theme: "light1",
                     exportEnabled: true,
                     backgroundColor: "#f4f4f8",
@@ -231,9 +154,212 @@
                         indexLabel: "{y}",
                         dataPoints: @Html.Raw(ViewBag.State)
 
-                                }]
+                                            }]
                 });
-                chart11.render();
+                chart7.render();
+
+                var chart8 = new CanvasJS.Chart("GettingEducation", {
+                    theme: "light1",
+                    exportEnabled: true,
+                    backgroundColor: "#f4f4f8",
+                    animationEnabled: true,
+                    title: {
+                        fontSize: 26,
+                        text: "Получают образование"
+                    },
+                    axisX: {
+                        lineThickness: 0
+                    },
+                    axisY: {
+                        valueFormatString: " ",
+                        includeZero: true,
+                        gridThickness: 0,
+                        tickLength: 0
+                    },
+                    data: [{
+                        type: "bar",
+                        indexLabel: "{y}",
+                        dataPoints: @Html.Raw(ViewBag.GettingEducation)
+
+                                                        }]
+                });
+                chart8.render();
+
+
+                var chart15 = new CanvasJS.Chart("WhoWereMainJob", {
+                    theme: "light1",
+                    exportEnabled: true,
+                    backgroundColor: "#f4f4f8",
+                    animationEnabled: true,
+                    title: {
+                        fontSize: 26,
+                        text: "Кем вы являлись на основной работе"
+                    },
+                    axisX: {
+                        lineThickness: 0
+                    },
+                    axisY: {
+                        valueFormatString: " ",
+                        includeZero: true,
+                        gridThickness: 0,
+                        tickLength: 0
+                    },
+                    data: [{
+                        type: "bar",
+                        indexLabel: "{y}",
+                        dataPoints: @Html.Raw(ViewBag.WhoWereMainJob)
+
+                                            }]
+                });
+                chart15.render();
+
+                var chart16 = new CanvasJS.Chart("TypeOfDwelling", {
+                    theme: "light1",
+                    exportEnabled: true,
+                    backgroundColor: "#f4f4f8",
+                    animationEnabled: true,
+                    title: {
+                        fontSize: 26,
+                        text: "Тип жилища"
+                    },
+                    axisX: {
+                        lineThickness: 0
+                    },
+                    axisY: {
+                        valueFormatString: " ",
+                        includeZero: true,
+                        gridThickness: 0,
+                        tickLength: 0
+                    },
+                    data: [{
+                        type: "bar",
+                        indexLabel: "{y}",
+                        dataPoints: @Html.Raw(ViewBag.TypeOfDwelling)
+
+                                                        }]
+                });
+                chart16.render();
+
+                var chart17 = new CanvasJS.Chart("Heating", {
+                    theme: "light1",
+                    exportEnabled: true,
+                    backgroundColor: "#f4f4f8",
+                    animationEnabled: true,
+                    title: {
+                        fontSize: 26,
+                        text: "Отопление"
+                    },
+                    data: [{
+                        type: "column",
+                        dataPoints: @Html.Raw(ViewBag.Heating)
+                                            }]
+                });
+                chart17.render();
+
+                var chart18 = new CanvasJS.Chart("WaterSupply", {
+                    theme: "light1",
+                    exportEnabled: true,
+                    backgroundColor: "#f4f4f8",
+                    animationEnabled: true,
+                    title: {
+                        fontSize: 26,
+                        text: "Водоснабжение"
+                    },
+                    axisX: {
+                        lineThickness: 0
+                    },
+                    axisY: {
+                        valueFormatString: " ",
+                        includeZero: true,
+                        gridThickness: 0,
+                        tickLength: 0
+                    },
+                    data: [{
+                        type: "bar",
+                        indexLabel: "{y}",
+                        dataPoints: @Html.Raw(ViewBag.WaterSupply)
+                                            }]
+                });
+                chart18.render();
+
+                var chart19 = new CanvasJS.Chart("HotWaterSupply", {
+                    theme: "light1",
+                    exportEnabled: true,
+                    backgroundColor: "#f4f4f8",
+                    animationEnabled: true,
+                    title: {
+                        fontSize: 26,
+                        text: "Горячее водоснабжение"
+                    },
+                    axisX: {
+                        lineThickness: 0
+                    },
+                    axisY: {
+                        valueFormatString: " ",
+                        includeZero: true,
+                        gridThickness: 0,
+                        tickLength: 0
+                    },
+                    data: [{
+                        type: "bar",
+                        indexLabel: "{y}",
+                        dataPoints: @Html.Raw(ViewBag.HotWaterSupply)
+                                            }]
+                });
+                chart19.render();
+
+                var chart20 = new CanvasJS.Chart("WaterDisposalSewerage", {
+                    theme: "light1",
+                    exportEnabled: true,
+                    backgroundColor: "#f4f4f8",
+                    animationEnabled: true,
+                    title: {
+                        fontSize: 26,
+                        text: "Водоотведение(канализация)"
+                    },
+                    axisX: {
+                        lineThickness: 0
+                    },
+                    axisY: {
+                        valueFormatString: " ",
+                        includeZero: true,
+                        gridThickness: 0,
+                        tickLength: 0
+                    },
+                    data: [{
+                        type: "bar",
+                        indexLabel: "{y}",
+                        dataPoints: @Html.Raw(ViewBag.WaterDisposalSewerage)
+                                                        }]
+                });
+                chart20.render();
+
+                var chart21 = new CanvasJS.Chart("DisposalOfHouseholdWaste", {
+                    theme: "light1",
+                    exportEnabled: true,
+                    backgroundColor: "#f4f4f8",
+                    animationEnabled: true,
+                    title: {
+                        fontSize: 26,
+                        text: "Удаление бытовых отходов"
+                    },
+                    axisX: {
+                        lineThickness: 0
+                    },
+                    axisY: {
+                        valueFormatString: " ",
+                        includeZero: true,
+                        gridThickness: 0,
+                        tickLength: 0
+                    },
+                    data: [{
+                        type: "bar",
+                        indexLabel: "{y}",
+                        dataPoints: @Html.Raw(ViewBag.DisposalOfHouseholdWaste)
+                                                                    }]
+                });
+                chart21.render();
+
             }
         </script>
     }
@@ -253,8 +379,8 @@
                     },
                     data: [{
                         type: "line",
-                        dataPoints: @Html.Raw(ViewBag.DataPointsNumberPeoplePassed)                        
-                    }]
+                        dataPoints: @Html.Raw(ViewBag.DataPointsNumberPeoplePassed)
+                                }]
                 });
                 chart.render();
             }
@@ -268,14 +394,18 @@
         {
             <div class="chart" id="registeredButNotPass"></div>
             <div class="chart" id="Education"></div>
-            <div class="chart" id="HaveDegree"></div>
-            <div class="chart" id="canWriteAndRead"></div>
             <div class="chart" id="Nationality"></div>
-            <div class="chart" id="LivedOtherCountries"></div>
-            <div class="chart" id="WhereLiveBeforeArriving"></div>
             <div class="chart" id="Gender"></div>
             <div class="chart" id="MaritalStatus"></div>
-            <div class="chart mb-60" id="State"></div>
+            <div class="chart " id="State"></div>
+            <div class="chart " id="GettingEducation"></div>
+            <div class="chart " id="WhoWereMainJob"></div>
+            <div class="chart " id="TypeOfDwelling"></div>
+            <div class="chart " id="Heating"></div>
+            <div class="chart " id="WaterSupply"></div>
+            <div class="chart " id="HotWaterSupply"></div>
+            <div class="chart " id="WaterDisposalSewerage"></div>
+            <div class="chart mb-60" id="DisposalOfHouseholdWaste"></div>
 
         }
     </div>

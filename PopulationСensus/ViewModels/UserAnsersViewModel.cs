@@ -5,12 +5,12 @@ namespace PopulationСensus.ViewModels
     public class UserAnswerViewModel
     {
         [Required(ErrorMessage = "Не указан пол")]
-        [Display(Name = "Пол")]
+        [Display(Name = "Ваш пол")]
         public bool Gender { get; set; }
 
         [Range(0, 30, ErrorMessage = "Не корректный ввод")]
         [Required(ErrorMessage = "Не указано количество детей ")]
-        [Display(Name = "Сколько детей у вас")]
+        [Display(Name = "Сколько у вас детей недостигших совершеннолетия")]
         public byte? NumberChildrenBorn { get; set; }
 
         [Range(0, 20, ErrorMessage = "Не корректный ввод")]
@@ -59,8 +59,6 @@ namespace PopulationСensus.ViewModels
         [Display(Name = "Основной источник средств к существованию")]
         public string SourcesOfLiveliHood { get; set; } = null!;
 
-        [Display(Name = "Имели ли Вы какую-либо оплачиваемую работу или доходное занятие с 24 по 30 сентября 2020 года")]
-        public bool HaveWorkedRecently { get; set; }
 
         [Display(Name = "Кем вы являлись на основной работе")]
         public string WhoWereMainJob { get; set; } = null!;
@@ -79,5 +77,8 @@ namespace PopulationСensus.ViewModels
 
         [Display(Name = "Удаление бытовых отходов")]
         public string DisposalOfHouseholdWaste { get; set; } = null!;
+
+        [Display(Name = "Район")]
+        public string State { get; set; }
     }
 }
